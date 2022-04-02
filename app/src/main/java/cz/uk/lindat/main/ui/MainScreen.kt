@@ -1,5 +1,6 @@
 package cz.uk.lindat.main.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -182,11 +183,34 @@ private fun Label(modifier: Modifier, language: Language) {
         Language.Ukrainian -> R.string.uk_label
     }
 
-    Text(
+    val iconRes = when (language) {
+        Language.Czech -> R.drawable.ic_czech_flag
+        Language.Ukrainian -> R.drawable.ic_ukraine_flag
+    }
+
+    val iconContentDescriptionRes = when (language) {
+        Language.Czech -> R.string.czech_flag_cd
+        Language.Ukrainian -> R.string.ukraine_flag_cd
+    }
+
+    Row(
         modifier = modifier,
-        text = stringResource(id = labelRes),
-        color = MaterialTheme.colors.onSurface
-    )
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            modifier = Modifier.height(16.dp),
+            painter = painterResource(id = iconRes),
+            contentDescription = stringResource(id = iconContentDescriptionRes),
+        )
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        Text(
+            text = stringResource(id = labelRes),
+            color = MaterialTheme.colors.onSurface
+        )
+    }
+
 }
 
 @Composable
