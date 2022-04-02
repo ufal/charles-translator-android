@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(
 
     private var lastRequestMs = 0L
     private val minIntervalApiMS = 500
-    private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(10)
+    private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(2)
 
     private val latinCyrillic = LatinCyrillicFactory.create(Alphabet.UkrainianIso9)
 
@@ -44,12 +44,6 @@ class MainViewModel @Inject constructor(
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val showCyrillic = MutableStateFlow(true)
-
-    override fun onStart() {
-        super.onStart()
-
-        startSaveTimer()
-    }
 
     override fun onStop() {
         super.onStop()
@@ -64,6 +58,7 @@ class MainViewModel @Inject constructor(
     override fun setInputText(text: String) {
         inputText.value = text
         translate()
+        startSaveTimer()
     }
 
     override fun setInputLanguage(language: Language) {
@@ -135,14 +130,16 @@ class MainViewModel @Inject constructor(
     private fun startSaveTimer() {
         timerJob?.cancel()
         timerJob = viewModelScope.launch {
-            while (true) {
-                delay(minIntervalSaveMS)
-                saveItem()
-            }
+            delay(minIntervalSaveMS)
+            saveItem()
         }
     }
 
     private suspend fun saveItem() {
+        if (inputText.value.isEmpty()) {
+            return
+        }
+
         withContext(Dispatchers.IO) {
             val item = HistoryItemDB(
                 text = inputText.value,
