@@ -7,13 +7,13 @@ import android.speech.SpeechRecognizer
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltroger.latintocyrillic.Alphabet
-import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.db.IDb
 import cz.cuni.mff.lindat.extensions.logE
 import cz.cuni.mff.lindat.history.data.HistoryItem
+import cz.cuni.mff.lindat.utils.transliterate.Transliterate.transliterateCyrilToLatin
+import cz.cuni.mff.lindat.utils.transliterate.Transliterate.transliterateLatinToCyril
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,8 +35,6 @@ class MainViewModel @Inject constructor(
     private var lastRequestMs = 0L
     private val minIntervalApiMS = 500
     private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(2)
-
-    private val latinCyrillic = LatinCyrillicFactory.create(Alphabet.UkrainianIso9)
 
     override val inputText = MutableStateFlow("")
     override val outputTextCyrillic = MutableStateFlow("")
@@ -113,12 +111,12 @@ class MainViewModel @Inject constructor(
                 lastRequestMs = System.currentTimeMillis()
                 when (outputLanguage.value) {
                     Language.Czech -> {
-                        outputTextCyrillic.value = latinCyrillic.latinToCyrillic(it)
+                        outputTextCyrillic.value = transliterateLatinToCyril(it)
                         outputTextLatin.value = it
                     }
                     Language.Ukrainian -> {
                         outputTextCyrillic.value = it
-                        outputTextLatin.value = latinCyrillic.cyrillicToLatin(it)
+                        outputTextLatin.value = transliterateCyrilToLatin(it)
                     }
                 }
             }.onFailure {
