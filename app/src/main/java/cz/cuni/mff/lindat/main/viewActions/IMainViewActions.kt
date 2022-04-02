@@ -5,4 +5,6 @@ package cz.cuni.mff.lindat.main.viewActions
  */
 interface IMainViewActions {
     fun copyToClipBoard(label: String, text: String)
+
+    fun startSpeechToText()
 }

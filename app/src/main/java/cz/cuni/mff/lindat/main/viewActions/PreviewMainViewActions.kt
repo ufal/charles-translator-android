@@ -5,4 +5,5 @@ package cz.cuni.mff.lindat.main.viewActions
  */
 class PreviewMainViewActions : IMainViewActions {
     override fun copyToClipBoard(label: String, text: String) {}
+    override fun startSpeechToText() {}
 }

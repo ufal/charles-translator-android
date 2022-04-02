@@ -17,19 +17,21 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
-import cz.uk.lindat.R
 import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
 import cz.cuni.mff.lindat.main.viewActions.PreviewMainViewActions
 import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
 import cz.cuni.mff.lindat.main.viewmodel.Language
 import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
 import cz.cuni.mff.lindat.ui.theme.LindatTheme
+import cz.uk.lindat.R
 
 /**
  * @author Tomas Krabac
@@ -56,9 +58,12 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
 
+    val copyToClipBoardLabel = stringResource(id = R.string.copy_to_clipboard_label)
+
     Column {
         Toolbar(
-            copyToClipBoard = { viewActions.copyToClipBoard("TEST", outputText) }
+            startSpeechToText = { viewActions.startSpeechToText() },
+            copyToClipBoard = { viewActions.copyToClipBoard(copyToClipBoardLabel, outputText) },
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -89,6 +94,7 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
 @Composable
 fun Toolbar(
     copyToClipBoard: () -> Unit,
+    startSpeechToText: () -> Unit,
 ) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.primary,
@@ -101,6 +107,10 @@ fun Toolbar(
         modifier = Modifier.statusBarsPadding(),
         elevation = 4.dp,
         actions = {
+            SpeechToTextItem {
+                startSpeechToText()
+            }
+
             CopyToClipboardItem {
                 copyToClipBoard()
             }
@@ -120,6 +130,12 @@ fun InputText(
         focusRequester.requestFocus()
     }
 
+    var textFieldValue by remember(text) {
+        mutableStateOf(
+            TextFieldValue(text, TextRange(text.length))
+        )
+    }
+
     Column(modifier.padding(horizontal = 16.dp)) {
         Label(Modifier.padding(bottom = 4.dp), language)
 
@@ -131,13 +147,14 @@ fun InputText(
                     .padding(start = 8.dp, end = 40.dp, top = 8.dp, bottom = 8.dp)
                     .fillMaxSize()
                     .focusRequester(focusRequester),
-                value = text,
+                value = textFieldValue,
                 textStyle = TextStyle(
                     fontSize = 18.sp,
                 ),
                 cursorBrush = SolidColor(MaterialTheme.colors.primary),
                 onValueChange = {
-                    onValueChange(it)
+                    textFieldValue = it
+                    onValueChange(it.text)
                 },
             )
 
@@ -243,6 +260,19 @@ private fun ClearItem(modifier: Modifier, onClick: () -> Unit) {
 }
 
 @Composable
+private fun SpeechToTextItem(onClick: () -> Unit) {
+    IconButton(
+        onClick = onClick,
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_mic),
+            tint = MaterialTheme.colors.onPrimary,
+            contentDescription = stringResource(id = R.string.speech_to_text_cd),
+        )
+    }
+}
+
+@Composable
 private fun CopyToClipboardItem(onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
@@ -254,7 +284,6 @@ private fun CopyToClipboardItem(onClick: () -> Unit) {
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
