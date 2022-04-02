@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Lindat</string>
+    <string name="title">ÚFAL Translator</string>
+    <string name="cz_label">Česky</string>
+    <string name="uk_label">Українською</string>
+    <string name="swap_cd">Swap languages</string>
+    <string name="clear_cd">Clear text</string>
+    <string name="copy_to_clipboard_cd">Copy to clipboard</string>
+    <string name="copy_to_clipboard_label">Překlad</string>
+    <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
 </resources>

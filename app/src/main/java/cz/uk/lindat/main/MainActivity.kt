@@ -1,40 +1,34 @@
 package cz.uk.lindat.main
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import cz.uk.lindat.ui.theme.LindatTheme
+import androidx.activity.viewModels
+import cz.uk.lindat.R
+import cz.uk.lindat.main.ui.MainScreen
+import cz.uk.lindat.main.viewActions.IMainViewActions
+import cz.uk.lindat.main.viewmodel.MainViewModel
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), IMainViewActions {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LindatTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-            }
+            MainScreen(viewModel, this)
         }
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    override fun copyToClipBoard(label: String, text: String) {
+        val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text))
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    LindatTheme {
-        Greeting("Android")
+        Toast.makeText(this, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 }
+
