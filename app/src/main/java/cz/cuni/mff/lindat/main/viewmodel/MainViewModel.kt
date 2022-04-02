@@ -2,17 +2,19 @@ package cz.cuni.mff.lindat.main.viewmodel
 
 import android.content.Context
 import android.speech.SpeechRecognizer
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltroger.latintocyrillic.Alphabet
 import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
-import cz.cuni.mff.lindat.api.Api
 import cz.cuni.mff.lindat.api.IApi
+import cz.cuni.mff.lindat.db.IDb
+import cz.cuni.mff.lindat.db.history.HistoryItemDB
 import cz.cuni.mff.lindat.extensions.logE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -21,12 +23,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val api: IApi,
+    private val db: IDb,
 ) : IMainViewModel, ViewModel() {
 
-    private var job: Job? = null
+    private var apiJob: Job? = null
+    private var timerJob: Job? = null
 
     private var lastRequestMs = 0L
-    private var minIntervalMS = 500
+    private val minIntervalApiMS = 500
+    private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(10)
 
     private val latinCyrillic = LatinCyrillicFactory.create(Alphabet.UkrainianIso9)
 
@@ -37,9 +42,24 @@ class MainViewModel @Inject constructor(
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val showCyrillic = MutableStateFlow(true)
 
+    override fun startSaveTimer() {
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            while (true) {
+                delay(minIntervalSaveMS)
+                saveItem()
+            }
+        }
+    }
+
+
     override fun onCleared() {
-        job?.cancel()
-        job = null
+        apiJob?.cancel()
+        apiJob = null
+
+        timerJob?.cancel()
+        timerJob = null
+
         super.onCleared()
     }
 
@@ -72,19 +92,19 @@ class MainViewModel @Inject constructor(
 
     private fun translate() {
         if (inputText.value.isBlank()) {
-            job?.cancel()
+            apiJob?.cancel()
             outputTextCyrillic.value = ""
             outputTextLatin.value = ""
             return
         }
 
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastRequestMs < minIntervalMS) {
+        if (currentTime - lastRequestMs < minIntervalApiMS) {
             return
         }
 
-        job?.cancel()
-        job = viewModelScope.launch {
+        apiJob?.cancel()
+        apiJob = viewModelScope.launch {
             api.translate(
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
@@ -104,6 +124,18 @@ class MainViewModel @Inject constructor(
             }.onFailure {
                 logE("error $it")
             }
+        }
+    }
+
+    private suspend fun saveItem() {
+        withContext(Dispatchers.IO) {
+            val item = HistoryItemDB(
+                text = inputText.value,
+                inputLanguage = inputLanguage.value,
+                outputLanguage = outputLanguage.value,
+            )
+            Log.d("logtom", "save item $item")
+            db.historyDao.insert(item)
         }
     }
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Lindat</string>
     <string name="title">ÚFAL Translator</string>
+    <string name="history_title">History</string>
     <string name="cz_label">Česky</string>
     <string name="uk_label">Українською</string>
     <string name="czech_flag_cd">czech flag</string>
@@ -12,4 +13,7 @@
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
     <string name="cyrillic_label">Cyrillic</string>
+    <string name="history_cd">History</string>
+    <string name="add_to_favourites_cd">Add to favourites</string>
+    <string name="remove_from_favourites_cd">Remove from favourites</string>
 </resources>

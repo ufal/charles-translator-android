@@ -9,17 +9,24 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import cz.cuni.mff.lindat.R
+import cz.cuni.mff.lindat.history.ui.HistoryScreen
+import cz.cuni.mff.lindat.history.viewmodel.HistoryViewModel
+import cz.cuni.mff.lindat.history.viewmodel.IHistoryViewModel
+import cz.cuni.mff.lindat.main.controller.rememberController
 import cz.cuni.mff.lindat.main.ui.MainScreen
 import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
 import cz.cuni.mff.lindat.main.viewmodel.MainViewModel
 import cz.cuni.mff.lindat.voice.VoiceContract
-import cz.cuni.mff.lindat.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity(), IMainViewActions {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
+    private val historyViewModel: IHistoryViewModel by viewModels<HistoryViewModel>()
 
     private val voiceLauncher = registerForActivityResult(
         VoiceContract(), ::onVoiceResult
@@ -28,7 +35,23 @@ class MainActivity : ComponentActivity(), IMainViewActions {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen(viewModel, this)
+            val controller = rememberController()
+
+            NavHost(controller.navController, startDestination = "main") {
+                composable("main") {
+                    MainScreen(
+                        viewModel = mainViewModel,
+                        viewActions = this@MainActivity,
+                        controller = controller
+                    )
+                }
+                composable("history") {
+                    HistoryScreen(
+                        viewModel = historyViewModel,
+                        controller = controller
+                    )
+                }
+            }
         }
     }
 
@@ -45,7 +68,7 @@ class MainActivity : ComponentActivity(), IMainViewActions {
 
     private fun onVoiceResult(result: String?) {
         if (result != null) {
-            viewModel.setInputText(result)
+            mainViewModel.setInputText(result)
         }
     }
 }

@@ -1,7 +1,8 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,26 +30,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
+import cz.cuni.mff.lindat.R
+import cz.cuni.mff.lindat.main.controller.IController
+import cz.cuni.mff.lindat.main.controller.PreviewIController
 import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
 import cz.cuni.mff.lindat.main.viewActions.PreviewMainViewActions
 import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
 import cz.cuni.mff.lindat.main.viewmodel.Language
 import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
+import cz.cuni.mff.lindat.ui.common.FlagItem
 import cz.cuni.mff.lindat.ui.theme.LindatTheme
-import cz.cuni.mff.lindat.R
 
 /**
  * @author Tomas Krabac
  */
 
 @Composable
-fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions) {
+fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions, controller: IController) {
     LindatTheme {
         ProvideWindowInsets {
             Surface(modifier = Modifier.fillMaxSize()) {
                 Content(
                     viewModel = viewModel,
                     viewActions = viewActions,
+                    controller = controller,
                 )
             }
         }
@@ -56,7 +61,7 @@ fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions) {
 }
 
 @Composable
-fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
+fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions, controller: IController) {
     val inputText by viewModel.inputText.collectAsState()
     val outputTextCyrillic by viewModel.outputTextCyrillic.collectAsState()
     val outputTextLatin by viewModel.outputTextLatin.collectAsState()
@@ -68,11 +73,16 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
     val outputText = if (showCyrillic) outputTextCyrillic else outputTextLatin
     val copyToClipBoardLabel = stringResource(id = R.string.copy_to_clipboard_label)
 
+    LaunchedEffect(viewModel) {
+        viewModel.startSaveTimer()
+    }
+
     Column {
         Toolbar(
             isTextToSpeechAvailable = isTextToSpeechAvailable,
             startSpeechToText = { viewActions.startSpeechToText() },
             copyToClipBoard = { viewActions.copyToClipBoard(copyToClipBoardLabel, outputText) },
+            navigateHistory = { controller.navigateHistory() },
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -107,6 +117,7 @@ fun Toolbar(
     isTextToSpeechAvailable: Boolean,
     copyToClipBoard: () -> Unit,
     startSpeechToText: () -> Unit,
+    navigateHistory: () -> Unit,
 ) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.primary,
@@ -120,13 +131,26 @@ fun Toolbar(
         elevation = 4.dp,
         actions = {
             if (isTextToSpeechAvailable) {
-                SpeechToTextItem {
+                ActionItem(
+                    drawableRes = R.drawable.ic_mic,
+                    contentDescriptionRes = R.string.speech_to_text_cd
+                ) {
                     startSpeechToText()
                 }
             }
 
-            CopyToClipboardItem {
+            ActionItem(
+                drawableRes = R.drawable.ic_copy,
+                contentDescriptionRes = R.string.copy_to_clipboard_cd
+            ) {
                 copyToClipBoard()
+            }
+
+            ActionItem(
+                drawableRes = R.drawable.ic_history,
+                contentDescriptionRes = R.string.history_cd
+            ) {
+                navigateHistory()
             }
         },
     )
@@ -227,25 +251,11 @@ private fun Label(modifier: Modifier = Modifier, language: Language) {
         Language.Ukrainian -> R.string.uk_label
     }
 
-    val iconRes = when (language) {
-        Language.Czech -> R.drawable.ic_czech_flag
-        Language.Ukrainian -> R.drawable.ic_ukraine_flag
-    }
-
-    val iconContentDescriptionRes = when (language) {
-        Language.Czech -> R.string.czech_flag_cd
-        Language.Ukrainian -> R.string.ukraine_flag_cd
-    }
-
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            modifier = Modifier.height(16.dp),
-            painter = painterResource(id = iconRes),
-            contentDescription = stringResource(id = iconContentDescriptionRes),
-        )
+        FlagItem(language = language)
 
         Spacer(modifier = Modifier.width(4.dp))
 
@@ -312,27 +322,18 @@ private fun ClearItem(modifier: Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-private fun SpeechToTextItem(onClick: () -> Unit) {
+private fun ActionItem(
+    @DrawableRes drawableRes: Int,
+    @StringRes contentDescriptionRes: Int,
+    onClick: () -> Unit,
+) {
     IconButton(
         onClick = onClick,
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_mic),
+            painter = painterResource(id = drawableRes),
             tint = MaterialTheme.colors.onPrimary,
-            contentDescription = stringResource(id = R.string.speech_to_text_cd),
-        )
-    }
-}
-
-@Composable
-private fun CopyToClipboardItem(onClick: () -> Unit) {
-    IconButton(
-        onClick = onClick,
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_copy),
-            tint = MaterialTheme.colors.onPrimary,
-            contentDescription = stringResource(id = R.string.copy_to_clipboard_cd),
+            contentDescription = stringResource(id = contentDescriptionRes),
         )
     }
 }
@@ -344,6 +345,7 @@ private fun MainScreenPreview() {
         MainScreen(
             viewModel = PreviewMainViewModel(),
             viewActions = PreviewMainViewActions(),
+            controller = PreviewIController(),
         )
     }
 }
@@ -355,6 +357,7 @@ private fun MainScreenDarkModePreview() {
         MainScreen(
             viewModel = PreviewMainViewModel(),
             viewActions = PreviewMainViewActions(),
+            controller = PreviewIController(),
         )
     }
 }

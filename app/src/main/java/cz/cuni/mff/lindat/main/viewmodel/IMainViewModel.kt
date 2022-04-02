@@ -22,4 +22,5 @@ interface IMainViewModel {
     fun swapLanguages()
     fun setShowCyrillic(showCyrilic: Boolean)
     fun isTextToSpeechAvailable(context: Context): Boolean
+    fun startSaveTimer()
 }
