@@ -37,6 +37,7 @@ private val DarkColorPalette = darkColors(
 
 private val DarkColorPalette = lightColors(
     primary = Color(0xFF2196F3),
+    secondary = Color(0xFF21b8f3),
     onPrimary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF121212),
@@ -46,6 +47,7 @@ private val DarkColorPalette = lightColors(
 
 private val LightColorPalette = lightColors(
     primary = Color(0xFF2196F3),
+    secondary = Color(0xFF21b8f3),
     onPrimary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF121212),

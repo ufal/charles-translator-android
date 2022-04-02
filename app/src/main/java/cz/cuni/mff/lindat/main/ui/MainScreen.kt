@@ -57,11 +57,13 @@ fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions) {
 @Composable
 fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
     val inputText by viewModel.inputText.collectAsState()
-    val outputText by viewModel.outputText.collectAsState()
+    val outputTextCyrillic by viewModel.outputTextCyrillic.collectAsState()
     val outputTextLatin by viewModel.outputTextLatin.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
+    val showCyrillic by viewModel.showCyrillic.collectAsState()
 
+    val outputText = if (showCyrillic) outputTextCyrillic else outputTextLatin
     val copyToClipBoardLabel = stringResource(id = R.string.copy_to_clipboard_label)
 
     Column {
@@ -87,8 +89,9 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
         OutputText(
             modifier = Modifier.weight(0.5f),
             text = outputText,
-            textLatin = outputTextLatin,
             language = outputLanguage,
+            showCyrillic = showCyrillic,
+            setShowCyrillic = viewModel::setShowCyrillic
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -178,41 +181,41 @@ fun InputText(
 private fun OutputText(
     modifier: Modifier,
     text: String,
-    textLatin: String,
     language: Language,
+    showCyrillic: Boolean,
+    setShowCyrillic: (value: Boolean) -> Unit
 ) {
     Column(modifier.padding(horizontal = 16.dp)) {
-        Label(Modifier.padding(bottom = 4.dp), language)
+        Row(modifier = Modifier.padding(bottom = 4.dp)) {
+            Label(language = language)
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            ShowCyrilicSwitchItem(showCyrillic) {
+                setShowCyrillic(it)
+            }
+        }
+
 
         SelectionContainer {
-            Column(
+            Text(
                 modifier = modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(MaterialTheme.colors.background)
                     .padding(horizontal = 8.dp, vertical = 8.dp)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
-            ) {
-                Text(
-                    text = text,
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                    ),
-                )
-
-                Text(
-                    text = textLatin,
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                    ),
-                )
-            }
+                text = text,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                ),
+            )
         }
     }
 }
 
 @Composable
-private fun Label(modifier: Modifier, language: Language) {
+private fun Label(modifier: Modifier = Modifier, language: Language) {
     val labelRes = when (language) {
         Language.Czech -> R.string.cz_label
         Language.Ukrainian -> R.string.uk_label
@@ -246,6 +249,31 @@ private fun Label(modifier: Modifier, language: Language) {
         )
     }
 
+}
+
+@Composable
+private fun ShowCyrilicSwitchItem(showCyrillic: Boolean, setShowCyrillic: (value: Boolean) -> Unit) {
+    val checkedState = remember { mutableStateOf(showCyrillic) }
+
+    Text(
+        text = stringResource(id = R.string.cyrillic_label),
+        color = MaterialTheme.colors.onSurface
+    )
+
+    Spacer(modifier = Modifier.width(4.dp))
+
+    Switch(
+        checked = checkedState.value,
+        onCheckedChange = {
+            checkedState.value = it
+            setShowCyrillic(it)
+        },
+        colors = SwitchDefaults.colors(
+            checkedThumbColor = MaterialTheme.colors.primary,
+            uncheckedThumbColor = MaterialTheme.colors.secondary,
+            uncheckedTrackColor = MaterialTheme.colors.primary,
+        )
+    )
 }
 
 @Composable

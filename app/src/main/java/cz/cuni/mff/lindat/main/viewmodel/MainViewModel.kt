@@ -25,11 +25,11 @@ class MainViewModel : IMainViewModel, ViewModel() {
     private val latinCyrillic = LatinCyrillicFactory.create(Alphabet.UkrainianIso9)
 
     override val inputText = MutableStateFlow("")
-    override val outputText = MutableStateFlow("")
+    override val outputTextCyrillic = MutableStateFlow("")
     override val outputTextLatin = MutableStateFlow("")
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
-
+    override val showCyrillic = MutableStateFlow(true)
 
     override fun setInputText(text: String) {
         inputText.value = text
@@ -45,15 +45,19 @@ class MainViewModel : IMainViewModel, ViewModel() {
         inputLanguage.value = outputLanguage.value
         outputLanguage.value = tmpInputLanguage
 
-        outputText.value = ""
+        outputTextCyrillic.value = ""
         outputTextLatin.value = ""
         translate()
+    }
+
+    override fun setShowCyrillic(showCyrilic: Boolean) {
+        this.showCyrillic.value = showCyrilic
     }
 
     private fun translate() {
         if (inputText.value.isBlank()) {
             job?.cancel()
-            outputText.value = ""
+            outputTextCyrillic.value = ""
             outputTextLatin.value = ""
             return
         }
@@ -71,8 +75,16 @@ class MainViewModel : IMainViewModel, ViewModel() {
                 text = inputText.value.trim()
             ).onSuccess {
                 lastRequestMs = System.currentTimeMillis()
-                outputText.value = it
-                outputTextLatin.value = latinCyrillic.cyrillicToLatin(it)
+                when (outputLanguage.value) {
+                    Language.Czech -> {
+                        outputTextCyrillic.value = latinCyrillic.latinToCyrillic(it)
+                        outputTextLatin.value = it
+                    }
+                    Language.Ukrainian -> {
+                        outputTextCyrillic.value = it
+                        outputTextLatin.value = latinCyrillic.cyrillicToLatin(it)
+                    }
+                }
             }.onFailure {
                 logE("error $it")
             }

@@ -8,13 +8,16 @@ import kotlinx.coroutines.flow.StateFlow
 interface IMainViewModel {
 
     val inputText: StateFlow<String>
-    val outputText: StateFlow<String>
+    val outputTextCyrillic: StateFlow<String>
     val outputTextLatin: StateFlow<String>
 
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>
 
+    val showCyrillic: StateFlow<Boolean>
+
     fun setInputText(text: String)
     fun setInputLanguage(language: Language)
     fun swapLanguages()
+    fun setShowCyrillic(showCyrilic: Boolean)
 }
