@@ -1,7 +1,6 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
@@ -18,23 +17,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.base.BaseScreen
@@ -53,7 +48,7 @@ import cz.cuni.mff.lindat.voice.VoiceContract
 
 @Composable
 fun MainScreen(viewModel: IMainViewModel, controller: IController) {
-    BaseScreen(viewModel = viewModel){
+    BaseScreen(viewModel = viewModel) {
         Content(
             viewModel = viewModel,
             controller = controller,
@@ -68,13 +63,13 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
     val outputTextLatin by viewModel.outputTextLatin.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
-    val showCyrillic by viewModel.showCyrillic.collectAsState()
 
     val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(LocalContext.current)
-    val outputText = if (showCyrillic) outputTextCyrillic else outputTextLatin
+    val mainText = if (outputLanguage == Language.Ukrainian) outputTextCyrillic else outputTextLatin
+    val secondaryText = if (outputLanguage == Language.Ukrainian) outputTextLatin else outputTextCyrillic
 
     val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
-        if(text != null){
+        if (text != null) {
             viewModel.setInputText(text)
         }
     }
@@ -83,11 +78,15 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         Toolbar(
             isTextToSpeechAvailable = isTextToSpeechAvailable,
             startSpeechToText = { voiceLauncher.launch() },
-            copyToClipBoard = {  },
+            copyToClipBoard = { },
             navigateHistory = { controller.navigateHistory() },
         )
 
         Spacer(modifier = Modifier.height(8.dp))
+
+        SwapRow(inputLanguage = inputLanguage, outputLanguage = outputLanguage) {
+            viewModel.swapLanguages()
+        }
 
         InputText(
             modifier = Modifier.weight(0.5f),
@@ -97,20 +96,32 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
             viewModel.setInputText(it)
         }
 
-        SwapItem(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            viewModel.swapLanguages()
-        }
+        Spacer(modifier = Modifier.height(8.dp))
 
         OutputText(
             modifier = Modifier.weight(0.5f),
-            text = outputText,
-            language = outputLanguage,
-            showCyrillic = showCyrillic,
-            setShowCyrillic = viewModel::setShowCyrillic
+            mainText = mainText,
+            secondaryText = secondaryText,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
+    }
+}
+
+@Composable
+fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+
+        Label(modifier = Modifier.weight(3f), language = inputLanguage)
+
+        SwapItem(modifier = Modifier.weight(1f), onClick = swapLanguages)
+
+        Label(modifier = Modifier.weight(3f), language = outputLanguage)
     }
 }
 
@@ -177,7 +188,6 @@ fun InputText(
     }
 
     Column(modifier.padding(horizontal = 16.dp)) {
-        Label(Modifier.padding(bottom = 4.dp), language)
 
         Box {
             BasicTextField(
@@ -212,32 +222,36 @@ fun InputText(
 @Composable
 private fun OutputText(
     modifier: Modifier,
-    text: String,
-    language: Language,
-    showCyrillic: Boolean,
-    setShowCyrillic: (value: Boolean) -> Unit
+    mainText: String,
+    secondaryText: String,
 ) {
-    Column(modifier.padding(horizontal = 16.dp)) {
-        Row(modifier = Modifier.padding(bottom = 4.dp)) {
-            Label(language = language)
+    if (mainText.isEmpty()) {
+        return
+    }
 
-            Spacer(modifier = Modifier.weight(1f))
-
-            ShowCyrilicSwitchItem(showCyrillic) {
-                setShowCyrillic(it)
-            }
+    // SelectionContainer {
+    Column(
+        modifier
+            .padding(horizontal = 16.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colors.background)
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        SelectionContainer {
+            Text(
+                text = mainText,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                ),
+            )
         }
-
 
         SelectionContainer {
             Text(
-                modifier = modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colors.background)
-                    .padding(horizontal = 8.dp, vertical = 8.dp)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                text = text,
+                text = secondaryText,
                 style = TextStyle(
                     fontSize = 18.sp,
                 ),
@@ -255,7 +269,8 @@ private fun Label(modifier: Modifier = Modifier, language: Language) {
 
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
     ) {
         FlagItem(language = language)
 
@@ -301,7 +316,6 @@ private fun SwapItem(modifier: Modifier, onClick: () -> Unit) {
         onClick = onClick,
     ) {
         Icon(
-            modifier = Modifier.rotate(90f),
             painter = painterResource(id = R.drawable.ic_swap),
             tint = MaterialTheme.colors.primary,
             contentDescription = stringResource(id = R.string.swap_cd),
