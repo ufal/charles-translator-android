@@ -1,4 +1,4 @@
-package cz.uk.lindat
+package cz.cuni.mff.lindat
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("cz.uk.lindat", appContext.packageName)
+        assertEquals("cz.cuni.mff.lindat", appContext.packageName)
     }
 }

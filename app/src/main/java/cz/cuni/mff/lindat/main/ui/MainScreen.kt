@@ -35,7 +35,7 @@ import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
 import cz.cuni.mff.lindat.main.viewmodel.Language
 import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
 import cz.cuni.mff.lindat.ui.theme.LindatTheme
-import cz.uk.lindat.R
+import cz.cuni.mff.lindat.R
 
 /**
  * @author Tomas Krabac
