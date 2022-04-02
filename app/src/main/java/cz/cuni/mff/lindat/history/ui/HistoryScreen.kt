@@ -53,21 +53,23 @@ private fun Content(viewModel: IHistoryViewModel, controller: IController) {
                 .fillMaxWidth(),
             state = rememberLazyListState(),
         ) {
-            historyItems.forEachIndexed { index, historyItem ->
-                item(index) {
-                    HistoryRowItem(
-                        item = historyItem,
-                        onRowClicked = { controller.navigateMainScreen(historyItem) },
-                        onDeleteClicked = { viewModel.deleteItem(historyItem) },
-                        onFavouriteClicked = {
-                            val updatedItem = historyItem.copy(isFavourite = !historyItem.isFavourite)
-                            viewModel.updateItem(updatedItem)
-                        }
-                    )
+            historyItems.forEach { historyItem ->
+                item(historyItem.insertedMS) {
+                    Column(modifier = Modifier.animateItemPlacement()) {
+                        HistoryRowItem(
+                            item = historyItem,
+                            onRowClicked = { controller.navigateMainScreen(historyItem) },
+                            onDeleteClicked = { viewModel.deleteItem(historyItem) },
+                            onFavouriteClicked = {
+                                val updatedItem = historyItem.copy(isFavourite = !historyItem.isFavourite)
+                                viewModel.updateItem(updatedItem)
+                            }
+                        )
 
-                    Divider(
-                        color = MaterialTheme.colors.secondary,
-                    )
+                        Divider(
+                            color = MaterialTheme.colors.secondary,
+                        )
+                    }
                 }
             }
         }

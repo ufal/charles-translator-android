@@ -15,4 +15,5 @@ data class HistoryItem(
     @ColumnInfo(name = "input_language") val inputLanguage: Language,
     @ColumnInfo(name = "output_language") val outputLanguage: Language,
     @ColumnInfo(name = "is_favourite") val isFavourite: Boolean = false,
+    @ColumnInfo(name = "inserted_ms") val insertedMS: Long = System.currentTimeMillis(),
 )
