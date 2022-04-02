@@ -1,6 +1,7 @@
 package cz.cuni.mff.lindat.db.history
 
 import androidx.room.*
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,14 +10,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface IHistoryDao {
     @Query("SELECT * FROM history_items ORDER BY is_favourite DESC")
-    fun getAll(): Flow<List<HistoryItemDB>>
+    fun getAll(): Flow<List<HistoryItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(item: HistoryItemDB)
+    fun insert(item: HistoryItem)
 
     @Delete
-    fun delete(item: HistoryItemDB)
+    fun delete(item: HistoryItem)
 
     @Update
-    fun update(item: HistoryItemDB)
+    fun update(item: HistoryItem)
 }

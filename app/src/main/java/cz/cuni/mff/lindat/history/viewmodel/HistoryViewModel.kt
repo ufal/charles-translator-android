@@ -3,7 +3,6 @@ package cz.cuni.mff.lindat.history.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.lindat.db.IDb
-import cz.cuni.mff.lindat.db.history.HistoryItemDB
 import cz.cuni.mff.lindat.history.data.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -29,13 +28,13 @@ class HistoryViewModel @Inject constructor(
 
     override fun deleteItem(item: HistoryItem) {
         viewModelScope.launch(Dispatchers.IO) {
-            db.historyDao.delete(HistoryItemDB(item))
+            db.historyDao.delete(item)
         }
     }
 
     override fun updateItem(item: HistoryItem) {
         viewModelScope.launch(Dispatchers.IO) {
-            db.historyDao.update(HistoryItemDB(item))
+            db.historyDao.update(item)
         }
     }
 
@@ -43,7 +42,7 @@ class HistoryViewModel @Inject constructor(
 
     private fun startListenHistoryItems() {
         db.historyDao.getAll().onEach {
-            historyItems.value = it.map(::HistoryItem)
+            historyItems.value = it
         }.launchIn(viewModelScope)
     }
 

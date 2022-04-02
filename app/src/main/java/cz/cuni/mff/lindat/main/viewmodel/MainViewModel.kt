@@ -12,8 +12,8 @@ import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.db.IDb
-import cz.cuni.mff.lindat.db.history.HistoryItemDB
 import cz.cuni.mff.lindat.extensions.logE
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -141,7 +141,7 @@ class MainViewModel @Inject constructor(
         }
 
         withContext(Dispatchers.IO) {
-            val item = HistoryItemDB(
+            val item = HistoryItem(
                 text = inputText.value,
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
