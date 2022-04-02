@@ -121,16 +121,16 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 @Composable
 fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
 
-        Label(modifier = Modifier.weight(3f), language = inputLanguage)
+        Label(modifier = Modifier.weight(1f), language = inputLanguage)
 
-        SwapItem(modifier = Modifier.weight(1f), onClick = swapLanguages)
+        SwapItem(modifier = Modifier, onClick = swapLanguages)
 
-        Label(modifier = Modifier.weight(3f), language = outputLanguage)
+        Label(modifier = Modifier.weight(1f), language = outputLanguage)
     }
 }
 
@@ -277,7 +277,7 @@ private fun Label(modifier: Modifier = Modifier, language: Language) {
     }
 
     Row(
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
