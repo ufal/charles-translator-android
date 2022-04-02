@@ -74,11 +74,20 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         }
     }
 
+    val context = LocalContext.current
+    val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
+
     Column {
         Toolbar(
             isTextToSpeechAvailable = isTextToSpeechAvailable,
             startSpeechToText = { voiceLauncher.launch() },
-            copyToClipBoard = { },
+            copyToClipBoard = {
+                viewModel.copyToClipBoard(
+                    context = context,
+                    label = clipboardLabel,
+                    text = mainText
+                )
+            },
             navigateHistory = { controller.navigateHistory() },
         )
 
