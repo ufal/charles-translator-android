@@ -1,6 +1,7 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
@@ -22,6 +23,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
@@ -30,9 +32,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.lindat.R
+import cz.cuni.mff.lindat.base.BaseScreen
 import cz.cuni.mff.lindat.main.controller.IController
 import cz.cuni.mff.lindat.main.controller.PreviewIController
 import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
@@ -48,15 +53,11 @@ import cz.cuni.mff.lindat.voice.VoiceContract
 
 @Composable
 fun MainScreen(viewModel: IMainViewModel, controller: IController) {
-    LindatTheme {
-        ProvideWindowInsets {
-            Surface(modifier = Modifier.fillMaxSize()) {
-                Content(
-                    viewModel = viewModel,
-                    controller = controller,
-                )
-            }
-        }
+    BaseScreen(viewModel = viewModel){
+        Content(
+            viewModel = viewModel,
+            controller = controller,
+        )
     }
 }
 
@@ -76,10 +77,6 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         if(text != null){
             viewModel.setInputText(text)
         }
-    }
-
-    LaunchedEffect(viewModel) {
-        viewModel.startSaveTimer()
     }
 
     Column {

@@ -18,13 +18,18 @@ class HistoryViewModel @Inject constructor(
     private val db: IDb,
 ) : IHistoryViewModel, ViewModel() {
 
-     override fun startListenHistoryItems() {
-        db.historyDao.getAll().onEach {
-            historyItems.value = it.map(::HistoryItem)
-        }
-            .launchIn(viewModelScope)
+    override fun onStart() {
+        super.onStart()
+
+        startListenHistoryItems()
     }
 
     override val historyItems = MutableStateFlow(emptyList<HistoryItem>())
+
+    private fun startListenHistoryItems() {
+        db.historyDao.getAll().onEach {
+            historyItems.value = it.map(::HistoryItem)
+        }.launchIn(viewModelScope)
+    }
 
 }

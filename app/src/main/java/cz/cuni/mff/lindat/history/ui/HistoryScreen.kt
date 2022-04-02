@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.lindat.R
+import cz.cuni.mff.lindat.base.BaseScreen
 import cz.cuni.mff.lindat.history.data.HistoryItem
 import cz.cuni.mff.lindat.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.lindat.history.viewmodel.PreviewHistoryViewModel
@@ -31,25 +30,17 @@ import cz.cuni.mff.lindat.ui.theme.LindatTheme
  */
 @Composable
 fun HistoryScreen(viewModel: IHistoryViewModel, controller: IController) {
-    LindatTheme {
-        ProvideWindowInsets {
-            Surface(modifier = Modifier.fillMaxSize()) {
-                Content(
-                    viewModel = viewModel,
-                    controller = controller,
-                )
-            }
-        }
+    BaseScreen(viewModel = viewModel) {
+        Content(
+            viewModel = viewModel,
+            controller = controller,
+        )
     }
 }
 
 @Composable
 private fun Content(viewModel: IHistoryViewModel, controller: IController) {
     val historyItems by viewModel.historyItems.collectAsState()
-
-    LaunchedEffect(viewModel){
-        viewModel.startListenHistoryItems()
-    }
 
     Column {
         Toolbar {

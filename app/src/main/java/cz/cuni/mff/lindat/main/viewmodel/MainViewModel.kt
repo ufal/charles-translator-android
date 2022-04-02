@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.speech.SpeechRecognizer
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -46,25 +45,20 @@ class MainViewModel @Inject constructor(
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val showCyrillic = MutableStateFlow(true)
 
-    override fun startSaveTimer() {
-        timerJob?.cancel()
-        timerJob = viewModelScope.launch {
-            while (true) {
-                delay(minIntervalSaveMS)
-                saveItem()
-            }
-        }
+    override fun onStart() {
+        super.onStart()
+
+        startSaveTimer()
     }
 
+    override fun onStop() {
+        super.onStop()
 
-    override fun onCleared() {
         apiJob?.cancel()
         apiJob = null
 
         timerJob?.cancel()
         timerJob = null
-
-        super.onCleared()
     }
 
     override fun setInputText(text: String) {
@@ -138,6 +132,16 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun startSaveTimer() {
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            while (true) {
+                delay(minIntervalSaveMS)
+                saveItem()
+            }
+        }
+    }
+
     private suspend fun saveItem() {
         withContext(Dispatchers.IO) {
             val item = HistoryItemDB(
@@ -145,7 +149,6 @@ class MainViewModel @Inject constructor(
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
             )
-            Log.d("logtom", "save item $item")
             db.historyDao.insert(item)
         }
     }
