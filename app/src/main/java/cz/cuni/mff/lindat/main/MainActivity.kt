@@ -8,12 +8,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import cz.cuni.mff.lindat.history.ui.HistoryScreen
 import cz.cuni.mff.lindat.history.viewmodel.HistoryViewModel
 import cz.cuni.mff.lindat.main.controller.rememberController
 import cz.cuni.mff.lindat.main.ui.MainScreen
 import cz.cuni.mff.lindat.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,15 +26,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             val controller = rememberController()
 
-            // TODO: 02.04.2022 tomaskrabac: dodelat ostatni parametry
-            NavHost(controller.navController, startDestination = "main/{text}") {
-                composable("main/{text}",
-                    arguments = listOf(navArgument("text") { type = NavType.StringType })
+            NavHost(controller.navController, startDestination = "main/{item}") {
+                composable(
+                    "main/{item}",
+                    arguments = listOf(navArgument("item") { type = NavType.StringType })
                 ) { backStackEntry ->
-                    val text = backStackEntry.arguments?.getString("text") ?: ""
-
                     val viewModel by viewModels<MainViewModel>()
-                    viewModel.setInputText(text)
+
+                    val json = backStackEntry.arguments?.getString("item")
+                    if (!json.isNullOrEmpty()) {
+                        val historyItem = Json.decodeFromString<HistoryItem>(json)
+                        viewModel.setFromHistoryItem(historyItem)
+                    }
+
                     MainScreen(
                         viewModel = viewModel,
                         controller = controller

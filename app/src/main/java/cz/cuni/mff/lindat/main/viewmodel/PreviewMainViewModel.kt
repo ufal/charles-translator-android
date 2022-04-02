@@ -1,6 +1,7 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
 import android.content.Context
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -20,4 +21,5 @@ class PreviewMainViewModel : IMainViewModel {
     override fun setShowCyrillic(showCyrilic: Boolean) {}
     override fun isTextToSpeechAvailable(context: Context): Boolean = true
     override fun copyToClipBoard(context: Context, label: String, text: String) {}
+    override fun setFromHistoryItem(item: HistoryItem) {}
 }

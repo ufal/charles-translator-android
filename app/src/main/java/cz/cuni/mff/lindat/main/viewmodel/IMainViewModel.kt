@@ -2,6 +2,7 @@ package cz.cuni.mff.lindat.main.viewmodel
 
 import android.content.Context
 import cz.cuni.mff.lindat.base.IBaseViewModel
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -24,4 +25,5 @@ interface IMainViewModel : IBaseViewModel {
     fun setShowCyrillic(showCyrilic: Boolean)
     fun isTextToSpeechAvailable(context: Context): Boolean
     fun copyToClipBoard(context: Context, label: String, text: String)
+    fun setFromHistoryItem(item: HistoryItem)
 }

@@ -88,6 +88,14 @@ class MainViewModel @Inject constructor(
         Toast.makeText(context, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
+    override fun setFromHistoryItem(item: HistoryItem) {
+        inputLanguage.value = item.inputLanguage
+        outputLanguage.value = item.outputLanguage
+        outputTextCyrillic.value = ""
+        outputTextLatin.value = ""
+        setInputText(item.text)
+    }
+
     private fun translate() {
         if (inputText.value.isBlank()) {
             apiJob?.cancel()
