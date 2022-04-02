@@ -277,7 +277,7 @@ private fun Label(modifier: Modifier = Modifier, language: Language) {
     }
 
     Row(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

@@ -68,8 +68,8 @@ class MainViewModel @Inject constructor(
         inputLanguage.value = outputLanguage.value
         outputLanguage.value = tmpInputLanguage
 
-        outputTextCyrillic.value = ""
-        outputTextLatin.value = ""
+        //outputTextCyrillic.value = ""
+        //outputTextLatin.value = ""
         translate()
     }
 
@@ -91,8 +91,8 @@ class MainViewModel @Inject constructor(
     override fun setFromHistoryItem(item: HistoryItem) {
         inputLanguage.value = item.inputLanguage
         outputLanguage.value = item.outputLanguage
-        outputTextCyrillic.value = ""
-        outputTextLatin.value = ""
+        //outputTextCyrillic.value = ""
+        //outputTextLatin.value = ""
         setInputText(item.text)
     }
 
