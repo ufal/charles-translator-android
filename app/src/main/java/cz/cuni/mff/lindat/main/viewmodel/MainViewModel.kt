@@ -46,6 +46,7 @@ class MainViewModel : IMainViewModel, ViewModel() {
         outputLanguage.value = tmpInputLanguage
 
         outputText.value = ""
+        outputTextLatin.value = ""
         translate()
     }
 
@@ -71,12 +72,7 @@ class MainViewModel : IMainViewModel, ViewModel() {
             ).onSuccess {
                 lastRequestMs = System.currentTimeMillis()
                 outputText.value = it
-                outputTextLatin.value = if (outputLanguage.value == Language.Ukrainian) {
-                    latinCyrillic.cyrillicToLatin(it)
-                } else {
-                    ""
-                }
-
+                outputTextLatin.value = latinCyrillic.cyrillicToLatin(it)
             }.onFailure {
                 logE("error $it")
             }

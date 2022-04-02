@@ -3,8 +3,6 @@ package cz.cuni.mff.lindat.main.ui
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -193,8 +191,7 @@ private fun OutputText(
                     .background(MaterialTheme.colors.background)
                     .padding(horizontal = 8.dp, vertical = 8.dp)
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                ,
+                    .verticalScroll(rememberScrollState()),
             ) {
                 Text(
                     text = text,
@@ -203,14 +200,12 @@ private fun OutputText(
                     ),
                 )
 
-                if (language == Language.Ukrainian) {
-                    Text(
-                        text = textLatin,
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                        ),
-                    )
-                }
+                Text(
+                    text = textLatin,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                    ),
+                )
             }
         }
     }
