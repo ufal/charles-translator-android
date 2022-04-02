@@ -37,6 +37,12 @@ class MainViewModel @Inject constructor(
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val showCyrillic = MutableStateFlow(true)
 
+    override fun onCleared() {
+        job?.cancel()
+        job = null
+        super.onCleared()
+    }
+
     override fun setInputText(text: String) {
         inputText.value = text
         translate()
