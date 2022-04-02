@@ -1,5 +1,6 @@
 package cz.cuni.mff.lindat.main.ui
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -155,6 +156,7 @@ fun InputText(
                     .focusRequester(focusRequester),
                 value = textFieldValue,
                 textStyle = TextStyle(
+                    color = MaterialTheme.colors.onBackground,
                     fontSize = 18.sp,
                 ),
                 cursorBrush = SolidColor(MaterialTheme.colors.primary),
@@ -309,6 +311,17 @@ private fun CopyToClipboardItem(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
+    LindatTheme {
+        MainScreen(
+            viewModel = PreviewMainViewModel(),
+            viewActions = PreviewMainViewActions(),
+        )
+    }
+}
+
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+private fun MainScreenDarkModePreview() {
     LindatTheme {
         MainScreen(
             viewModel = PreviewMainViewModel(),

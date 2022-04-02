@@ -23,22 +23,34 @@ private object MainRippleTheme : RippleTheme {
 }
 
 
+/* // TODO: 02.04.2022 tomaskrabac: dodelat
 private val DarkColorPalette = darkColors(
+    primary = Color(0xFF202020),
+    onPrimary = Color(0xFFFFFFFF),
+    surface = Color(0xFF121212),
+    onSurface =  Color(0xFFFFFFFF),
+    background = Color(0xFF303030),
+    onBackground =  Color(0xFFFFFFFF),
+
+)
+ */
+
+private val DarkColorPalette = lightColors(
     primary = Color(0xFF2196F3),
     onPrimary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
-    onSurface = Color(0xFF000000),
+    onSurface = Color(0xFF121212),
     background = Color(0xFFE4F2FD),
-    onBackground = Color(0xFF000000),
+    onBackground = Color(0xFF121212),
 )
 
 private val LightColorPalette = lightColors(
     primary = Color(0xFF2196F3),
     onPrimary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
-    onSurface = Color(0xFF000000),
+    onSurface = Color(0xFF121212),
     background = Color(0xFFE4F2FD),
-    onBackground = Color(0xFF000000),
+    onBackground = Color(0xFF121212),
 )
 
 @Composable
