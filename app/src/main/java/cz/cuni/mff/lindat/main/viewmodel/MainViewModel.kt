@@ -9,16 +9,20 @@ import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
 import cz.cuni.mff.lindat.api.Api
 import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.extensions.logE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * @author Tomas Krabac
  */
-class MainViewModel : IMainViewModel, ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val api: IApi,
+) : IMainViewModel, ViewModel() {
 
-    private val api: IApi = Api()
     private var job: Job? = null
 
     private var lastRequestMs = 0L

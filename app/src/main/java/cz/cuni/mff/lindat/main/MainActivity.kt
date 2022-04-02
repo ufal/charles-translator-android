@@ -14,7 +14,9 @@ import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
 import cz.cuni.mff.lindat.main.viewmodel.MainViewModel
 import cz.cuni.mff.lindat.voice.VoiceContract
 import cz.uk.lindat.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity(), IMainViewActions {
 
     private val viewModel: MainViewModel by viewModels()
