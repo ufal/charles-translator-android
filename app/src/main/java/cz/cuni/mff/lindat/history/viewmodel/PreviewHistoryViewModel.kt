@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 class PreviewHistoryViewModel : IHistoryViewModel {
 
+    override fun deleteItem(item: HistoryItem) {}
+    override fun updateItem(item: HistoryItem) {}
+
     override val historyItems = MutableStateFlow(
         listOf(
             HistoryItem("test", Language.Czech, Language.Ukrainian, false),

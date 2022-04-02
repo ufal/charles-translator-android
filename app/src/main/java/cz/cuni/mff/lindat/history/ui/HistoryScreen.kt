@@ -1,5 +1,6 @@
 package cz.cuni.mff.lindat.history.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -54,7 +55,15 @@ private fun Content(viewModel: IHistoryViewModel, controller: IController) {
         ) {
             historyItems.forEachIndexed { index, historyItem ->
                 item(index) {
-                    HistoryRowItem(historyItem)
+                    HistoryRowItem(
+                        item = historyItem,
+                        onRowClicked = { controller.navigateMainScreen(historyItem) },
+                        onDeleteClicked = { viewModel.deleteItem(historyItem) },
+                        onFavouriteClicked = {
+                            val updatedItem = historyItem.copy(isFavourite = !historyItem.isFavourite)
+                            viewModel.updateItem(updatedItem)
+                        }
+                    )
 
                     Divider(
                         color = MaterialTheme.colors.secondary,
@@ -92,10 +101,16 @@ fun Toolbar(
 }
 
 @Composable
-private fun HistoryRowItem(item: HistoryItem) {
+private fun HistoryRowItem(
+    item: HistoryItem,
+    onRowClicked: () -> Unit,
+    onDeleteClicked: () -> Unit,
+    onFavouriteClicked: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onRowClicked)
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -125,7 +140,9 @@ private fun HistoryRowItem(item: HistoryItem) {
             overflow = TextOverflow.Ellipsis,
         )
 
-        FavouriteItem(item.isFavourite)
+        FavouriteItem(isFavourite = item.isFavourite, onClick = onFavouriteClicked)
+
+        DeleteItem(onClick = onDeleteClicked)
 
         Spacer(modifier = Modifier.width(16.dp))
     }
@@ -133,15 +150,33 @@ private fun HistoryRowItem(item: HistoryItem) {
 
 
 @Composable
-private fun FavouriteItem(isFavourite: Boolean) {
+private fun FavouriteItem(isFavourite: Boolean, onClick: () -> Unit) {
     val iconRes = if (isFavourite) R.drawable.ic_full_star else R.drawable.ic_empty_star
     val contentDescriptionRes = if (isFavourite) R.string.add_to_favourites_cd else R.string.remove_from_favourites_cd
 
-    Icon(
-        painter = painterResource(id = iconRes),
-        tint = MaterialTheme.colors.primary,
-        contentDescription = stringResource(id = contentDescriptionRes),
-    )
+    IconButton(
+        onClick = onClick,
+    ) {
+        Icon(
+            painter = painterResource(id = iconRes),
+            tint = MaterialTheme.colors.primary,
+            contentDescription = stringResource(id = contentDescriptionRes),
+        )
+    }
+}
+
+@Composable
+private fun DeleteItem(onClick: () -> Unit) {
+
+    IconButton(
+        onClick = onClick,
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_delete),
+            tint = MaterialTheme.colors.primary,
+            contentDescription = stringResource(id = R.string.delete_cd),
+        )
+    }
 }
 
 

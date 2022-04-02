@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface IHistoryDao {
-    @Query("SELECT * FROM history_items")
+    @Query("SELECT * FROM history_items ORDER BY is_favourite DESC")
     fun getAll(): Flow<List<HistoryItemDB>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -16,4 +16,7 @@ interface IHistoryDao {
 
     @Delete
     fun delete(item: HistoryItemDB)
+
+    @Update
+    fun update(item: HistoryItemDB)
 }

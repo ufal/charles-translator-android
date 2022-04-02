@@ -9,5 +9,9 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface IHistoryViewModel: IBaseViewModel {
 
+    fun deleteItem(item: HistoryItem)
+
+    fun updateItem(item: HistoryItem)
+
     val historyItems: StateFlow<List<HistoryItem>>
 }

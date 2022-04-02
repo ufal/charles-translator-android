@@ -16,4 +16,5 @@
     <string name="history_cd">History</string>
     <string name="add_to_favourites_cd">Add to favourites</string>
     <string name="remove_from_favourites_cd">Remove from favourites</string>
+    <string name="delete_cd">Delete from history</string>
 </resources>

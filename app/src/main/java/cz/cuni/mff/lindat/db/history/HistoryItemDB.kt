@@ -2,6 +2,7 @@ package cz.cuni.mff.lindat.db.history
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import cz.cuni.mff.lindat.history.data.HistoryItem
 import cz.cuni.mff.lindat.main.viewmodel.Language
 
 /**
@@ -13,4 +14,13 @@ data class HistoryItemDB(
     @ColumnInfo(name = "input_language") val inputLanguage: Language,
     @ColumnInfo(name = "output_language") val outputLanguage: Language,
     @ColumnInfo(name = "is_favourite") val isFavourite: Boolean = false,
-)
+){
+
+    constructor(item: HistoryItem) : this(
+        text = item.text,
+        inputLanguage = item.inputLanguage,
+        outputLanguage = item.outputLanguage,
+        isFavourite = item.isFavourite,
+    )
+
+}
