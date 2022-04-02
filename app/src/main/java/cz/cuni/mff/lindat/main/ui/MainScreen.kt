@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
@@ -63,11 +64,13 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
     val outputLanguage by viewModel.outputLanguage.collectAsState()
     val showCyrillic by viewModel.showCyrillic.collectAsState()
 
+    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(LocalContext.current)
     val outputText = if (showCyrillic) outputTextCyrillic else outputTextLatin
     val copyToClipBoardLabel = stringResource(id = R.string.copy_to_clipboard_label)
 
     Column {
         Toolbar(
+            isTextToSpeechAvailable = isTextToSpeechAvailable,
             startSpeechToText = { viewActions.startSpeechToText() },
             copyToClipBoard = { viewActions.copyToClipBoard(copyToClipBoardLabel, outputText) },
         )
@@ -101,6 +104,7 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
 
 @Composable
 fun Toolbar(
+    isTextToSpeechAvailable: Boolean,
     copyToClipBoard: () -> Unit,
     startSpeechToText: () -> Unit,
 ) {
@@ -115,8 +119,10 @@ fun Toolbar(
         modifier = Modifier.statusBarsPadding(),
         elevation = 4.dp,
         actions = {
-            SpeechToTextItem {
-                startSpeechToText()
+            if (isTextToSpeechAvailable) {
+                SpeechToTextItem {
+                    startSpeechToText()
+                }
             }
 
             CopyToClipboardItem {

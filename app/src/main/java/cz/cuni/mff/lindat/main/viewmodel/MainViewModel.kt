@@ -1,5 +1,7 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
+import android.content.Context
+import android.speech.SpeechRecognizer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltroger.latintocyrillic.Alphabet
@@ -52,6 +54,10 @@ class MainViewModel : IMainViewModel, ViewModel() {
 
     override fun setShowCyrillic(showCyrilic: Boolean) {
         this.showCyrillic.value = showCyrilic
+    }
+
+    override fun isTextToSpeechAvailable(context: Context): Boolean {
+        return SpeechRecognizer.isRecognitionAvailable(context)
     }
 
     private fun translate() {

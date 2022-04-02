@@ -1,5 +1,6 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
+import android.content.Context
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -20,4 +21,5 @@ interface IMainViewModel {
     fun setInputLanguage(language: Language)
     fun swapLanguages()
     fun setShowCyrillic(showCyrilic: Boolean)
+    fun isTextToSpeechAvailable(context: Context): Boolean
 }
