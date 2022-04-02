@@ -2,6 +2,8 @@ package cz.cuni.mff.lindat.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.michaeltroger.latintocyrillic.Alphabet
+import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
 import cz.cuni.mff.lindat.api.Api
 import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.extensions.logE
@@ -20,8 +22,11 @@ class MainViewModel : IMainViewModel, ViewModel() {
     private var lastRequestMs = 0L
     private var minIntervalMS = 500
 
+    private val latinCyrillic = LatinCyrillicFactory.create(Alphabet.UkrainianIso9)
+
     override val inputText = MutableStateFlow("")
     override val outputText = MutableStateFlow("")
+    override val outputTextLatin = MutableStateFlow("")
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
 
@@ -48,6 +53,7 @@ class MainViewModel : IMainViewModel, ViewModel() {
         if (inputText.value.isBlank()) {
             job?.cancel()
             outputText.value = ""
+            outputTextLatin.value = ""
             return
         }
 
@@ -65,6 +71,12 @@ class MainViewModel : IMainViewModel, ViewModel() {
             ).onSuccess {
                 lastRequestMs = System.currentTimeMillis()
                 outputText.value = it
+                outputTextLatin.value = if (outputLanguage.value == Language.Ukrainian) {
+                    latinCyrillic.cyrillicToLatin(it)
+                } else {
+                    ""
+                }
+
             }.onFailure {
                 logE("error $it")
             }

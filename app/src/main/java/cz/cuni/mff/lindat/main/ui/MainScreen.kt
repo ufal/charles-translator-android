@@ -55,6 +55,7 @@ fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions) {
 fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
     val inputText by viewModel.inputText.collectAsState()
     val outputText by viewModel.outputText.collectAsState()
+    val outputTextLatin by viewModel.outputTextLatin.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
 
@@ -83,6 +84,7 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions) {
         OutputText(
             modifier = Modifier.weight(0.5f),
             text = outputText,
+            textLatin = outputTextLatin,
             language = outputLanguage,
         )
 
@@ -172,23 +174,36 @@ fun InputText(
 private fun OutputText(
     modifier: Modifier,
     text: String,
+    textLatin: String,
     language: Language,
 ) {
     Column(modifier.padding(horizontal = 16.dp)) {
         Label(Modifier.padding(bottom = 4.dp), language)
 
         SelectionContainer {
-            Text(
-                text = text,
+            Column(
                 modifier = modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(MaterialTheme.colors.background)
                     .padding(horizontal = 8.dp, vertical = 8.dp)
                     .fillMaxSize(),
-                style = TextStyle(
-                    fontSize = 18.sp,
-                ),
-            )
+            ) {
+                Text(
+                    text = text,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                    ),
+                )
+
+                if (language == Language.Ukrainian) {
+                    Text(
+                        text = textLatin,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                        ),
+                    )
+                }
+            }
         }
     }
 }

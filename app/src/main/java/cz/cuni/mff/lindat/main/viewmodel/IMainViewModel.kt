@@ -9,6 +9,7 @@ interface IMainViewModel {
 
     val inputText: StateFlow<String>
     val outputText: StateFlow<String>
+    val outputTextLatin: StateFlow<String>
 
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>
