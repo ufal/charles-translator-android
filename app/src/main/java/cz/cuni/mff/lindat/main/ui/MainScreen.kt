@@ -1,6 +1,8 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -33,26 +35,24 @@ import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.main.controller.IController
 import cz.cuni.mff.lindat.main.controller.PreviewIController
-import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
-import cz.cuni.mff.lindat.main.viewActions.PreviewMainViewActions
 import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
 import cz.cuni.mff.lindat.main.viewmodel.Language
 import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
 import cz.cuni.mff.lindat.ui.common.FlagItem
 import cz.cuni.mff.lindat.ui.theme.LindatTheme
+import cz.cuni.mff.lindat.voice.VoiceContract
 
 /**
  * @author Tomas Krabac
  */
 
 @Composable
-fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions, controller: IController) {
+fun MainScreen(viewModel: IMainViewModel, controller: IController) {
     LindatTheme {
         ProvideWindowInsets {
             Surface(modifier = Modifier.fillMaxSize()) {
                 Content(
                     viewModel = viewModel,
-                    viewActions = viewActions,
                     controller = controller,
                 )
             }
@@ -61,7 +61,7 @@ fun MainScreen(viewModel: IMainViewModel, viewActions: IMainViewActions, control
 }
 
 @Composable
-fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions, controller: IController) {
+fun Content(viewModel: IMainViewModel, controller: IController) {
     val inputText by viewModel.inputText.collectAsState()
     val outputTextCyrillic by viewModel.outputTextCyrillic.collectAsState()
     val outputTextLatin by viewModel.outputTextLatin.collectAsState()
@@ -71,7 +71,12 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions, controller
 
     val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(LocalContext.current)
     val outputText = if (showCyrillic) outputTextCyrillic else outputTextLatin
-    val copyToClipBoardLabel = stringResource(id = R.string.copy_to_clipboard_label)
+
+    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
+        if(text != null){
+            viewModel.setInputText(text)
+        }
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.startSaveTimer()
@@ -80,8 +85,8 @@ fun Content(viewModel: IMainViewModel, viewActions: IMainViewActions, controller
     Column {
         Toolbar(
             isTextToSpeechAvailable = isTextToSpeechAvailable,
-            startSpeechToText = { viewActions.startSpeechToText() },
-            copyToClipBoard = { viewActions.copyToClipBoard(copyToClipBoardLabel, outputText) },
+            startSpeechToText = { voiceLauncher.launch() },
+            copyToClipBoard = {  },
             navigateHistory = { controller.navigateHistory() },
         )
 
@@ -344,7 +349,6 @@ private fun MainScreenPreview() {
     LindatTheme {
         MainScreen(
             viewModel = PreviewMainViewModel(),
-            viewActions = PreviewMainViewActions(),
             controller = PreviewIController(),
         )
     }
@@ -356,7 +360,6 @@ private fun MainScreenDarkModePreview() {
     LindatTheme {
         MainScreen(
             viewModel = PreviewMainViewModel(),
-            viewActions = PreviewMainViewActions(),
             controller = PreviewIController(),
         )
     }

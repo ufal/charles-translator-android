@@ -23,4 +23,5 @@ interface IMainViewModel {
     fun setShowCyrillic(showCyrilic: Boolean)
     fun isTextToSpeechAvailable(context: Context): Boolean
     fun startSaveTimer()
+    fun copyToClipBoard(context: Context, label: String, text: String)
 }

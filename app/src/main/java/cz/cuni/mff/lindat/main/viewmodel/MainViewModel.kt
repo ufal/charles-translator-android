@@ -1,12 +1,16 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.speech.SpeechRecognizer
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltroger.latintocyrillic.Alphabet
 import com.michaeltroger.latintocyrillic.LatinCyrillicFactory
+import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.db.IDb
 import cz.cuni.mff.lindat.db.history.HistoryItemDB
@@ -88,6 +92,13 @@ class MainViewModel @Inject constructor(
 
     override fun isTextToSpeechAvailable(context: Context): Boolean {
         return SpeechRecognizer.isRecognitionAvailable(context)
+    }
+
+    override fun copyToClipBoard(context: Context, label: String, text: String) {
+        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text))
+
+        Toast.makeText(context, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
     private fun translate() {

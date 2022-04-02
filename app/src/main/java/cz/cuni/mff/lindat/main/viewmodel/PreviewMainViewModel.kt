@@ -20,4 +20,5 @@ class PreviewMainViewModel : IMainViewModel {
     override fun setShowCyrillic(showCyrilic: Boolean) {}
     override fun isTextToSpeechAvailable(context: Context): Boolean = true
     override fun startSaveTimer() {}
+    override fun copyToClipBoard(context: Context, label: String, text: String) {}
 }
