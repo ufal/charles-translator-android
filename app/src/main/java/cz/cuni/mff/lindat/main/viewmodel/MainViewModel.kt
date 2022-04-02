@@ -1,14 +1,13 @@
-package cz.uk.lindat.main.viewmodel
+package cz.cuni.mff.lindat.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.uk.lindat.api.Api
-import cz.uk.lindat.api.IApi
-import cz.uk.lindat.extensions.logE
+import cz.cuni.mff.lindat.api.Api
+import cz.cuni.mff.lindat.api.IApi
+import cz.cuni.mff.lindat.extensions.logE
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 /**
  * @author Tomas Krabac

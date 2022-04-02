@@ -1,4 +1,4 @@
-package cz.uk.lindat.ui.theme
+package cz.cuni.mff.lindat.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

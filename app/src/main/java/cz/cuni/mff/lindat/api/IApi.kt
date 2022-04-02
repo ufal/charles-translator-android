@@ -1,6 +1,6 @@
-package cz.uk.lindat.api
+package cz.cuni.mff.lindat.api
 
-import cz.uk.lindat.main.viewmodel.Language
+import cz.cuni.mff.lindat.main.viewmodel.Language
 
 /**
  * @author Tomas Krabac

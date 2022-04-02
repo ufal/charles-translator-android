@@ -1,4 +1,4 @@
-package cz.uk.lindat.main.viewmodel
+package cz.cuni.mff.lindat.main.viewmodel
 
 /**
  * @author Tomas Krabac

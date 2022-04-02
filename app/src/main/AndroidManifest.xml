@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lindat">
         <activity
-            android:name=".main.MainActivity"
+            android:name="cz.cuni.mff.lindat.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Lindat"
             android:windowSoftInputMode="adjustResize">

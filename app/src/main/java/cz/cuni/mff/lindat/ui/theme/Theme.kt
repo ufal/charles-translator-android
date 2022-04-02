@@ -1,4 +1,4 @@
-package cz.uk.lindat.ui.theme
+package cz.cuni.mff.lindat.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

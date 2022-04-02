@@ -1,4 +1,4 @@
-package cz.uk.lindat.main.viewmodel
+package cz.cuni.mff.lindat.main.viewmodel
 
 import kotlinx.coroutines.flow.MutableStateFlow
 

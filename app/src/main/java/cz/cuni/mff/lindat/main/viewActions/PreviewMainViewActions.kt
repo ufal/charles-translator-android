@@ -1,8 +1,8 @@
-package cz.uk.lindat.main.viewActions
+package cz.cuni.mff.lindat.main.viewActions
 
 /**
  * @author Tomas Krabac
  */
-class PreviewMainViewActions : IMainViewActions{
+class PreviewMainViewActions : IMainViewActions {
     override fun copyToClipBoard(label: String, text: String) {}
 }

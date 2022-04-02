@@ -1,4 +1,4 @@
-package cz.uk.lindat.extensions
+package cz.cuni.mff.lindat.extensions
 
 import android.util.Log
 

@@ -1,4 +1,4 @@
-package cz.uk.lindat
+package cz.cuni.mff.lindat
 
 import org.junit.Test
 

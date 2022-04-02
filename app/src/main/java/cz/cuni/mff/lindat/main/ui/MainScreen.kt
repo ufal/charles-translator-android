@@ -1,4 +1,4 @@
-package cz.uk.lindat.main.ui
+package cz.cuni.mff.lindat.main.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,12 +24,12 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import cz.uk.lindat.R
-import cz.uk.lindat.main.viewActions.IMainViewActions
-import cz.uk.lindat.main.viewActions.PreviewMainViewActions
-import cz.uk.lindat.main.viewmodel.IMainViewModel
-import cz.uk.lindat.main.viewmodel.Language
-import cz.uk.lindat.main.viewmodel.PreviewMainViewModel
-import cz.uk.lindat.ui.theme.LindatTheme
+import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
+import cz.cuni.mff.lindat.main.viewActions.PreviewMainViewActions
+import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
+import cz.cuni.mff.lindat.main.viewmodel.Language
+import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
+import cz.cuni.mff.lindat.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac

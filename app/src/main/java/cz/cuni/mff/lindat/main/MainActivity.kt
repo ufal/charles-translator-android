@@ -1,4 +1,4 @@
-package cz.uk.lindat.main
+package cz.cuni.mff.lindat.main
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -9,9 +9,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import cz.uk.lindat.R
-import cz.uk.lindat.main.ui.MainScreen
-import cz.uk.lindat.main.viewActions.IMainViewActions
-import cz.uk.lindat.main.viewmodel.MainViewModel
+import cz.cuni.mff.lindat.main.ui.MainScreen
+import cz.cuni.mff.lindat.main.viewActions.IMainViewActions
+import cz.cuni.mff.lindat.main.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity(), IMainViewActions {
 

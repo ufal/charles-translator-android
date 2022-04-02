@@ -1,4 +1,4 @@
-package cz.uk.lindat.main.viewActions
+package cz.cuni.mff.lindat.main.viewActions
 
 /**
  * @author Tomas Krabac

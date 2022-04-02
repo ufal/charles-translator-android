@@ -1,7 +1,7 @@
-package cz.uk.lindat.api
+package cz.cuni.mff.lindat.api
 
 import android.util.Log
-import cz.uk.lindat.main.viewmodel.Language
+import cz.cuni.mff.lindat.main.viewmodel.Language
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
