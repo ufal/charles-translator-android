@@ -61,18 +61,30 @@ class Api : IApi {
         }
     }
 
-    private fun createTranslateUrl(inputLanguage: Language, outputLanguage: Language): String{
-       return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=false&author=u4uAndroidApp"
+    private fun createTranslateUrl(inputLanguage: Language, outputLanguage: Language): String {
+        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=false&author=u4uAndroidApp"
     }
 
     private fun parseResponse(rawData: String): String {
         val result = StringBuilder()
         val array = JSONArray(rawData)
         for (i in 0 until array.length()) {
-            result.append(array.get(i).toString())
+            var text = array.get(i).toString()
+            if (i == array.length() - 1) {
+                text = removeLastNewLines(text)
+            }
+            result.append(text)
         }
 
-       return result.toString()
+        return result.toString()
+    }
+
+    private fun removeLastNewLines(text: String): String {
+        return if (text.endsWith(System.lineSeparator())) {
+            text.replace(System.lineSeparator(), "")
+        } else {
+            text
+        }
     }
 
 }
