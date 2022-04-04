@@ -19,7 +19,8 @@ import org.json.JSONArray
 class Api : IApi {
 
     private val client = HttpClient(Android) {
-        install(Logging) {
+        //sometimes causing "Mutex is not locked"
+       /* install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
                     Log.d("HTTP:", message)
@@ -27,7 +28,7 @@ class Api : IApi {
 
             }
             level = LogLevel.BODY
-        }
+        }*/
 
         defaultRequest {
             accept(ContentType.Application.Json)
