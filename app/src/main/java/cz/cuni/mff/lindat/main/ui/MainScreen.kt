@@ -5,6 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,6 +39,7 @@ import cz.cuni.mff.lindat.main.controller.IController
 import cz.cuni.mff.lindat.main.controller.PreviewIController
 import cz.cuni.mff.lindat.main.viewmodel.IMainViewModel
 import cz.cuni.mff.lindat.main.viewmodel.Language
+import cz.cuni.mff.lindat.main.viewmodel.MainScreenState
 import cz.cuni.mff.lindat.main.viewmodel.PreviewMainViewModel
 import cz.cuni.mff.lindat.ui.common.FlagItem
 import cz.cuni.mff.lindat.ui.theme.LindatTheme
@@ -63,8 +66,10 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
     val outputTextLatin by viewModel.outputTextLatin.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(LocalContext.current)
+    val context = LocalContext.current
+    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(context)
     val mainText = if (outputLanguage == Language.Ukrainian) outputTextCyrillic else outputTextLatin
     val secondaryText = if (outputLanguage == Language.Ukrainian) outputTextLatin else outputTextCyrillic
 
@@ -74,20 +79,25 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         }
     }
 
-    val context = LocalContext.current
     val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
-
-    Column {
-        Toolbar(
-            isTextToSpeechAvailable = isTextToSpeechAvailable,
-            startSpeechToText = { voiceLauncher.launch() },
-            copyToClipBoard = {
+    val copyToClipBoardAction =
+        if (state == MainScreenState.Success || state == MainScreenState.Loading) {
+            {
                 viewModel.copyToClipBoard(
                     context = context,
                     label = clipboardLabel,
                     text = mainText
                 )
-            },
+            }
+        } else {
+            null
+        }
+
+    Column {
+        Toolbar(
+            isTextToSpeechAvailable = isTextToSpeechAvailable,
+            startSpeechToText = { voiceLauncher.launch() },
+            copyToClipBoard = copyToClipBoardAction,
             navigateHistory = { controller.navigateHistory() },
         )
 
@@ -107,11 +117,27 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutputText(
-            modifier = Modifier.weight(0.5f),
-            mainText = mainText,
-            secondaryText = secondaryText,
-        )
+        when (state) {
+            MainScreenState.Idle -> {
+                // TODO: paste from clipboard
+            }
+            MainScreenState.Error -> {
+                ErrorItem(modifier = Modifier){
+                    viewModel.retry()
+                }
+            }
+            MainScreenState.Offline -> {
+                OfflineItem(modifier = Modifier)
+            }
+            MainScreenState.Success, MainScreenState.Loading -> {
+                OutputText(
+                    modifier = Modifier.weight(0.5f),
+                    mainText = mainText,
+                    secondaryText = secondaryText,
+                    isLoading = state == MainScreenState.Loading
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -119,9 +145,11 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 }
 
 @Composable
-fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
+private fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
@@ -137,7 +165,7 @@ fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: ()
 @Composable
 fun Toolbar(
     isTextToSpeechAvailable: Boolean,
-    copyToClipBoard: () -> Unit,
+    copyToClipBoard: (() -> Unit)?,
     startSpeechToText: () -> Unit,
     navigateHistory: () -> Unit,
 ) {
@@ -161,11 +189,13 @@ fun Toolbar(
                 }
             }
 
-            ActionItem(
-                drawableRes = R.drawable.ic_copy,
-                contentDescriptionRes = R.string.copy_to_clipboard_cd
-            ) {
-                copyToClipBoard()
+            if (copyToClipBoard != null) {
+                ActionItem(
+                    drawableRes = R.drawable.ic_copy,
+                    contentDescriptionRes = R.string.copy_to_clipboard_cd
+                ) {
+                    copyToClipBoard()
+                }
             }
 
             ActionItem(
@@ -233,40 +263,86 @@ private fun OutputText(
     modifier: Modifier,
     mainText: String,
     secondaryText: String,
+    isLoading: Boolean,
 ) {
-    if (mainText.isEmpty()) {
-        return
-    }
+    Box(modifier) {
+        Column(
+            Modifier
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colors.background)
+                .padding(horizontal = 8.dp, vertical = 8.dp)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            SelectionContainer {
+                Text(
+                    text = mainText,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                    ),
+                )
+            }
 
-    // SelectionContainer {
+            SelectionContainer {
+                Text(
+                    text = secondaryText,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                    ),
+                )
+            }
+        }
+
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(20.dp)
+                    .align(Alignment.Center),
+                color = MaterialTheme.colors.secondary,
+                strokeWidth = 3.dp,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ErrorItem(modifier: Modifier, retryAction: () -> Unit) {
     Column(
-        modifier
-            .padding(horizontal = 16.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colors.background)
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+        modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        SelectionContainer {
-            Text(
-                text = mainText,
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                ),
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.api_error),
+            color = MaterialTheme.colors.onBackground,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(modifier = Modifier.height(14.dp))
+        OutlinedButton(
+            shape = RoundedCornerShape(50),
+            onClick = retryAction,
+            border = BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+            colors = ButtonDefaults.outlinedButtonColors(
+                backgroundColor = MaterialTheme.colors.background,
+                contentColor = MaterialTheme.colors.onBackground,
             )
-        }
-
-        SelectionContainer {
+        ) {
             Text(
-                text = secondaryText,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                ),
+                text = stringResource(id = R.string.try_again).uppercase(),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.W500,
             )
         }
     }
+}
+
+@Composable
+private fun OfflineItem(modifier: Modifier) {
+// TODO: 04.04.2022 tomaskrabac:  implement
 }
 
 @Composable
@@ -291,31 +367,6 @@ private fun Label(modifier: Modifier = Modifier, language: Language) {
         )
     }
 
-}
-
-@Composable
-private fun ShowCyrilicSwitchItem(showCyrillic: Boolean, setShowCyrillic: (value: Boolean) -> Unit) {
-    val checkedState = remember { mutableStateOf(showCyrillic) }
-
-    Text(
-        text = stringResource(id = R.string.cyrillic_label),
-        color = MaterialTheme.colors.onSurface
-    )
-
-    Spacer(modifier = Modifier.width(4.dp))
-
-    Switch(
-        checked = checkedState.value,
-        onCheckedChange = {
-            checkedState.value = it
-            setShowCyrillic(it)
-        },
-        colors = SwitchDefaults.colors(
-            checkedThumbColor = MaterialTheme.colors.primary,
-            uncheckedThumbColor = MaterialTheme.colors.secondary,
-            uncheckedTrackColor = MaterialTheme.colors.primary,
-        )
-    )
 }
 
 @Composable

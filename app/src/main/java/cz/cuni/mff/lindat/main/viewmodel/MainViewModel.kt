@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
     override val outputTextLatin = MutableStateFlow("")
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
-    override val showCyrillic = MutableStateFlow(true)
+    override val state = MutableStateFlow(MainScreenState.Idle)
 
     override fun onStop() {
         super.onStop()
@@ -73,10 +73,6 @@ class MainViewModel @Inject constructor(
         translate()
     }
 
-    override fun setShowCyrillic(showCyrilic: Boolean) {
-        this.showCyrillic.value = showCyrilic
-    }
-
     override fun isTextToSpeechAvailable(context: Context): Boolean {
         return SpeechRecognizer.isRecognitionAvailable(context)
     }
@@ -96,6 +92,10 @@ class MainViewModel @Inject constructor(
         setInputText(item.text)
     }
 
+    override fun retry() {
+        translate()
+    }
+
     private fun translate() {
         if (inputText.value.isBlank()) {
             apiJob?.cancel()
@@ -111,6 +111,8 @@ class MainViewModel @Inject constructor(
 
         apiJob?.cancel()
         apiJob = viewModelScope.launch {
+            state.value = MainScreenState.Loading
+
             api.translate(
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
@@ -127,7 +129,9 @@ class MainViewModel @Inject constructor(
                         outputTextLatin.value = transliterateCyrilToLatin(it)
                     }
                 }
+                state.value = MainScreenState.Success
             }.onFailure {
+                state.value = MainScreenState.Error
                 logE("error $it")
             }
         }

@@ -17,13 +17,13 @@ interface IMainViewModel : IBaseViewModel {
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>
 
-    val showCyrillic: StateFlow<Boolean>
+    val state: StateFlow<MainScreenState>
 
     fun setInputText(text: String)
     fun setInputLanguage(language: Language)
     fun swapLanguages()
-    fun setShowCyrillic(showCyrilic: Boolean)
     fun isTextToSpeechAvailable(context: Context): Boolean
     fun copyToClipBoard(context: Context, label: String, text: String)
     fun setFromHistoryItem(item: HistoryItem)
+    fun retry()
 }
