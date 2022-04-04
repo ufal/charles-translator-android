@@ -24,6 +24,7 @@ interface IMainViewModel : IBaseViewModel {
     fun swapLanguages()
     fun isTextToSpeechAvailable(context: Context): Boolean
     fun copyToClipBoard(context: Context, label: String, text: String)
+    fun pasteFromClipBoard(context: Context)
     fun setFromHistoryItem(item: HistoryItem)
     fun retry()
 }

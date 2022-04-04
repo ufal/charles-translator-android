@@ -5,34 +5,32 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.base.BaseScreen
 import cz.cuni.mff.lindat.main.controller.IController
@@ -67,62 +65,37 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
     val state by viewModel.state.collectAsState()
-
     val context = LocalContext.current
-    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(context)
+
+    // TODO: presunout do viewmodelu
     val mainText = if (outputLanguage == Language.Ukrainian) outputTextCyrillic else outputTextLatin
     val secondaryText = if (outputLanguage == Language.Ukrainian) outputTextLatin else outputTextCyrillic
 
-    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
-        if (text != null) {
-            viewModel.setInputText(text)
-        }
-    }
-
-    val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
-    val copyToClipBoardAction =
-        if (state == MainScreenState.Success || state == MainScreenState.Loading) {
-            {
-                viewModel.copyToClipBoard(
-                    context = context,
-                    label = clipboardLabel,
-                    text = mainText
-                )
-            }
-        } else {
-            null
-        }
-
     Column {
-        Toolbar(
-            isTextToSpeechAvailable = isTextToSpeechAvailable,
-            startSpeechToText = { voiceLauncher.launch() },
-            copyToClipBoard = copyToClipBoardAction,
-            navigateHistory = { controller.navigateHistory() },
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
 
         SwapRow(inputLanguage = inputLanguage, outputLanguage = outputLanguage) {
             viewModel.swapLanguages()
         }
 
         InputText(
-            modifier = Modifier.weight(0.5f),
+            modifier = Modifier.weight(3f),
             text = inputText,
             language = inputLanguage,
-        ) {
-            viewModel.setInputText(it)
-        }
 
-        Spacer(modifier = Modifier.height(8.dp))
+            pasteFromClipBoard = {
+                viewModel.pasteFromClipBoard(context)
+            },
+            onValueChange = {
+                viewModel.setInputText(it)
+            }
+        )
 
         when (state) {
             MainScreenState.Idle -> {
                 // TODO: paste from clipboard
             }
             MainScreenState.Error -> {
-                ErrorItem(modifier = Modifier){
+                ErrorItem(modifier = Modifier) {
                     viewModel.retry()
                 }
             }
@@ -130,16 +103,41 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
                 OfflineItem(modifier = Modifier)
             }
             MainScreenState.Success, MainScreenState.Loading -> {
-                OutputText(
-                    modifier = Modifier.weight(0.5f),
-                    mainText = mainText,
-                    secondaryText = secondaryText,
-                    isLoading = state == MainScreenState.Loading
-                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Column(
+                    modifier = Modifier
+                        .weight(5f)
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                        .border(2.dp, MaterialTheme.colors.primary, RoundedCornerShape(4.dp))
+                        .background(MaterialTheme.colors.background)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    OutputText(
+                        modifier = Modifier,
+                        fontWeight = FontWeight.Bold,
+                        text = mainText,
+                    )
+
+                    OutputText(
+                        modifier = Modifier,
+                        fontWeight = FontWeight.Normal,
+                        text = secondaryText,
+                    )
+                }
+
+
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        ActionsRow(
+            viewModel = viewModel,
+            controller = controller,
+            mainText = mainText,
+        )
+
 
     }
 }
@@ -147,65 +145,92 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 @Composable
 private fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
+        modifier = Modifier.fillMaxWidth(),
     ) {
+        Row(
+            modifier = Modifier.weight(1F),
+            verticalAlignment = Alignment.CenterVertically,
 
-        Label(modifier = Modifier.weight(1f), language = inputLanguage)
+            ) {
+            Label(modifier = Modifier.weight(1f), language = inputLanguage)
 
-        SwapItem(modifier = Modifier, onClick = swapLanguages)
+            SwapItem(modifier = Modifier, onClick = swapLanguages)
 
-        Label(modifier = Modifier.weight(1f), language = outputLanguage)
+            Label(modifier = Modifier.weight(1f), language = outputLanguage)
+        }
+
+        ActionItem(drawableRes = R.drawable.ic_more, contentDescriptionRes = R.string.more_cd) {
+
+        }
     }
 }
 
 @Composable
-fun Toolbar(
-    isTextToSpeechAvailable: Boolean,
-    copyToClipBoard: (() -> Unit)?,
-    startSpeechToText: () -> Unit,
-    navigateHistory: () -> Unit,
+fun ActionsRow(
+    viewModel: IMainViewModel,
+    controller: IController,
+    mainText: String,
 ) {
-    TopAppBar(
-        backgroundColor = MaterialTheme.colors.primary,
-        title = {
-            Text(
-                text = stringResource(id = R.string.title),
-                color = MaterialTheme.colors.onPrimary,
-            )
-        },
-        modifier = Modifier.statusBarsPadding(),
-        elevation = 4.dp,
-        actions = {
-            if (isTextToSpeechAvailable) {
-                ActionItem(
-                    drawableRes = R.drawable.ic_mic,
-                    contentDescriptionRes = R.string.speech_to_text_cd
-                ) {
-                    startSpeechToText()
-                }
-            }
+    val context = LocalContext.current
+    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(context)
+    val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
 
-            if (copyToClipBoard != null) {
-                ActionItem(
-                    drawableRes = R.drawable.ic_copy,
-                    contentDescriptionRes = R.string.copy_to_clipboard_cd
-                ) {
-                    copyToClipBoard()
-                }
-            }
 
+    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
+        if (text != null) {
+            viewModel.setInputText(text)
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+    ) {
+        Row(modifier = Modifier.align(Alignment.CenterStart)) {
             ActionItem(
                 drawableRes = R.drawable.ic_history,
                 contentDescriptionRes = R.string.history_cd
             ) {
-                navigateHistory()
+                controller.navigateHistory()
             }
-        },
-    )
+        }
+
+        Row(modifier = Modifier.align(Alignment.Center)) {
+            if (isTextToSpeechAvailable) {
+                ActionItem(
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    size = 44.dp,
+                    drawableRes = R.drawable.ic_mic,
+                    contentDescriptionRes = R.string.speech_to_text_cd
+                ) {
+                    voiceLauncher.launch()
+                }
+            }
+        }
+
+        Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+            if (mainText.isNotBlank()) {
+                ActionItem(
+                    drawableRes = R.drawable.ic_copy,
+                    contentDescriptionRes = R.string.copy_to_clipboard_cd
+                ) {
+                    viewModel.copyToClipBoard(
+                        context = context,
+                        label = clipboardLabel,
+                        text = mainText
+                    )
+                }
+
+                ActionItem(
+                    drawableRes = R.drawable.ic_tts,
+                    contentDescriptionRes = R.string.tts_cd
+                ) {
+                    // TODO:
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -213,7 +238,9 @@ fun InputText(
     modifier: Modifier,
     text: String,
     language: Language,
-    onValueChange: (text: String) -> Unit
+
+    onValueChange: (text: String) -> Unit,
+    pasteFromClipBoard: () -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(language) {
@@ -226,30 +253,52 @@ fun InputText(
         )
     }
 
-    Column(modifier.padding(horizontal = 16.dp)) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    Column(modifier) {
 
         Box {
-            BasicTextField(
+            OutlinedTextField(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colors.background)
-                    .padding(start = 8.dp, end = 40.dp, top = 8.dp, bottom = 8.dp)
+                    .padding(horizontal = 8.dp)
+                    //  .border(2.dp, MaterialTheme.colors.primary, RoundedCornerShape(4.dp))
+                    //.clip(RoundedCornerShape(8.dp))
+                    // .background(MaterialTheme.colors.background)
                     .fillMaxSize()
                     .focusRequester(focusRequester),
                 value = textFieldValue,
                 textStyle = TextStyle(
                     color = MaterialTheme.colors.onBackground,
-                    fontSize = 18.sp,
+                    fontSize = 22.sp,
                 ),
-                cursorBrush = SolidColor(MaterialTheme.colors.primary),
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.insert_text),
+                        fontSize = 22.sp,
+                    )
+                },
                 onValueChange = {
                     textFieldValue = it
                     onValueChange(it.text)
                 },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                keyboardActions = KeyboardActions(
+                    onGo = { keyboardController?.hide() })
             )
 
+            if (text.isEmpty()) {
+                ActionPasteItem(
+                    modifier = Modifier.padding(start = 20.dp, top = 52.dp),
+                    onClick = pasteFromClipBoard
+                )
+            }
+
             if (text.isNotEmpty()) {
-                ClearItem(modifier = Modifier.align(Alignment.TopEnd)) {
+                ClearItem(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(end = 8.dp)
+                ) {
                     onValueChange("")
                 }
             }
@@ -261,49 +310,17 @@ fun InputText(
 @Composable
 private fun OutputText(
     modifier: Modifier,
-    mainText: String,
-    secondaryText: String,
-    isLoading: Boolean,
+    fontWeight: FontWeight,
+    text: String,
 ) {
-    Box(modifier) {
-        Column(
-            Modifier
-                .padding(horizontal = 16.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(MaterialTheme.colors.background)
-                .padding(horizontal = 8.dp, vertical = 8.dp)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            SelectionContainer {
-                Text(
-                    text = mainText,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                    ),
-                )
-            }
-
-            SelectionContainer {
-                Text(
-                    text = secondaryText,
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                    ),
-                )
-            }
-        }
-
-        if (isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(20.dp)
-                    .align(Alignment.Center),
-                color = MaterialTheme.colors.secondary,
-                strokeWidth = 3.dp,
-            )
-        }
+    SelectionContainer(modifier) {
+        Text(
+            text = text,
+            style = TextStyle(
+                fontWeight = fontWeight,
+                fontSize = 22.sp,
+            ),
+        )
     }
 }
 
@@ -391,7 +408,7 @@ private fun ClearItem(modifier: Modifier, onClick: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_clear),
-            tint = MaterialTheme.colors.onBackground,
+            tint = MaterialTheme.colors.primary,
             contentDescription = stringResource(id = R.string.clear_cd),
         )
     }
@@ -399,17 +416,54 @@ private fun ClearItem(modifier: Modifier, onClick: () -> Unit) {
 
 @Composable
 private fun ActionItem(
+    modifier: Modifier = Modifier,
+    size: Dp = 24.dp,
     @DrawableRes drawableRes: Int,
     @StringRes contentDescriptionRes: Int,
     onClick: () -> Unit,
 ) {
+
     IconButton(
+        modifier = modifier,
         onClick = onClick,
     ) {
         Icon(
+            modifier = Modifier.size(size),
             painter = painterResource(id = drawableRes),
-            tint = MaterialTheme.colors.onPrimary,
+            tint = MaterialTheme.colors.primary,
             contentDescription = stringResource(id = contentDescriptionRes),
+        )
+    }
+}
+
+@Composable
+private fun ActionPasteItem(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    OutlinedButton(
+        modifier = modifier,
+        shape = RoundedCornerShape(80),
+        onClick = onClick,
+        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = MaterialTheme.colors.background,
+            contentColor = MaterialTheme.colors.onBackground,
+        )
+    )
+    {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_paste),
+            tint = MaterialTheme.colors.primary,
+            contentDescription = stringResource(id = R.string.paste_cd),
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.paste).uppercase(),
+            fontSize = 16.sp,
+            color = MaterialTheme.colors.primary
         )
     }
 }

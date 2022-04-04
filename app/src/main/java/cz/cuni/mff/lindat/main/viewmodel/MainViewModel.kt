@@ -1,6 +1,7 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
 import android.content.ClipData
+import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
 import android.speech.SpeechRecognizer
@@ -19,6 +20,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 /**
  * @author Tomas Krabac
@@ -84,6 +86,16 @@ class MainViewModel @Inject constructor(
         Toast.makeText(context, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
+    override fun pasteFromClipBoard(context: Context) {
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+        clipboard ?: return
+
+        if (clipboard.primaryClipDescription?.hasMimeType(MIMETYPE_TEXT_PLAIN) == true) {
+            val text = clipboard.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
+            setInputText(text)
+        }
+    }
+
     override fun setFromHistoryItem(item: HistoryItem) {
         inputLanguage.value = item.inputLanguage
         outputLanguage.value = item.outputLanguage
@@ -101,6 +113,7 @@ class MainViewModel @Inject constructor(
             apiJob?.cancel()
             outputTextCyrillic.value = ""
             outputTextLatin.value = ""
+            state.value = MainScreenState.Idle
             return
         }
 

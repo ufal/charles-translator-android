@@ -71,6 +71,7 @@ android {
 
         freeCompilerArgs += [
                 "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+                "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
         ]
     }
     buildFeatures {

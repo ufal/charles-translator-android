@@ -2,8 +2,8 @@
     <string name="app_name">Lindat</string>
     <string name="title">ÚFAL Translator</string>
     <string name="history_title">History</string>
-    <string name="cz_label">Česky</string>
-    <string name="uk_label">Українською</string>
+    <string name="cz_label">Čeština</string>
+    <string name="uk_label">Ukrajinština</string>
     <string name="czech_flag_cd">czech flag</string>
     <string name="ukraine_flag_cd">ukraine flag</string>
     <string name="swap_cd">Swap languages</string>
@@ -19,4 +19,9 @@
     <string name="delete_cd">Delete from history</string>
     <string name="api_error">Translation failed, please try again</string>
     <string name="try_again">Try again</string>
+    <string name="paste">Vložit ze schránky</string>
+    <string name="paste_cd">Paste from clipboard</string>
+    <string name="tts_cd">text to speech</string>
+    <string name="insert_text">Napište text</string>
+    <string name="more_cd">Zobrazit vice</string>
 </resources>

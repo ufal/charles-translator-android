@@ -20,6 +20,7 @@ class PreviewMainViewModel : IMainViewModel {
     override fun swapLanguages() {}
     override fun isTextToSpeechAvailable(context: Context): Boolean = true
     override fun copyToClipBoard(context: Context, label: String, text: String) {}
+    override fun pasteFromClipBoard(context: Context) {}
     override fun setFromHistoryItem(item: HistoryItem) {}
     override fun retry() {}
 }
