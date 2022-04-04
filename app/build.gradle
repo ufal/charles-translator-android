@@ -7,6 +7,11 @@ plugins {
 
 apply plugin: 'kotlinx-serialization'
 
+// Load release keystore
+def keystorePropertiesFile = rootProject.file("signing.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdk 31
 
@@ -23,9 +28,37 @@ android {
         }
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file("../keystores/debug.jks")
+            storePassword "debugkey"
+            keyAlias "debugkey"
+            keyPassword "debugkey"
+        }
+
         release {
+            storeFile file(keystoreProperties['STORE_FILE'])
+            storePassword keystoreProperties['STORE_PASSWORD']
+            keyAlias keystoreProperties['KEY_ALIAS']
+            keyPassword keystoreProperties['KEY_PASSWORD']
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".dev"
+            debuggable true
             minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

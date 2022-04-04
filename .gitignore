@@ -10,3 +10,5 @@ local.properties
 *.idea/*
 !.idea/codeStyles/
 RELEASE_NOTES.md
+signing.properties
+keystores/release.jks
