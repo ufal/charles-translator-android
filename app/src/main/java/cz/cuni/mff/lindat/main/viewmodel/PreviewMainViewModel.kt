@@ -15,14 +15,15 @@ class PreviewMainViewModel : IMainViewModel {
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Success)
     override val hasFinishedOnboarding = MutableStateFlow(true)
+    override val isTextToSpeechAvailable = MutableStateFlow(true)
+    override val isSpeechRecognizerAvailable = true
 
     override fun setInputText(text: String) {}
-    override fun setInputLanguage(language: Language) {}
     override fun swapLanguages() {}
-    override fun isTextToSpeechAvailable(context: Context): Boolean = true
     override fun copyToClipBoard(context: Context, label: String, text: String) {}
     override fun pasteFromClipBoard(context: Context) {}
     override fun setFromHistoryItem(item: HistoryItem) {}
     override fun retry() {}
     override fun setFinishedOnboarding(agreeWithDataCollection: Boolean) {}
+    override fun textToSpeech() {}
 }

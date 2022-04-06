@@ -20,15 +20,16 @@ interface IMainViewModel : IBaseViewModel {
 
     val state: StateFlow<MainScreenState>
     val hasFinishedOnboarding: StateFlow<Boolean>
+    val isTextToSpeechAvailable: StateFlow<Boolean>
+    val isSpeechRecognizerAvailable: Boolean
 
     fun setInputText(text: String)
-    fun setInputLanguage(language: Language)
     fun swapLanguages()
-    fun isTextToSpeechAvailable(context: Context): Boolean
     fun copyToClipBoard(context: Context, label: String, text: String)
     fun pasteFromClipBoard(context: Context)
     fun setFromHistoryItem(item: HistoryItem)
     fun retry()
     fun setFinishedOnboarding(agreeWithDataCollection: Boolean)
+    fun textToSpeech()
 
 }

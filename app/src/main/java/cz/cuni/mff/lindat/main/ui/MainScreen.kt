@@ -1,7 +1,6 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
@@ -182,7 +181,8 @@ fun ActionsRow(
     mainText: String,
 ) {
     val context = LocalContext.current
-    val isTextToSpeechAvailable = viewModel.isTextToSpeechAvailable(context)
+    val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
+    val isTextToSpeechAvailable by viewModel.isTextToSpeechAvailable.collectAsState()
     val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
 
 
@@ -207,12 +207,12 @@ fun ActionsRow(
         }
 
         Row(modifier = Modifier.align(Alignment.Center)) {
-            if (isTextToSpeechAvailable) {
+            if (isSpeechRecognizerAvailable) {
                 ActionItem(
                     modifier = Modifier.padding(vertical = 4.dp),
                     size = 44.dp,
                     drawableRes = R.drawable.ic_mic,
-                    contentDescriptionRes = R.string.speech_to_text_cd
+                    contentDescriptionRes = R.string.speech_recognizer_cd
                 ) {
                     voiceLauncher.launch()
                 }
@@ -232,11 +232,13 @@ fun ActionsRow(
                     )
                 }
 
-                ActionItem(
-                    drawableRes = R.drawable.ic_tts,
-                    contentDescriptionRes = R.string.tts_cd
-                ) {
-                    // TODO:
+                if (isTextToSpeechAvailable) {
+                    ActionItem(
+                        drawableRes = R.drawable.ic_tts,
+                        contentDescriptionRes = R.string.tts_cd
+                    ) {
+                        viewModel.textToSpeech()
+                    }
                 }
             }
         }
@@ -258,8 +260,7 @@ fun InputText(
     LaunchedEffect(language, hasFinishedOnboarding) {
         if (hasFinishedOnboarding) {
             focusRequester.requestFocus()
-        }
-        else{
+        } else {
             focusRequester.freeFocus()
         }
     }

@@ -9,7 +9,7 @@
     <string name="swap_cd">Swap languages</string>
     <string name="clear_cd">Clear text</string>
     <string name="copy_to_clipboard_cd">Copy to clipboard</string>
-    <string name="speech_to_text_cd">Speech to text</string>
+    <string name="speech_recognizer_cd">Diktování</string>
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
     <string name="cyrillic_label">Cyrillic</string>

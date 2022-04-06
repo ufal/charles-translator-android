@@ -1,12 +1,14 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
+import android.app.Application
 import android.content.ClipData
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
 import android.speech.SpeechRecognizer
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.lindat.R
 import cz.cuni.mff.lindat.api.IApi
@@ -30,10 +32,11 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    context: Application,
     private val api: IApi,
     private val db: IDb,
     private val userDataStore: IUserDataStore,
-) : IMainViewModel, ViewModel() {
+) : IMainViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
     private var timerJob: Job? = null
@@ -41,6 +44,8 @@ class MainViewModel @Inject constructor(
     private var lastRequestMs = 0L
     private val minIntervalApiMS = 500
     private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(2)
+
+    private var textToSpeechEngine: TextToSpeech? = null
 
     override val inputText = MutableStateFlow("")
     override val outputTextCyrillic = MutableStateFlow("")
@@ -53,6 +58,21 @@ class MainViewModel @Inject constructor(
         SharingStarted.WhileSubscribed(),
         true,
     )
+    override val isTextToSpeechAvailable = MutableStateFlow(false)
+    override val isSpeechRecognizerAvailable: Boolean
+        get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
+
+    override fun onStart() {
+        super.onStart()
+
+        textToSpeechEngine = TextToSpeech(getApplication()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeechEngine?.language = outputLanguage.value.locale
+                isTextToSpeechAvailable.value = true
+            }
+            // TODO: error states
+        }
+    }
 
     override fun onStop() {
         super.onStop()
@@ -62,16 +82,20 @@ class MainViewModel @Inject constructor(
 
         timerJob?.cancel()
         timerJob = null
+
+        textToSpeechEngine?.stop()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        textToSpeechEngine?.shutdown()
     }
 
     override fun setInputText(text: String) {
         inputText.value = text
         translate()
         startSaveTimer()
-    }
-
-    override fun setInputLanguage(language: Language) {
-        inputLanguage.value = language
     }
 
     override fun swapLanguages() {
@@ -82,10 +106,8 @@ class MainViewModel @Inject constructor(
         //outputTextCyrillic.value = ""
         //outputTextLatin.value = ""
         translate()
-    }
 
-    override fun isTextToSpeechAvailable(context: Context): Boolean {
-        return SpeechRecognizer.isRecognitionAvailable(context)
+        textToSpeechEngine?.language = outputLanguage.value.locale
     }
 
     override fun copyToClipBoard(context: Context, label: String, text: String) {
@@ -122,6 +144,12 @@ class MainViewModel @Inject constructor(
             userDataStore.setFinishedOnboarding()
             userDataStore.saveAgreementDataCollection(agreeWithDataCollection)
         }
+    }
+
+    override fun textToSpeech() {
+        // TODO: main text 
+        val text = outputTextCyrillic.value
+        textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
     }
 
     private fun translate() {
