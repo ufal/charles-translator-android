@@ -1,6 +1,5 @@
 package cz.cuni.mff.lindat.main.viewmodel
 
-import android.content.Context
 import cz.cuni.mff.lindat.history.data.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -20,8 +19,8 @@ class PreviewMainViewModel : IMainViewModel {
 
     override fun setInputText(text: String) {}
     override fun swapLanguages() {}
-    override fun copyToClipBoard(context: Context, label: String, text: String) {}
-    override fun pasteFromClipBoard(context: Context) {}
+    override fun copyToClipBoard(label: String, text: String) {}
+    override fun pasteFromClipBoard() {}
     override fun setFromHistoryItem(item: HistoryItem) {}
     override fun retry() {}
     override fun setFinishedOnboarding(agreeWithDataCollection: Boolean) {}

@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -67,8 +66,6 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
     val state by viewModel.state.collectAsState()
     val hasFinishedOnboarding by viewModel.hasFinishedOnboarding.collectAsState()
 
-    val context = LocalContext.current
-
     Column {
 
         if (!hasFinishedOnboarding) {
@@ -88,7 +85,7 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
             hasFinishedOnboarding = hasFinishedOnboarding,
 
             pasteFromClipBoard = {
-                viewModel.pasteFromClipBoard(context)
+                viewModel.pasteFromClipBoard()
             },
             onValueChange = {
                 viewModel.setInputText(it)
@@ -176,7 +173,6 @@ fun ActionsRow(
     controller: IController,
     mainText: String,
 ) {
-    val context = LocalContext.current
     val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
     val isTextToSpeechAvailable by viewModel.isTextToSpeechAvailable.collectAsState()
     val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
@@ -222,7 +218,6 @@ fun ActionsRow(
                     contentDescriptionRes = R.string.copy_to_clipboard_cd
                 ) {
                     viewModel.copyToClipBoard(
-                        context = context,
                         label = clipboardLabel,
                         text = mainText
                     )

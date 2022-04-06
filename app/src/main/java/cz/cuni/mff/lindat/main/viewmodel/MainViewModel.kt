@@ -110,15 +110,15 @@ class MainViewModel @Inject constructor(
         textToSpeechEngine?.language = outputLanguage.value.locale
     }
 
-    override fun copyToClipBoard(context: Context, label: String, text: String) {
-        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    override fun copyToClipBoard(label: String, text: String) {
+        val clipboardManager = getApplication<Application>().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text))
 
-        Toast.makeText(context, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
+        Toast.makeText(getApplication(), R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
-    override fun pasteFromClipBoard(context: Context) {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+    override fun pasteFromClipBoard() {
+        val clipboard = getApplication<Application>().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
         clipboard ?: return
 
         if (clipboard.primaryClipDescription?.hasMimeType(MIMETYPE_TEXT_PLAIN) == true) {
