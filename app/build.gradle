@@ -16,7 +16,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "cz.cuni.mff.lindat"
+        applicationId "cz.cuni.mff.ufal.translator"
         minSdk 21
         targetSdk 31
         versionCode 1
