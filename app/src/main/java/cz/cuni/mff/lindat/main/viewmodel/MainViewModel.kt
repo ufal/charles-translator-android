@@ -13,11 +13,14 @@ import cz.cuni.mff.lindat.api.IApi
 import cz.cuni.mff.lindat.db.IDb
 import cz.cuni.mff.lindat.extensions.logE
 import cz.cuni.mff.lindat.history.data.HistoryItem
+import cz.cuni.mff.lindat.preferences.IUserDataStore
 import cz.cuni.mff.lindat.utils.transliterate.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.lindat.utils.transliterate.Transliterate.transliterateLatinToCyril
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -29,6 +32,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val api: IApi,
     private val db: IDb,
+    private val userDataStore: IUserDataStore,
 ) : IMainViewModel, ViewModel() {
 
     private var apiJob: Job? = null
@@ -44,6 +48,11 @@ class MainViewModel @Inject constructor(
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Idle)
+    override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        true,
+    )
 
     override fun onStop() {
         super.onStop()
@@ -106,6 +115,13 @@ class MainViewModel @Inject constructor(
 
     override fun retry() {
         translate()
+    }
+
+    override fun setFinishedOnboarding(agreeWithDataCollection: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDataStore.setFinishedOnboarding()
+            userDataStore.saveAgreementDataCollection(agreeWithDataCollection)
+        }
     }
 
     private fun translate() {

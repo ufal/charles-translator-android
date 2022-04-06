@@ -3,6 +3,7 @@ package cz.cuni.mff.lindat.main.viewmodel
 import android.content.Context
 import cz.cuni.mff.lindat.base.IBaseViewModel
 import cz.cuni.mff.lindat.history.data.HistoryItem
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -18,6 +19,7 @@ interface IMainViewModel : IBaseViewModel {
     val outputLanguage: StateFlow<Language>
 
     val state: StateFlow<MainScreenState>
+    val hasFinishedOnboarding: StateFlow<Boolean>
 
     fun setInputText(text: String)
     fun setInputLanguage(language: Language)
@@ -27,4 +29,6 @@ interface IMainViewModel : IBaseViewModel {
     fun pasteFromClipBoard(context: Context)
     fun setFromHistoryItem(item: HistoryItem)
     fun retry()
+    fun setFinishedOnboarding(agreeWithDataCollection: Boolean)
+
 }

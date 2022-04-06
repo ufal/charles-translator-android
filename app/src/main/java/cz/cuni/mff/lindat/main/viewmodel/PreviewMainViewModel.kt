@@ -3,7 +3,6 @@ package cz.cuni.mff.lindat.main.viewmodel
 import android.content.Context
 import cz.cuni.mff.lindat.history.data.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * @author Tomas Krabac
@@ -15,6 +14,8 @@ class PreviewMainViewModel : IMainViewModel {
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Success)
+    override val hasFinishedOnboarding = MutableStateFlow(true)
+
     override fun setInputText(text: String) {}
     override fun setInputLanguage(language: Language) {}
     override fun swapLanguages() {}
@@ -23,4 +24,5 @@ class PreviewMainViewModel : IMainViewModel {
     override fun pasteFromClipBoard(context: Context) {}
     override fun setFromHistoryItem(item: HistoryItem) {}
     override fun retry() {}
+    override fun setFinishedOnboarding(agreeWithDataCollection: Boolean) {}
 }

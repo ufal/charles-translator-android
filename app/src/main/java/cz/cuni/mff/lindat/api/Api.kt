@@ -1,34 +1,39 @@
 package cz.cuni.mff.lindat.api
 
-import android.util.Log
 import cz.cuni.mff.lindat.main.viewmodel.Language
+import cz.cuni.mff.lindat.preferences.IUserDataStore
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
-import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import javax.inject.Inject
 
 /**
  * @author Tomas Krabac
  */
-class Api : IApi {
+
+
+class Api @Inject constructor(
+    private val userDataStore: IUserDataStore,
+) : IApi {
 
     private val client = HttpClient(Android) {
         //sometimes causing "Mutex is not locked"
-       /* install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    Log.d("HTTP:", message)
-                }
+        /* install(Logging) {
+             logger = object : Logger {
+                 override fun log(message: String) {
+                     Log.d("HTTP:", message)
+                 }
 
-            }
-            level = LogLevel.BODY
-        }*/
+             }
+             level = LogLevel.BODY
+         }*/
 
         defaultRequest {
             accept(ContentType.Application.Json)
@@ -43,7 +48,13 @@ class Api : IApi {
 
     override suspend fun translate(inputLanguage: Language, outputLanguage: Language, text: String): Result<String> {
         return withContext(Dispatchers.IO) {
-            val url = createTranslateUrl(inputLanguage, outputLanguage)
+            val logInput = userDataStore.agreeWithDataCollection().first()
+            val url = createTranslateUrl(
+                inputLanguage = inputLanguage,
+                outputLanguage = outputLanguage,
+                logInput = logInput
+            )
+
             val data = "input_text=$text"
 
             try {
@@ -62,8 +73,12 @@ class Api : IApi {
         }
     }
 
-    private fun createTranslateUrl(inputLanguage: Language, outputLanguage: Language): String {
-        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=false&author=u4uAndroidApp"
+    private fun createTranslateUrl(
+        inputLanguage: Language,
+        outputLanguage: Language,
+        logInput: Boolean
+    ): String {
+        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&frontend=$FRONTED"
     }
 
     private fun parseResponse(rawData: String): String {
@@ -86,6 +101,10 @@ class Api : IApi {
         } else {
             text
         }
+    }
+
+    companion object {
+        const val FRONTED = "AndroidApp"
     }
 
 }

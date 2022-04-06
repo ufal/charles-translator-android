@@ -13,7 +13,7 @@ import cz.cuni.mff.lindat.R
  * @author Tomas Krabac
  */
 @Composable
-fun FirstStartDialog() {
+fun FirstStartDialog(onAgreeAction: (agree: Boolean) -> Unit) {
     val openDialog = remember { mutableStateOf(true) }
 
 
@@ -33,6 +33,7 @@ fun FirstStartDialog() {
                 TextButton(
                     onClick = {
                         openDialog.value = false
+                        onAgreeAction(true)
                     }) {
                     Text(stringResource(id = R.string.dialog_agree))
                 }
@@ -41,6 +42,7 @@ fun FirstStartDialog() {
                 TextButton(
                     onClick = {
                         openDialog.value = false
+                        onAgreeAction(false)
                     }) {
                     Text(stringResource(id = R.string.dialog_disagree))
                 }

@@ -1,6 +1,7 @@
 package cz.cuni.mff.lindat.main.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
@@ -65,15 +66,21 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
     val state by viewModel.state.collectAsState()
-    val context = LocalContext.current
+    val hasFinishedOnboarding by viewModel.hasFinishedOnboarding.collectAsState()
 
     // TODO: presunout do viewmodelu
     val mainText = if (outputLanguage == Language.Ukrainian) outputTextCyrillic else outputTextLatin
     val secondaryText = if (outputLanguage == Language.Ukrainian) outputTextLatin else outputTextCyrillic
 
+    val context = LocalContext.current
+
     Column {
 
-        FirstStartDialog()
+        if (!hasFinishedOnboarding) {
+            FirstStartDialog { agreeWithDataCollection ->
+                viewModel.setFinishedOnboarding(agreeWithDataCollection)
+            }
+        }
 
         SwapRow(inputLanguage = inputLanguage, outputLanguage = outputLanguage) {
             viewModel.swapLanguages()
@@ -83,6 +90,7 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
             modifier = Modifier.weight(3f),
             text = inputText,
             language = inputLanguage,
+            hasFinishedOnboarding = hasFinishedOnboarding,
 
             pasteFromClipBoard = {
                 viewModel.pasteFromClipBoard(context)
@@ -240,13 +248,20 @@ fun InputText(
     modifier: Modifier,
     text: String,
     language: Language,
+    hasFinishedOnboarding: Boolean,
 
     onValueChange: (text: String) -> Unit,
     pasteFromClipBoard: () -> Unit
 ) {
+
     val focusRequester = remember { FocusRequester() }
-    LaunchedEffect(language) {
-        focusRequester.requestFocus()
+    LaunchedEffect(language, hasFinishedOnboarding) {
+        if (hasFinishedOnboarding) {
+            focusRequester.requestFocus()
+        }
+        else{
+            focusRequester.freeFocus()
+        }
     }
 
     var textFieldValue by remember(text) {
