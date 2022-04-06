@@ -36,6 +36,13 @@ android {
             keyPassword "debugkey"
         }
 
+        test {
+            storeFile file("../keystores/debug.jks")
+            storePassword "debugkey"
+            keyAlias "debugkey"
+            keyPassword "debugkey"
+        }
+
         release {
             storeFile file(keystoreProperties['STORE_FILE'])
             storePassword keystoreProperties['STORE_PASSWORD']
@@ -51,6 +58,15 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        beta {
+            signingConfig signingConfigs.test
+            applicationIdSuffix ".beta"
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
