@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 class PreviewMainViewModel : IMainViewModel {
     override val inputText = MutableStateFlow("zdrojovy text")
-    override val outputTextCyrillic = MutableStateFlow("prelozeny text cyrillic")
-    override val outputTextLatin = MutableStateFlow("prelozeny text latin")
+    override val outputTextMain = MutableStateFlow("hlavni text")
+    override val outputTextSecondary = MutableStateFlow("druhy text")
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Success)

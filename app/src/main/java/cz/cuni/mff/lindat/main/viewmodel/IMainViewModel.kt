@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.StateFlow
 interface IMainViewModel : IBaseViewModel {
 
     val inputText: StateFlow<String>
-    val outputTextCyrillic: StateFlow<String>
-    val outputTextLatin: StateFlow<String>
+    val outputTextMain: StateFlow<String>
+    val outputTextSecondary: StateFlow<String>
 
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>

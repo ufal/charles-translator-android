@@ -48,8 +48,8 @@ class MainViewModel @Inject constructor(
     private var textToSpeechEngine: TextToSpeech? = null
 
     override val inputText = MutableStateFlow("")
-    override val outputTextCyrillic = MutableStateFlow("")
-    override val outputTextLatin = MutableStateFlow("")
+    override val outputTextMain = MutableStateFlow("")
+    override val outputTextSecondary = MutableStateFlow("")
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Idle)
@@ -147,16 +147,15 @@ class MainViewModel @Inject constructor(
     }
 
     override fun textToSpeech() {
-        // TODO: main text 
-        val text = outputTextCyrillic.value
+        val text = outputTextMain.value
         textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
     }
 
     private fun translate() {
         if (inputText.value.isBlank()) {
             apiJob?.cancel()
-            outputTextCyrillic.value = ""
-            outputTextLatin.value = ""
+            outputTextMain.value = ""
+            outputTextSecondary.value = ""
             state.value = MainScreenState.Idle
             return
         }
@@ -178,12 +177,12 @@ class MainViewModel @Inject constructor(
                 lastRequestMs = System.currentTimeMillis()
                 when (outputLanguage.value) {
                     Language.Czech -> {
-                        outputTextCyrillic.value = transliterateLatinToCyril(it)
-                        outputTextLatin.value = it
+                        outputTextMain.value = it
+                        outputTextSecondary.value = transliterateLatinToCyril(it)
                     }
                     Language.Ukrainian -> {
-                        outputTextCyrillic.value = it
-                        outputTextLatin.value = transliterateCyrilToLatin(it)
+                        outputTextMain.value = it
+                        outputTextSecondary.value = transliterateCyrilToLatin(it)
                     }
                 }
                 state.value = MainScreenState.Success

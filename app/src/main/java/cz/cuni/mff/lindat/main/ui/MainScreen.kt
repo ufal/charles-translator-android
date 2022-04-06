@@ -60,16 +60,12 @@ fun MainScreen(viewModel: IMainViewModel, controller: IController) {
 @Composable
 fun Content(viewModel: IMainViewModel, controller: IController) {
     val inputText by viewModel.inputText.collectAsState()
-    val outputTextCyrillic by viewModel.outputTextCyrillic.collectAsState()
-    val outputTextLatin by viewModel.outputTextLatin.collectAsState()
+    val outputTextMain by viewModel.outputTextMain.collectAsState()
+    val outputTextSecondary by viewModel.outputTextSecondary.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
     val state by viewModel.state.collectAsState()
     val hasFinishedOnboarding by viewModel.hasFinishedOnboarding.collectAsState()
-
-    // TODO: presunout do viewmodelu
-    val mainText = if (outputLanguage == Language.Ukrainian) outputTextCyrillic else outputTextLatin
-    val secondaryText = if (outputLanguage == Language.Ukrainian) outputTextLatin else outputTextCyrillic
 
     val context = LocalContext.current
 
@@ -127,13 +123,13 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
                     OutputText(
                         modifier = Modifier,
                         fontWeight = FontWeight.Bold,
-                        text = mainText,
+                        text = outputTextMain,
                     )
 
                     OutputText(
                         modifier = Modifier,
                         fontWeight = FontWeight.Normal,
-                        text = secondaryText,
+                        text = outputTextSecondary,
                     )
                 }
 
@@ -144,7 +140,7 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         ActionsRow(
             viewModel = viewModel,
             controller = controller,
-            mainText = mainText,
+            mainText = outputTextMain,
         )
 
 
