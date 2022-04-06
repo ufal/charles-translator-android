@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lindat</string>
+    <string name="app_name">Lindat Translator</string>
     <string name="title">ÚFAL Translator</string>
     <string name="history_title">History</string>
     <string name="cz_label">Čeština</string>
