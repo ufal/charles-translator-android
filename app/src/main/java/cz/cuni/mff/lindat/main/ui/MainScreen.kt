@@ -73,6 +73,8 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 
     Column {
 
+        FirstStartDialog()
+
         SwapRow(inputLanguage = inputLanguage, outputLanguage = outputLanguage) {
             viewModel.swapLanguages()
         }
