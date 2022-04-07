@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.api
 
+import cz.cuni.mff.ufal.translator.BuildConfig
 import cz.cuni.mff.ufal.translator.main.viewmodel.Language
 import cz.cuni.mff.ufal.translator.preferences.IUserDataStore
 import io.ktor.client.*
@@ -78,7 +79,7 @@ class Api @Inject constructor(
         outputLanguage: Language,
         logInput: Boolean
     ): String {
-        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&frontend=$FRONTED"
+        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput"
     }
 
     private fun parseResponse(rawData: String): String {
@@ -104,7 +105,7 @@ class Api @Inject constructor(
     }
 
     companion object {
-        const val FRONTED = "AndroidApp"
+        const val FRONTED = "android-app-v${BuildConfig.VERSION_NAME}"
     }
 
 }
