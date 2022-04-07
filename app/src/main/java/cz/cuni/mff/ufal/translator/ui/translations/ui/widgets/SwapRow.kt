@@ -19,7 +19,13 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.Language
  * @author Tomas Krabac
  */
 @Composable
-fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: () -> Unit) {
+fun SwapRow(
+    inputLanguage: Language,
+    outputLanguage: Language,
+
+    swapLanguages: () -> Unit,
+    showMore: () -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -36,7 +42,7 @@ fun SwapRow(inputLanguage: Language, outputLanguage: Language, swapLanguages: ()
         }
 
         ActionItem(drawableRes = R.drawable.ic_more, contentDescriptionRes = R.string.more_cd) {
-
+            showMore()
         }
     }
 }
