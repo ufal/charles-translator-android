@@ -99,7 +99,7 @@ fun InputText(
                         .align(Alignment.TopEnd)
                         .padding(end = 8.dp)
                 ) {
-                    onValueChange(InputTextData("", TextSource.CleanButton))
+                    onValueChange(InputTextData("", TextSource.ClearButton))
                 }
             }
         }

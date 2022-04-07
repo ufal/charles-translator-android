@@ -7,6 +7,6 @@ enum class TextSource {
     Keyboard,
     Voice,
     Clipboard,
-    CleanButton,
+    ClearButton,
     History
 }

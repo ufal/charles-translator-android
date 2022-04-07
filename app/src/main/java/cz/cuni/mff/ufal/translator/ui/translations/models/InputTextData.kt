@@ -5,5 +5,5 @@ package cz.cuni.mff.ufal.translator.ui.translations.models
  */
 data class InputTextData(
     val text: String = "",
-    val source: TextSource = TextSource.CleanButton
+    val source: TextSource = TextSource.ClearButton
 )
