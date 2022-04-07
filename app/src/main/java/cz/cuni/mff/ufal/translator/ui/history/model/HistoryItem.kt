@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.history.data
+package cz.cuni.mff.ufal.translator.ui.history.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

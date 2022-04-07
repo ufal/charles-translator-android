@@ -1,7 +1,7 @@
-package cz.cuni.mff.ufal.translator.history.viewmodel
+package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**

@@ -14,7 +14,7 @@ import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.extensions.logE
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril

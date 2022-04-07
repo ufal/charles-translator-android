@@ -1,7 +1,7 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
 import cz.cuni.mff.ufal.translator.base.IBaseViewModel
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language

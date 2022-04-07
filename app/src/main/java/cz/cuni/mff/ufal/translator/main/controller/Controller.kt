@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 

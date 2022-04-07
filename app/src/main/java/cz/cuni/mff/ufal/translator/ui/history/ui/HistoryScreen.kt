@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.history.ui
+package cz.cuni.mff.ufal.translator.ui.history.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,15 +16,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
-import cz.cuni.mff.ufal.translator.history.viewmodel.IHistoryViewModel
-import cz.cuni.mff.ufal.translator.history.viewmodel.PreviewHistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
 import cz.cuni.mff.ufal.translator.main.controller.IController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
 import cz.cuni.mff.ufal.translator.ui.common.FlagItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 
 /**
  * @author Tomas Krabac

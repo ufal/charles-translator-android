@@ -3,8 +3,7 @@ package cz.cuni.mff.ufal.translator.interactors.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
-import cz.cuni.mff.ufal.translator.interactors.db.history.IHistoryDao
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 
 /**
  * @author Tomas Krabac

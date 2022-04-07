@@ -1,9 +1,9 @@
-package cz.cuni.mff.ufal.translator.history.viewmodel
+package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

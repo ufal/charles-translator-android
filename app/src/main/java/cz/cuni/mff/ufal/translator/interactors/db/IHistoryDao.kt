@@ -1,7 +1,7 @@
-package cz.cuni.mff.ufal.translator.interactors.db.history
+package cz.cuni.mff.ufal.translator.interactors.db
 
 import androidx.room.*
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,6 +1,6 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 
 /**
  * @author Tomas Krabac

@@ -8,9 +8,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import cz.cuni.mff.ufal.translator.history.data.HistoryItem
-import cz.cuni.mff.ufal.translator.history.ui.HistoryScreen
-import cz.cuni.mff.ufal.translator.history.viewmodel.HistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.ui.HistoryScreen
+import cz.cuni.mff.ufal.translator.ui.history.viewmodel.HistoryViewModel
 import cz.cuni.mff.ufal.translator.main.controller.rememberController
 import cz.cuni.mff.ufal.translator.ui.translations.ui.TranslationsScreen
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
