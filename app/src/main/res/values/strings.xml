@@ -1,27 +1,25 @@
 <resources>
     <string name="app_name">Lindat Translator</string>
-    <string name="title">ÚFAL Translator</string>
     <string name="history_title">Historie překladů</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinština</string>
-    <string name="czech_flag_cd">czech flag</string>
-    <string name="ukraine_flag_cd">ukraine flag</string>
-    <string name="swap_cd">Swap languages</string>
-    <string name="clear_cd">Clear text</string>
-    <string name="copy_to_clipboard_cd">Copy to clipboard</string>
+    <string name="czech_flag_cd">česká vlajka</string>
+    <string name="ukraine_flag_cd">ukrajinská vlajka</string>
+    <string name="swap_cd">prohodit jazyky</string>
+    <string name="clear_cd">vymazat text</string>
+    <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
     <string name="speech_recognizer_cd">Diktování</string>
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
-    <string name="cyrillic_label">Cyrillic</string>
-    <string name="history_cd">History</string>
-    <string name="add_to_favourites_cd">Add to favourites</string>
-    <string name="remove_from_favourites_cd">Remove from favourites</string>
-    <string name="delete_cd">Delete from history</string>
-    <string name="api_error">Translation failed, please try again</string>
-    <string name="try_again">Try again</string>
+    <string name="history_cd">Historie překladů</string>
+    <string name="add_to_favourites_cd">Přidat do oblíbených</string>
+    <string name="remove_from_favourites_cd">Odebrat z oblíbených</string>
+    <string name="delete_cd">Smazat z historie</string>
+    <string name="api_error">Překlad selhal, prosím zkuste to znovu</string>
+    <string name="try_again">Zkusit znovu</string>
     <string name="paste">Vložit ze schránky</string>
-    <string name="paste_cd">Paste from clipboard</string>
-    <string name="tts_cd">text to speech</string>
+    <string name="paste_cd">Vložit ze schránky (ikonka)</string>
+    <string name="tts_cd">Převod textu na řeč</string>
     <string name="insert_text">Napište text</string>
     <string name="more_cd">Zobrazit vice</string>
 
@@ -50,7 +48,7 @@ For any questions about this Translator, please contact <a href="/support-mail">
 
 ]]>
     </string>
-    <string name="ufal_cd">=ÚFAL logo</string>
+    <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>
     <string name="mail_app_not_found">Nebyla nalezena mailova aplikace</string>
 
