@@ -191,7 +191,7 @@ class TranslationsViewModel @Inject constructor(
                 state.value = TranslationsScreenState.Success
             }.onFailure {
                 state.value = TranslationsScreenState.Error
-                logE("error $it")
+                logE("translate error", it)
             }
         }
     }
