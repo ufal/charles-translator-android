@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
-import cz.cuni.mff.ufal.translator.ui.common.FlagItem
+import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 /**
@@ -24,7 +24,7 @@ fun SwapRow(
     outputLanguage: Language,
 
     swapLanguages: () -> Unit,
-    showMore: () -> Unit,
+    onAboutAppClicked: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -41,9 +41,18 @@ fun SwapRow(
             Label(modifier = Modifier.weight(1f), language = outputLanguage)
         }
 
-        ActionItem(drawableRes = R.drawable.ic_more, contentDescriptionRes = R.string.more_cd) {
-            showMore()
+        Row {
+            val state = rememberDropdownMenuState()
+            ActionItem(drawableRes = R.drawable.ic_more, contentDescriptionRes = R.string.more_cd) {
+                state.expand()
+            }
+            ShowMoreMenu(
+                state = state,
+
+                onAboutAppClicked = onAboutAppClicked
+            )
         }
+
     }
 }
 

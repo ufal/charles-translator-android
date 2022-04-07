@@ -15,14 +15,14 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(viewModel: IBaseViewModel, content: @Composable () -> Unit) {
+fun BaseScreen(viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_START) {
-                viewModel.onStart()
+                viewModel?.onStart()
             } else if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.onStop()
+                viewModel?.onStop()
             }
         }
 

@@ -11,5 +11,11 @@ interface IController {
 
     fun navigateMainScreen(item: HistoryItem)
 
+    fun navigateAboutScreen()
+
+    fun openWebUrl(url: String)
+
+    fun sendMail(mail: String)
+
     fun onBackPressed()
 }

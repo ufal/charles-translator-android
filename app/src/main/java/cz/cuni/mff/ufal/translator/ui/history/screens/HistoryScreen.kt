@@ -15,16 +15,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
-import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
-import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
-import cz.cuni.mff.ufal.translator.main.controller.IController
-import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
-import cz.cuni.mff.ufal.translator.ui.common.FlagItem
-import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.main.controller.IController
+import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
+import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
+import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagItem
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -44,7 +44,7 @@ private fun Content(viewModel: IHistoryViewModel, controller: IController) {
     val historyItems by viewModel.historyItems.collectAsState()
 
     Column {
-        Toolbar {
+        BaseToolbar(titleRes = R.string.history_title) {
             controller.onBackPressed()
         }
 
@@ -76,31 +76,6 @@ private fun Content(viewModel: IHistoryViewModel, controller: IController) {
     }
 }
 
-@Composable
-fun Toolbar(
-    onBackPressed: () -> Unit,
-) {
-    TopAppBar(
-        backgroundColor = MaterialTheme.colors.primary,
-        navigationIcon = {
-            IconButton(onClick = onBackPressed) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_back),
-                    tint = MaterialTheme.colors.onPrimary,
-                    contentDescription = ""
-                )
-            }
-        },
-        title = {
-            Text(
-                text = stringResource(id = R.string.history_title),
-                color = MaterialTheme.colors.onPrimary,
-            )
-        },
-        modifier = Modifier.statusBarsPadding(),
-        elevation = 4.dp,
-    )
-}
 
 @Composable
 private fun HistoryRowItem(

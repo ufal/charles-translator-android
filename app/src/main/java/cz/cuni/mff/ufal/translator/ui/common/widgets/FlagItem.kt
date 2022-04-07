@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.common
+package cz.cuni.mff.ufal.translator.ui.common.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
@@ -10,6 +10,9 @@ import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
+/**
+ * @author Tomas Krabac
+ */
 /**
  * @author Tomas Krabac
  */
