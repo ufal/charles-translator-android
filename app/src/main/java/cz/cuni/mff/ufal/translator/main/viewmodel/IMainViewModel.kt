@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface IMainViewModel : IBaseViewModel {
 
-    val inputText: StateFlow<String>
-    val outputTextMain: StateFlow<String>
-    val outputTextSecondary: StateFlow<String>
+    val inputTextData: StateFlow<InputTextData>
+    val outputTextData: StateFlow<OutputTextData>
 
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>
@@ -21,7 +20,7 @@ interface IMainViewModel : IBaseViewModel {
     val isTextToSpeechAvailable: StateFlow<Boolean>
     val isSpeechRecognizerAvailable: Boolean
 
-    fun setInputText(text: String)
+    fun setInputText(data: InputTextData)
     fun swapLanguages()
     fun copyToClipBoard(label: String, text: String)
     fun pasteFromClipBoard()

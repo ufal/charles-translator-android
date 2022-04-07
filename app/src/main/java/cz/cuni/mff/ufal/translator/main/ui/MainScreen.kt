@@ -30,17 +30,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cuni.mff.ufal.translator.main.viewmodel.IMainViewModel
-import cz.cuni.mff.ufal.translator.main.viewmodel.Language
-import cz.cuni.mff.ufal.translator.main.viewmodel.MainScreenState
-import cz.cuni.mff.ufal.translator.main.viewmodel.PreviewMainViewModel
-import cz.cuni.mff.ufal.translator.ui.common.FlagItem
-import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
-import cz.cuni.mff.ufal.translator.voice.VoiceContract
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.main.controller.IController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
+import cz.cuni.mff.ufal.translator.main.viewmodel.*
+import cz.cuni.mff.ufal.translator.ui.common.FlagItem
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.voice.VoiceContract
 
 /**
  * @author Tomas Krabac
@@ -58,9 +55,8 @@ fun MainScreen(viewModel: IMainViewModel, controller: IController) {
 
 @Composable
 fun Content(viewModel: IMainViewModel, controller: IController) {
-    val inputText by viewModel.inputText.collectAsState()
-    val outputTextMain by viewModel.outputTextMain.collectAsState()
-    val outputTextSecondary by viewModel.outputTextSecondary.collectAsState()
+    val inputTextData by viewModel.inputTextData.collectAsState()
+    val outputTextData by viewModel.outputTextData.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
     val state by viewModel.state.collectAsState()
@@ -80,7 +76,7 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
 
         InputText(
             modifier = Modifier.weight(3f),
-            text = inputText,
+            data = inputTextData,
             language = inputLanguage,
             hasFinishedOnboarding = hasFinishedOnboarding,
 
@@ -120,13 +116,13 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
                     OutputText(
                         modifier = Modifier,
                         fontWeight = FontWeight.Bold,
-                        text = outputTextMain,
+                        text = outputTextData.mainText,
                     )
 
                     OutputText(
                         modifier = Modifier,
                         fontWeight = FontWeight.Normal,
-                        text = outputTextSecondary,
+                        text = outputTextData.secondaryText,
                     )
                 }
 
@@ -137,7 +133,7 @@ fun Content(viewModel: IMainViewModel, controller: IController) {
         ActionsRow(
             viewModel = viewModel,
             controller = controller,
-            mainText = outputTextMain,
+            mainText = outputTextData.mainText,
         )
 
 
@@ -180,7 +176,7 @@ fun ActionsRow(
 
     val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
         if (text != null) {
-            viewModel.setInputText(text)
+            viewModel.setInputText(InputTextData(text, TextSource.Voice))
         }
     }
 
@@ -239,13 +235,14 @@ fun ActionsRow(
 @Composable
 fun InputText(
     modifier: Modifier,
-    text: String,
+    data: InputTextData,
     language: Language,
     hasFinishedOnboarding: Boolean,
 
-    onValueChange: (text: String) -> Unit,
+    onValueChange: (data: InputTextData) -> Unit,
     pasteFromClipBoard: () -> Unit
 ) {
+    val text = data.text
 
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(language, hasFinishedOnboarding) {
@@ -288,7 +285,7 @@ fun InputText(
                 },
                 onValueChange = {
                     textFieldValue = it
-                    onValueChange(it.text)
+                    onValueChange(InputTextData(it.text, TextSource.Keyboard))
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
                 keyboardActions = KeyboardActions(
@@ -308,7 +305,7 @@ fun InputText(
                         .align(Alignment.TopEnd)
                         .padding(end = 8.dp)
                 ) {
-                    onValueChange("")
+                    onValueChange(InputTextData("", TextSource.CleanButton))
                 }
             }
         }

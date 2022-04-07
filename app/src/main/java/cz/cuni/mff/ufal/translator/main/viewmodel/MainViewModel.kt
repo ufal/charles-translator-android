@@ -10,14 +10,14 @@ import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cuni.mff.ufal.translator.preferences.IUserDataStore
-import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateCyrilToLatin
-import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateLatinToCyril
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.api.IApi
 import cz.cuni.mff.ufal.translator.db.IDb
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.history.data.HistoryItem
+import cz.cuni.mff.ufal.translator.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateCyrilToLatin
+import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateLatinToCyril
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,9 +47,8 @@ class MainViewModel @Inject constructor(
 
     private var textToSpeechEngine: TextToSpeech? = null
 
-    override val inputText = MutableStateFlow("")
-    override val outputTextMain = MutableStateFlow("")
-    override val outputTextSecondary = MutableStateFlow("")
+    override val inputTextData = MutableStateFlow(InputTextData())
+    override val outputTextData = MutableStateFlow(OutputTextData())
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Idle)
@@ -92,8 +91,8 @@ class MainViewModel @Inject constructor(
         textToSpeechEngine?.shutdown()
     }
 
-    override fun setInputText(text: String) {
-        inputText.value = text
+    override fun setInputText(data: InputTextData) {
+        inputTextData.value = data
         translate()
         startSaveTimer()
     }
@@ -123,7 +122,7 @@ class MainViewModel @Inject constructor(
 
         if (clipboard.primaryClipDescription?.hasMimeType(MIMETYPE_TEXT_PLAIN) == true) {
             val text = clipboard.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
-            setInputText(text)
+            setInputText(InputTextData(text, TextSource.Clipboard))
         }
     }
 
@@ -132,7 +131,7 @@ class MainViewModel @Inject constructor(
         outputLanguage.value = item.outputLanguage
         //outputTextCyrillic.value = ""
         //outputTextLatin.value = ""
-        setInputText(item.text)
+        setInputText(InputTextData(item.text, TextSource.History))
     }
 
     override fun retry() {
@@ -147,15 +146,14 @@ class MainViewModel @Inject constructor(
     }
 
     override fun textToSpeech() {
-        val text = outputTextMain.value
+        val text = outputTextData.value.mainText
         textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
     }
 
     private fun translate() {
-        if (inputText.value.isBlank()) {
+        if (inputTextData.value.text.isBlank()) {
             apiJob?.cancel()
-            outputTextMain.value = ""
-            outputTextSecondary.value = ""
+            outputTextData.value = OutputTextData()
             state.value = MainScreenState.Idle
             return
         }
@@ -172,17 +170,21 @@ class MainViewModel @Inject constructor(
             api.translate(
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
-                text = inputText.value.trim()
+                text = inputTextData.value.text.trim()
             ).onSuccess {
                 lastRequestMs = System.currentTimeMillis()
-                when (outputLanguage.value) {
+                outputTextData.value = when (outputLanguage.value) {
                     Language.Czech -> {
-                        outputTextMain.value = it
-                        outputTextSecondary.value = transliterateLatinToCyril(it)
+                        OutputTextData(
+                            mainText = it,
+                            secondaryText = transliterateLatinToCyril(it)
+                        )
                     }
                     Language.Ukrainian -> {
-                        outputTextMain.value = it
-                        outputTextSecondary.value = transliterateCyrilToLatin(it)
+                        OutputTextData(
+                            mainText = it,
+                            secondaryText = transliterateCyrilToLatin(it)
+                        )
                     }
                 }
                 state.value = MainScreenState.Success
@@ -202,13 +204,13 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun saveItem() {
-        if (inputText.value.isEmpty()) {
+        if (inputTextData.value.text.isEmpty()) {
             return
         }
 
         withContext(Dispatchers.IO) {
             val item = HistoryItem(
-                text = inputText.value,
+                text = inputTextData.value.text,
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
             )

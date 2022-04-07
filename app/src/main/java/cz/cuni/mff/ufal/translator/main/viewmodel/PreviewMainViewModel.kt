@@ -7,9 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * @author Tomas Krabac
  */
 class PreviewMainViewModel : IMainViewModel {
-    override val inputText = MutableStateFlow("zdrojovy text")
-    override val outputTextMain = MutableStateFlow("hlavni text")
-    override val outputTextSecondary = MutableStateFlow("druhy text")
+    override val inputTextData = MutableStateFlow(InputTextData("zdrojovy text"))
+    override val outputTextData = MutableStateFlow(OutputTextData("hlavni text", "druhy text"))
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(MainScreenState.Success)
@@ -17,7 +16,7 @@ class PreviewMainViewModel : IMainViewModel {
     override val isTextToSpeechAvailable = MutableStateFlow(true)
     override val isSpeechRecognizerAvailable = true
 
-    override fun setInputText(text: String) {}
+    override fun setInputText(data: InputTextData) {}
     override fun swapLanguages() {}
     override fun copyToClipBoard(label: String, text: String) {}
     override fun pasteFromClipBoard() {}
