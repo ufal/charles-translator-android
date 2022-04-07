@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.translations.ui
+package cz.cuni.mff.ufal.translator.ui.translations.screens
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text

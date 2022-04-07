@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.translations.ui
+package cz.cuni.mff.ufal.translator.ui.translations.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
@@ -17,7 +17,7 @@ import cz.cuni.mff.ufal.translator.main.controller.IController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
-import cz.cuni.mff.ufal.translator.ui.translations.ui.widgets.*
+import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.*
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.PreviewTranslationsViewModel
 

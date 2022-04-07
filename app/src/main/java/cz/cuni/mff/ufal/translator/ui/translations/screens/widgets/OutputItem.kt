@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.translations.ui.widgets
+package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

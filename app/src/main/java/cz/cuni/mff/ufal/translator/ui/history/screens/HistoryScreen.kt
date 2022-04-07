@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.history.ui
+package cz.cuni.mff.ufal.translator.ui.history.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
