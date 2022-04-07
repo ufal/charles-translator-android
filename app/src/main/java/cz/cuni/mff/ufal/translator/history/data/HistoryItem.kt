@@ -2,7 +2,7 @@ package cz.cuni.mff.ufal.translator.history.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import cz.cuni.mff.ufal.translator.main.viewmodel.Language
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.serialization.Serializable
 
 /**

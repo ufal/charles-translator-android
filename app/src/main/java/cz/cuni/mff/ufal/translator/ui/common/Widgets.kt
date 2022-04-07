@@ -8,7 +8,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
-import cz.cuni.mff.ufal.translator.main.viewmodel.Language
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 /**
  * @author Tomas Krabac

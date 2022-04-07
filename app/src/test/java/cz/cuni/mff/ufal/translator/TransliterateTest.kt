@@ -1,7 +1,7 @@
 package cz.cuni.mff.ufal.translator
 
-import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateCyrilToLatin
-import cz.cuni.mff.ufal.translator.utils.Transliterate.transliterateLatinToCyril
+import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
+import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

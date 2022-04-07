@@ -12,8 +12,8 @@ import cz.cuni.mff.ufal.translator.history.data.HistoryItem
 import cz.cuni.mff.ufal.translator.history.ui.HistoryScreen
 import cz.cuni.mff.ufal.translator.history.viewmodel.HistoryViewModel
 import cz.cuni.mff.ufal.translator.main.controller.rememberController
-import cz.cuni.mff.ufal.translator.main.ui.MainScreen
-import cz.cuni.mff.ufal.translator.main.viewmodel.MainViewModel
+import cz.cuni.mff.ufal.translator.ui.translations.ui.TranslationsScreen
+import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -26,12 +26,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val controller = rememberController()
 
-            NavHost(controller.navController, startDestination = "main/{item}") {
+            NavHost(controller.navController, startDestination = "translations/{item}") {
                 composable(
-                    "main/{item}",
+                    "translations/{item}",
                     arguments = listOf(navArgument("item") { type = NavType.StringType })
                 ) { backStackEntry ->
-                    val viewModel by viewModels<MainViewModel>()
+                    val viewModel by viewModels<TranslationsViewModel>()
 
                     val json = backStackEntry.arguments?.getString("item")
                     if (!json.isNullOrEmpty()) {
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                         viewModel.setFromHistoryItem(historyItem)
                     }
 
-                    MainScreen(
+                    TranslationsScreen(
                         viewModel = viewModel,
                         controller = controller
                     )

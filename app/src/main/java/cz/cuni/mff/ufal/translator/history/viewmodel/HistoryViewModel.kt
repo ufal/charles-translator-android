@@ -2,7 +2,7 @@ package cz.cuni.mff.ufal.translator.history.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cuni.mff.ufal.translator.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.history.data.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

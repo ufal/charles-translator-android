@@ -20,7 +20,7 @@ class Controller(val navController: NavHostController) : IController {
 
     override fun navigateMainScreen(item: HistoryItem) {
         val json = Json.encodeToString(item)
-        navController.navigate("main/${json}")
+        navController.navigate("translations/${json}")
     }
 
     override fun onBackPressed() {
