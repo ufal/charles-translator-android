@@ -5,7 +5,7 @@ import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 /**
  * @author Tomas Krabac
  */
-interface IController {
+interface IMainController {
 
     fun navigateHistory()
 

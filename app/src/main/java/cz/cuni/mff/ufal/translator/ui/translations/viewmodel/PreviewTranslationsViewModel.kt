@@ -22,7 +22,7 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
 
     override fun setInputText(data: InputTextData) {}
     override fun swapLanguages() {}
-    override fun copyToClipBoard(label: String, text: String) {}
+    override fun copyToClipBoard(text: String) {}
     override fun pasteFromClipBoard() {}
     override fun setFromHistoryItem(item: HistoryItem) {}
     override fun retry() {}

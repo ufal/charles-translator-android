@@ -9,8 +9,20 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface IHistoryDao {
-    @Query("SELECT * FROM history_items ORDER BY is_favourite DESC, inserted_ms DESC")
+    @Query(
+        "SELECT * " +
+                "FROM history_items " +
+                "ORDER BY inserted_ms DESC"
+    )
     fun getAll(): Flow<List<HistoryItem>>
+
+    @Query(
+        "SELECT * " +
+                "FROM history_items " +
+                "WHERE is_favourite = 1 " +
+                "ORDER BY inserted_ms DESC "
+    )
+    fun getFavourites(): Flow<List<HistoryItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(item: HistoryItem)

@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.ireward.htmlcompose.HtmlText
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
-import cz.cuni.mff.ufal.translator.main.controller.IController
-import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
+import cz.cuni.mff.ufal.translator.main.controller.IMainController
+import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
@@ -27,19 +27,19 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 private const val SUPPORT_MAIL = "u4u@ufal.mff.cuni.cz"
 
 @Composable
-fun AboutScreen(controller: IController) {
+fun AboutScreen(mainController: IMainController) {
     BaseScreen {
         Content(
-            controller = controller,
+            mainController = mainController,
         )
     }
 }
 
 @Composable
-private fun Content(controller: IController) {
+private fun Content(mainController: IMainController) {
     Column {
         BaseToolbar(titleRes = R.string.about_title) {
-            controller.onBackPressed()
+            mainController.onBackPressed()
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
@@ -73,9 +73,9 @@ private fun Content(controller: IController) {
                 ),
                 linkClicked = { url ->
                     if (url == "/support-mail") {
-                        controller.sendMail(SUPPORT_MAIL)
+                        mainController.sendMail(SUPPORT_MAIL)
                     } else {
-                        controller.openWebUrl(url)
+                        mainController.openWebUrl(url)
                     }
                 }
             )
@@ -91,7 +91,7 @@ private fun Content(controller: IController) {
 private fun AboutScreenPreview() {
     LindatTheme {
         AboutScreen(
-            controller = PreviewIController(),
+            mainController = PreviewIMainController(),
         )
     }
 }

@@ -5,7 +5,7 @@ import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 /**
  * @author Tomas Krabac
  */
-class PreviewIController : IController {
+class PreviewIMainController : IMainController {
     override fun navigateHistory() {}
     override fun navigateMainScreen(item: HistoryItem) {}
     override fun navigateAboutScreen() {}

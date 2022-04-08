@@ -26,7 +26,7 @@ interface ITranslationsViewModel : IBaseViewModel {
 
     fun setInputText(data: InputTextData)
     fun swapLanguages()
-    fun copyToClipBoard(label: String, text: String)
+    fun copyToClipBoard(text: String)
     fun pasteFromClipBoard()
     fun setFromHistoryItem(item: HistoryItem)
     fun retry()

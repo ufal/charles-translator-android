@@ -52,4 +52,8 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="lindat_cd">LINDAT logo</string>
     <string name="mail_app_not_found">Nebyla nalezena mailova aplikace</string>
 
+    <string name="history_bottom_all">Vše</string>
+    <string name="history_bottom_favourites">Oblíbené</string>
+
+
 </resources>

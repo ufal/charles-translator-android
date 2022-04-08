@@ -1,23 +1,19 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
 import android.app.Application
-import android.content.ClipData
-import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
-import android.content.ClipboardManager
-import android.content.Context
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
-import cz.cuni.mff.ufal.translator.interactors.api.IApi
-import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.extensions.logE
-import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
+import cz.cuni.mff.ufal.translator.interactors.api.IApi
+import cz.cuni.mff.ufal.translator.interactors.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.ui.common.ContextUtils
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -103,36 +99,25 @@ class TranslationsViewModel @Inject constructor(
         inputLanguage.value = outputLanguage.value
         outputLanguage.value = tmpInputLanguage
 
-        //outputTextCyrillic.value = ""
-        //outputTextLatin.value = ""
         translate()
 
         textToSpeechEngine?.language = outputLanguage.value.locale
     }
 
-    override fun copyToClipBoard(label: String, text: String) {
-        val clipboardManager = getApplication<Application>().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(label, text))
-
-        Toast.makeText(getApplication(), R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
+    override fun copyToClipBoard(text: String) {
+        val label = getApplication<Application>().resources.getString(R.string.copy_to_clipboard_label)
+        ContextUtils.copyToClipBoard(getApplication(), label, text)
     }
 
     override fun pasteFromClipBoard() {
-        val clipboard = getApplication<Application>().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-        clipboard ?: return
-
-        if (clipboard.primaryClipDescription?.hasMimeType(MIMETYPE_TEXT_PLAIN) == true) {
-            val text = clipboard.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
-            setInputText(InputTextData(text, TextSource.Clipboard))
-        }
+        val text = ContextUtils.pasteFromClipBoard(getApplication())
+        setInputText(InputTextData(text, TextSource.Clipboard))
     }
 
     override fun setFromHistoryItem(item: HistoryItem) {
         inputLanguage.value = item.inputLanguage
         outputLanguage.value = item.outputLanguage
-        //outputTextCyrillic.value = ""
-        //outputTextLatin.value = ""
-        setInputText(InputTextData(item.text, TextSource.History))
+        setInputText(InputTextData(item.outputText, TextSource.History))
     }
 
     override fun retry() {
@@ -211,7 +196,8 @@ class TranslationsViewModel @Inject constructor(
 
         withContext(Dispatchers.IO) {
             val item = HistoryItem(
-                text = inputTextData.value.text,
+                inputText = inputTextData.value.text,
+                outputText = outputTextData.value.mainText,
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
             )

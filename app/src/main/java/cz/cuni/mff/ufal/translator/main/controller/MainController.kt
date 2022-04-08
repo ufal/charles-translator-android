@@ -21,10 +21,10 @@ import kotlinx.serialization.json.Json
 /**
  * @author Tomas Krabac
  */
-class Controller(
+class MainController(
     val navController: NavHostController,
     private val context: Context,
-) : IController {
+) : IMainController {
     override fun navigateHistory() {
         navController.navigate("history")
     }
@@ -62,11 +62,11 @@ class Controller(
 }
 
 @Composable
-fun rememberController(): Controller {
+fun rememberMainController(): MainController {
     val navController = rememberNavController()
     val context = LocalContext.current
     return remember {
-        Controller(
+        MainController(
             navController = navController,
             context = context,
         )

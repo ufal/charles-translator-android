@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.base.BaseScreen
-import cz.cuni.mff.ufal.translator.main.controller.IController
-import cz.cuni.mff.ufal.translator.main.controller.PreviewIController
+import cz.cuni.mff.ufal.translator.main.controller.IMainController
+import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.*
@@ -24,17 +24,17 @@ import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.PreviewTranslations
  */
 
 @Composable
-fun TranslationsScreen(viewModel: ITranslationsViewModel, controller: IController) {
+fun TranslationsScreen(viewModel: ITranslationsViewModel, mainController: IMainController) {
     BaseScreen(viewModel = viewModel) {
         Content(
             viewModel = viewModel,
-            controller = controller,
+            mainController = mainController,
         )
     }
 }
 
 @Composable
-fun Content(viewModel: ITranslationsViewModel, controller: IController) {
+fun Content(viewModel: ITranslationsViewModel, mainController: IMainController) {
     val inputTextData by viewModel.inputTextData.collectAsState()
     val outputTextData by viewModel.outputTextData.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
@@ -54,7 +54,7 @@ fun Content(viewModel: ITranslationsViewModel, controller: IController) {
             inputLanguage = inputLanguage,
             outputLanguage = outputLanguage,
 
-            onAboutAppClicked = controller::navigateAboutScreen,
+            onAboutAppClicked = mainController::navigateAboutScreen,
             swapLanguages = viewModel::swapLanguages
         )
 
@@ -96,7 +96,7 @@ fun Content(viewModel: ITranslationsViewModel, controller: IController) {
 
         ActionsRow(
             viewModel = viewModel,
-            controller = controller,
+            mainController = mainController,
             mainText = outputTextData.mainText,
         )
     }
@@ -108,7 +108,7 @@ private fun MainScreenPreview() {
     LindatTheme {
         TranslationsScreen(
             viewModel = PreviewTranslationsViewModel(),
-            controller = PreviewIController(),
+            mainController = PreviewIMainController(),
         )
     }
 }
@@ -119,7 +119,7 @@ private fun MainScreenDarkModePreview() {
     LindatTheme {
         TranslationsScreen(
             viewModel = PreviewTranslationsViewModel(),
-            controller = PreviewIController(),
+            mainController = PreviewIMainController(),
         )
     }
 }

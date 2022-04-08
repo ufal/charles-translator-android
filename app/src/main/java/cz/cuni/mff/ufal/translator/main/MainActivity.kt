@@ -8,10 +8,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import cz.cuni.mff.ufal.translator.main.controller.rememberController
+import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
 import cz.cuni.mff.ufal.translator.ui.about.screens.AboutScreen
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import cz.cuni.mff.ufal.translator.ui.history.screens.HistoryScreen
+import cz.cuni.mff.ufal.translator.ui.history.screens.MainHistoryScreen
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.HistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TranslationsScreen
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val controller = rememberController()
+            // TODO: 08.04.2022 tomaskrabac: refactor as History navigation
+            val controller = rememberMainController()
 
             NavHost(controller.navController, startDestination = "translations/{item}") {
                 composable(
@@ -42,19 +43,19 @@ class MainActivity : ComponentActivity() {
 
                     TranslationsScreen(
                         viewModel = viewModel,
-                        controller = controller
+                        mainController = controller
                     )
                 }
                 composable("history") {
                     val viewModel by viewModels<HistoryViewModel>()
-                    HistoryScreen(
+                    MainHistoryScreen(
                         viewModel = viewModel,
-                        controller = controller
+                        mainController = controller
                     )
                 }
                 composable("about") {
                     AboutScreen(
-                        controller = controller
+                        mainController = controller
                     )
                 }
             }

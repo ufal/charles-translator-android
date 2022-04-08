@@ -11,10 +11,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
-import cz.cuni.mff.ufal.translator.main.controller.IController
+import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.VoiceContract
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
@@ -26,13 +25,11 @@ import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewMo
 @Composable
 fun ActionsRow(
     viewModel: ITranslationsViewModel,
-    controller: IController,
+    mainController: IMainController,
     mainText: String,
 ) {
     val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
     val isTextToSpeechAvailable by viewModel.isTextToSpeechAvailable.collectAsState()
-    val clipboardLabel = stringResource(id = R.string.copy_to_clipboard_label)
-
 
     val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
         if (text != null) {
@@ -50,7 +47,7 @@ fun ActionsRow(
                 drawableRes = R.drawable.ic_history,
                 contentDescriptionRes = R.string.history_cd
             ) {
-                controller.navigateHistory()
+                mainController.navigateHistory()
             }
         }
 
@@ -74,7 +71,6 @@ fun ActionsRow(
                     contentDescriptionRes = R.string.copy_to_clipboard_cd
                 ) {
                     viewModel.copyToClipBoard(
-                        label = clipboardLabel,
                         text = mainText
                     )
                 }
