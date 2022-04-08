@@ -36,11 +36,10 @@ class TranslationsViewModel @Inject constructor(
 ) : ITranslationsViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
-    private var timerJob: Job? = null
+    private var textCheckerJob: Job? = null
+    private var historyTimerJob: Job? = null
 
-    private var lastRequestMs = 0L
-    private val minIntervalApiMS = 500
-    private val minIntervalSaveMS = TimeUnit.SECONDS.toMillis(2)
+    private var lastInputText = ""
 
     private var textToSpeechEngine: TextToSpeech? = null
 
@@ -68,6 +67,8 @@ class TranslationsViewModel @Inject constructor(
             }
             // TODO: error states
         }
+
+        startTextCheckerTimer()
     }
 
     override fun onStop() {
@@ -76,8 +77,11 @@ class TranslationsViewModel @Inject constructor(
         apiJob?.cancel()
         apiJob = null
 
-        timerJob?.cancel()
-        timerJob = null
+        historyTimerJob?.cancel()
+        historyTimerJob = null
+
+        textCheckerJob?.cancel()
+        textCheckerJob = null
 
         textToSpeechEngine?.stop()
     }
@@ -89,8 +93,11 @@ class TranslationsViewModel @Inject constructor(
     }
 
     override fun setInputText(data: InputTextData) {
+        if (data.text == inputTextData.value.text) { //to prevent overwrite source
+            return
+        }
+
         inputTextData.value = data
-        translate()
         startSaveTimer()
     }
 
@@ -144,13 +151,9 @@ class TranslationsViewModel @Inject constructor(
             return
         }
 
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastRequestMs < minIntervalApiMS) {
-            return
-        }
-
         apiJob?.cancel()
         apiJob = viewModelScope.launch {
+            lastInputText = inputTextData.value.text
             state.value = TranslationsScreenState.Loading
 
             api.translate(
@@ -159,7 +162,6 @@ class TranslationsViewModel @Inject constructor(
                 text = inputTextData.value.text.trim(),
                 textSource = inputTextData.value.source,
             ).onSuccess {
-                lastRequestMs = System.currentTimeMillis()
                 outputTextData.value = when (outputLanguage.value) {
                     Language.Czech -> {
                         OutputTextData(
@@ -183,10 +185,22 @@ class TranslationsViewModel @Inject constructor(
     }
 
     private fun startSaveTimer() {
-        timerJob?.cancel()
-        timerJob = viewModelScope.launch {
-            delay(minIntervalSaveMS)
+        historyTimerJob?.cancel()
+        historyTimerJob = viewModelScope.launch {
+            delay(MIN_INTERVAL_SAVE_MS)
             saveItem()
+        }
+    }
+
+    private fun startTextCheckerTimer() {
+        textCheckerJob?.cancel()
+        textCheckerJob = viewModelScope.launch {
+            while (true) {
+                delay(MIN_INTERVAL_API_MS)
+                if (lastInputText != inputTextData.value.text) {
+                    translate()
+                }
+            }
         }
     }
 
@@ -204,5 +218,10 @@ class TranslationsViewModel @Inject constructor(
             )
             db.historyDao.insert(item)
         }
+    }
+
+    companion object {
+        private const val MIN_INTERVAL_API_MS = 500L
+        private val MIN_INTERVAL_SAVE_MS = TimeUnit.SECONDS.toMillis(2)
     }
 }

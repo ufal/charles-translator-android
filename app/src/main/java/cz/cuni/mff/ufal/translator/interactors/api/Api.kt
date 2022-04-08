@@ -94,7 +94,7 @@ class Api @Inject constructor(
         logInput: Boolean,
         textSource: TextSource,
     ): String {
-        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&inputType=${textSource.api}"
+        return "$baseUrl/languages/?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&inputType=${textSource.api}"
     }
 
     private fun parseResponse(rawData: String): String {
