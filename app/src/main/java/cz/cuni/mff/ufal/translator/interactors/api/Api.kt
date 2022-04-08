@@ -1,11 +1,13 @@
 package cz.cuni.mff.ufal.translator.interactors.api
 
+import android.util.Log
 import cz.cuni.mff.ufal.translator.BuildConfig
-import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
+import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -25,20 +28,24 @@ class Api @Inject constructor(
 ) : IApi {
 
     private val client = HttpClient(Android) {
-        //sometimes causing "Mutex is not locked"
-        /* install(Logging) {
-             logger = object : Logger {
-                 override fun log(message: String) {
-                     Log.d("HTTP:", message)
-                 }
+        if (BuildConfig.DEBUG) {
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Log.d("HTTP:", message)
+                    }
 
-             }
-             level = LogLevel.BODY
-         }*/
+                }
+                level = LogLevel.ALL
+            }
+        }
 
         defaultRequest {
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.FormUrlEncoded)
+            header("X-Frontend", "android-app")
+            header("X-App-Version", BuildConfig.VERSION_NAME)
+            header("X-User-Language", Locale.getDefault().language)
         }
 
         install(HttpRedirect) {
@@ -102,10 +109,6 @@ class Api @Inject constructor(
         } else {
             text
         }
-    }
-
-    companion object {
-        const val FRONTED = "android-app-v${BuildConfig.VERSION_NAME}"
     }
 
 }
