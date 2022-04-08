@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 /**
  * @author Tomas Krabac
  */
-@Entity(tableName = "history_items", primaryKeys = ["input_text", "output_text", "input_language", "output_language"])
+@Entity(tableName = "history_items", primaryKeys = ["input_text", "input_language", "output_language"])
 @Serializable
 data class HistoryItem(
     @ColumnInfo(name = "input_text") val inputText: String,

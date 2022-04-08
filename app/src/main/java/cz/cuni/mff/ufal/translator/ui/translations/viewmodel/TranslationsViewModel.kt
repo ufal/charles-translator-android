@@ -3,6 +3,7 @@ package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 import android.app.Application
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -211,12 +212,22 @@ class TranslationsViewModel @Inject constructor(
 
         withContext(Dispatchers.IO) {
             val item = HistoryItem(
-                inputText = inputTextData.value.text,
+                inputText = inputTextData.value.text.trim(),
                 outputText = outputTextData.value.mainText,
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
             )
-            db.historyDao.insert(item)
+            val updated = db.historyDao.update(
+                inputText = item.inputText,
+                outputText = item.outputText,
+                inputLanguage = item.inputLanguage.code,
+                outputLanguage = item.outputLanguage.code,
+                insertedMS = item.insertedMS,
+            )
+
+            if (updated == 0) {
+                db.historyDao.insert(item)
+            }
         }
     }
 
