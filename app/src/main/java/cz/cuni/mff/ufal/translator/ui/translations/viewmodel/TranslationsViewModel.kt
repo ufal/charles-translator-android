@@ -156,7 +156,8 @@ class TranslationsViewModel @Inject constructor(
             api.translate(
                 inputLanguage = inputLanguage.value,
                 outputLanguage = outputLanguage.value,
-                text = inputTextData.value.text.trim()
+                text = inputTextData.value.text.trim(),
+                textSource = inputTextData.value.source,
             ).onSuccess {
                 lastRequestMs = System.currentTimeMillis()
                 outputTextData.value = when (outputLanguage.value) {

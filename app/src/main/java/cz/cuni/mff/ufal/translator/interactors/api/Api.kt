@@ -4,6 +4,7 @@ import android.util.Log
 import cz.cuni.mff.ufal.translator.BuildConfig
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
@@ -54,13 +55,19 @@ class Api @Inject constructor(
     }
     private val baseUrl = "https://lindat.cz/translation/api/v2"
 
-    override suspend fun translate(inputLanguage: Language, outputLanguage: Language, text: String): Result<String> {
+    override suspend fun translate(
+        inputLanguage: Language,
+        outputLanguage: Language,
+        text: String,
+        textSource: TextSource
+    ): Result<String> {
         return withContext(Dispatchers.IO) {
             val logInput = userDataStore.agreeWithDataCollection().first()
             val url = createTranslateUrl(
                 inputLanguage = inputLanguage,
                 outputLanguage = outputLanguage,
-                logInput = logInput
+                logInput = logInput,
+                textSource = textSource,
             )
 
             val data = "input_text=$text"
@@ -84,9 +91,10 @@ class Api @Inject constructor(
     private fun createTranslateUrl(
         inputLanguage: Language,
         outputLanguage: Language,
-        logInput: Boolean
+        logInput: Boolean,
+        textSource: TextSource,
     ): String {
-        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput"
+        return "$baseUrl/languages?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&inputType=${textSource.api}"
     }
 
     private fun parseResponse(rawData: String): String {
