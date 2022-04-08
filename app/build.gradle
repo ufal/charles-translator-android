@@ -37,7 +37,7 @@ android {
             keyPassword "debugkey"
         }
 
-        test {
+        beta {
             storeFile file("../keystores/debug.jks")
             storePassword "debugkey"
             keyAlias "debugkey"
@@ -63,7 +63,7 @@ android {
         }
 
         beta {
-            signingConfig signingConfigs.test
+            signingConfig signingConfigs.beta
             applicationIdSuffix ".beta"
             debuggable false
             minifyEnabled true
