@@ -3,7 +3,6 @@ package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 import android.app.Application
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R

@@ -54,8 +54,9 @@ fun Content(viewModel: ITranslationsViewModel, mainController: IMainController) 
             inputLanguage = inputLanguage,
             outputLanguage = outputLanguage,
 
+            swapLanguages = viewModel::swapLanguages,
             onAboutAppClicked = mainController::navigateAboutScreen,
-            swapLanguages = viewModel::swapLanguages
+            onSettingsClicked = mainController::navigateSettingsScreen,
         )
 
         InputText(

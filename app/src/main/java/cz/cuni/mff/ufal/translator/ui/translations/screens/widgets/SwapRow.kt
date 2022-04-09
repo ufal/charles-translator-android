@@ -23,6 +23,7 @@ fun SwapRow(
 
     swapLanguages: () -> Unit,
     onAboutAppClicked: () -> Unit,
+    onSettingsClicked: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -47,7 +48,8 @@ fun SwapRow(
             ShowMoreMenu(
                 state = state,
 
-                onAboutAppClicked = onAboutAppClicked
+                onAboutAppClicked = onAboutAppClicked,
+                onSettingsClicked = onSettingsClicked,
             )
         }
 

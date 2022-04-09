@@ -13,6 +13,8 @@ import cz.cuni.mff.ufal.translator.ui.about.screens.AboutScreen
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.screens.MainHistoryScreen
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.HistoryViewModel
+import cz.cuni.mff.ufal.translator.ui.settings.screens.SettingsScreen
+import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.SettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TranslationsScreen
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +57,13 @@ class MainActivity : ComponentActivity() {
                 }
                 composable("about") {
                     AboutScreen(
+                        mainController = controller
+                    )
+                }
+                composable("settings") {
+                    val viewModel by viewModels<SettingsViewModel>()
+                    SettingsScreen(
+                        viewModel = viewModel,
                         mainController = controller
                     )
                 }

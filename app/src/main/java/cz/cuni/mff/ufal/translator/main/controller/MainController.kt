@@ -38,6 +38,10 @@ class MainController(
         navController.navigate("about")
     }
 
+    override fun navigateSettingsScreen() {
+        navController.navigate("settings")
+    }
+
     override fun openWebUrl(url: String) {
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent: CustomTabsIntent = builder.build()

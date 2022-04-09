@@ -13,6 +13,8 @@ interface IMainController {
 
     fun navigateAboutScreen()
 
+    fun navigateSettingsScreen()
+
     fun openWebUrl(url: String)
 
     fun sendMail(mail: String)

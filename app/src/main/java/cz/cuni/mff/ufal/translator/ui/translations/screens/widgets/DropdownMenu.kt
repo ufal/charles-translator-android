@@ -16,6 +16,7 @@ fun ShowMoreMenu(
     state: DropdownMenuState,
 
     onAboutAppClicked: () -> Unit,
+    onSettingsClicked: () -> Unit,
 ) {
     DropdownMenu(
         expanded = state.expanded,
@@ -28,6 +29,16 @@ fun ShowMoreMenu(
             },
             content = {
                 Text(text = stringResource(id = R.string.about_title))
+            }
+        )
+
+        DropdownMenuItem(
+            onClick = {
+                state.collapse()
+                onSettingsClicked()
+            },
+            content = {
+                Text(text = stringResource(id = R.string.settings_title))
             }
         )
     }
