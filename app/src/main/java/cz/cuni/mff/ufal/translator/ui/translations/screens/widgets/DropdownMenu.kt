@@ -25,20 +25,20 @@ fun ShowMoreMenu(
         DropdownMenuItem(
             onClick = {
                 state.collapse()
-                onAboutAppClicked()
+                onSettingsClicked()
             },
             content = {
-                Text(text = stringResource(id = R.string.about_title))
+                Text(text = stringResource(id = R.string.settings_title))
             }
         )
 
         DropdownMenuItem(
             onClick = {
                 state.collapse()
-                onSettingsClicked()
+                onAboutAppClicked()
             },
             content = {
-                Text(text = stringResource(id = R.string.settings_title))
+                Text(text = stringResource(id = R.string.about_title))
             }
         )
     }
