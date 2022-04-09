@@ -1,34 +1,25 @@
 <resources>
-    <string name="app_name">Lindat Translator</string>
-    <string name="history_title">Historie překladů</string>
-    <string name="cz_label">Čeština</string>
-    <string name="uk_label">Ukrajinština</string>
-    <string name="czech_flag_cd">česká vlajka</string>
-    <string name="ukraine_flag_cd">ukrajinská vlajka</string>
-    <string name="swap_cd">prohodit jazyky</string>
-    <string name="clear_cd">vymazat text</string>
-    <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
-    <string name="speech_recognizer_cd">Diktování</string>
-    <string name="copy_to_clipboard_label">Překlad</string>
-    <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
-    <string name="history_cd">Historie překladů</string>
-    <string name="add_to_favourites_cd">Přidat do oblíbených</string>
-    <string name="remove_from_favourites_cd">Odebrat z oblíbených</string>
-    <string name="delete_cd">Smazat z historie</string>
-    <string name="api_error">Překlad selhal, prosím zkuste to znovu</string>
-    <string name="try_again">Zkusit znovu</string>
-    <string name="paste">Vložit ze schránky</string>
-    <string name="paste_cd">Vložit ze schránky (ikonka)</string>
-    <string name="tts_cd">Převod textu na řeč</string>
-    <string name="insert_text">Napište text</string>
-    <string name="more_cd">Zobrazit vice</string>
+    <!--Translations screen -->
+    <string name="history_title">Translation history</string>
+    <string name="cz_label">Czech</string>
+    <string name="uk_label">Ukrainian</string>
 
-    <string name="dialog_title">Zpracování dat</string>
-    <string name="dialog_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
-    <string name="dialog_agree">Souhlasím</string>
-    <string name="dialog_disagree">Nesouhlasím</string>
+    <string name="copy_to_clipboard_label">Translation</string>
+    <string name="toast_copied_to_clipboard">Translation has been pasted to the clipboard</string>
 
-    <string name="about_title">O aplikaci</string>
+    <string name="api_error">Translation failed, please try again</string>
+    <string name="try_again">Try again</string>
+    <string name="paste">Paste from clipboard</string>
+    <string name="insert_text">Enter text</string>
+
+
+    <string name="dialog_title">Data processing</string>
+    <string name="dialog_message">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
+    <string name="dialog_agree">Agree</string>
+    <string name="dialog_disagree">Disagree</string>
+
+    <!--About screen -->
+    <string name="about_title">About app</string>
     <string name="about_text">
 <![CDATA[
 The Translator was developed at the <a href="https://ufal.mff.cuni.cz/">Institute of Formal and Applied Linguistics</a>, Faculty of Mathematics and Physics, Charles University and was supported by the <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a> project.<br><br>
@@ -48,18 +39,32 @@ For any questions about this Translator, please contact <a href="/support-mail">
 
 ]]>
     </string>
+    <string name="mail_app_not_found">No mail application found</string>
+
+    <!--History screen -->
+    <string name="history_bottom_all">All</string>
+    <string name="history_bottom_favourites">Favourites</string>
+
+    <!--Settings screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_data_collection_title">Data processing</string>
+    <string name="settings_data_collection_description">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
+
+    <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>
-    <string name="mail_app_not_found">Nebyla nalezena mailova aplikace</string>
-
-    <string name="history_bottom_all">Vše</string>
-    <string name="history_bottom_favourites">Oblíbené</string>
-
-    <string name="settings_title">Nastavení</string>
-
-    <string name="settings_data_collection_title">Zpracování dat</string>
-    <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
-
-
+    <string name="more_cd">show more</string>
+    <string name="tts_cd">text to speech translation</string>
+    <string name="paste_cd">paste from clipboard</string>
+    <string name="history_cd">translation history</string>
+    <string name="add_to_favourites_cd">add to favourites</string>
+    <string name="remove_from_favourites_cd">remove from favourites</string>
+    <string name="delete_cd">remove from history</string>
+    <string name="czech_flag_cd">czech flag</string>
+    <string name="ukraine_flag_cd">ukrainian flag</string>
+    <string name="swap_cd">swap languages</string>
+    <string name="clear_cd">clear text</string>
+    <string name="copy_to_clipboard_cd">copy to clipboard</string>
+    <string name="speech_recognizer_cd">dictation</string>
 
 </resources>

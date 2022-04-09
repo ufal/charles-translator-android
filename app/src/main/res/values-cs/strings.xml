@@ -1,0 +1,70 @@
+<resources>
+    <!--Translations screen -->
+    <string name="history_title">Historie překladů</string>
+    <string name="cz_label">Čeština</string>
+    <string name="uk_label">Ukrajinština</string>
+
+    <string name="copy_to_clipboard_label">Překlad</string>
+    <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
+
+    <string name="api_error">Překlad selhal, prosím zkuste to znovu</string>
+    <string name="try_again">Zkusit znovu</string>
+    <string name="paste">Vložit ze schránky</string>
+    <string name="insert_text">Napište text</string>
+
+
+    <string name="dialog_title">Zpracování dat</string>
+    <string name="dialog_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
+    <string name="dialog_agree">Souhlasím</string>
+    <string name="dialog_disagree">Nesouhlasím</string>
+
+    <!--About screen -->
+    <string name="about_title">O aplikaci</string>
+    <string name="about_text">
+<![CDATA[
+Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.<br><br>
+
+<b>Vývoj systému pro překlad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
+
+<b>Příprava dat:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br>
+Děkujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutí <b>InterCorp v14</b>, které je součástí projektu Českého národního korpusu.<br><br>
+
+<b>Vývoj backendu:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> a Lindat tým<br><br>
+
+<b>Vývoj frontendu:</b> <a href="https://www.nogare.cz/">David Nápravník</a>, <a href="https://www.linkedin.com/in/barborastrihova">Barbora Strihová</a>, <a href="https://www.linkedin.com/in/ivan-lysianok">Ivan Lysianok</a>,  <a href="https://www.linkedin.com/in/fogelman">Michal Fogelman</a>, <a href="https://github.com/janmarek">Jan Marek</a>, <a href="https://obchodniuspech.cz/">Michal Pešat</a><br><br>
+
+<b>Android aplikace:</b> Tomáš Krabač<br><br>
+
+Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktovat na adrese <a href="/support-mail">%1$s</a>.
+
+]]>
+    </string>
+    <string name="mail_app_not_found">Nebyla nalezena mailová aplikace</string>
+
+    <!--History screen -->
+    <string name="history_bottom_all">Vše</string>
+    <string name="history_bottom_favourites">Oblíbené</string>
+
+    <!--Settings screen -->
+    <string name="settings_title">Nastavení</string>
+    <string name="settings_data_collection_title">Zpracování dat</string>
+    <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
+
+    <!--Content descriptions -->
+    <string name="ufal_cd">ÚFAL logo</string>
+    <string name="lindat_cd">LINDAT logo</string>
+    <string name="more_cd">zobrazit vice</string>
+    <string name="tts_cd">převod textu na řeč</string>
+    <string name="paste_cd">vložit ze schránky</string>
+    <string name="history_cd">historie překladů</string>
+    <string name="add_to_favourites_cd">přidat do oblíbených</string>
+    <string name="remove_from_favourites_cd">odebrat z oblíbených</string>
+    <string name="delete_cd">smazat z historie</string>
+    <string name="czech_flag_cd">česká vlajka</string>
+    <string name="ukraine_flag_cd">ukrajinská vlajka</string>
+    <string name="swap_cd">prohodit jazyky</string>
+    <string name="clear_cd">vymazat text</string>
+    <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
+    <string name="speech_recognizer_cd">diktování</string>
+
+</resources>
