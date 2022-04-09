@@ -29,14 +29,11 @@ fun SettingItem(
 
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    val checkedState = remember { mutableStateOf(isChecked) }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                checkedState.value = !checkedState.value
-                onCheckedChange(checkedState.value)
+                onCheckedChange(!isChecked)
             },
     ) {
         Row(
@@ -55,9 +52,8 @@ fun SettingItem(
             Spacer(modifier = Modifier.width(4.dp))
 
             Switch(
-                checked = checkedState.value,
+                checked = isChecked,
                 onCheckedChange = {
-                    checkedState.value = it
                     onCheckedChange(it)
                 },
                 colors = SwitchDefaults.colors(
