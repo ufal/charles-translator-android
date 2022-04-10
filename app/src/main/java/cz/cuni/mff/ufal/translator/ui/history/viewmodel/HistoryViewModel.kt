@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.ui.common.ContextUtils
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,38 +24,30 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(
     context: Application,
     private val db: IDb,
+    private val textToSpeech: ITextToSpeechWrapper
 ) : IHistoryViewModel, AndroidViewModel(context) {
 
-    // TODO: make some wrapper for common logic
-    private var textToSpeechEngine: TextToSpeech? = null
-
-    override val isTextToSpeechAvailable = MutableStateFlow(false)
+    override val isTextToSpeechAvailable = textToSpeech.isTextToSpeechAvailable
     override val allItems = MutableStateFlow(emptyList<HistoryItem>())
     override val favouritesItems = MutableStateFlow(emptyList<HistoryItem>())
 
     override fun onStart() {
         super.onStart()
 
-        textToSpeechEngine = TextToSpeech(getApplication()) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                isTextToSpeechAvailable.value = true
-            }
-            // TODO: error states
-        }
-
+        textToSpeech.init()
         startListenHistoryItems()
     }
 
     override fun onStop() {
         super.onStop()
 
-        textToSpeechEngine?.stop()
+        textToSpeech.stop()
     }
 
     override fun onCleared() {
         super.onCleared()
 
-        textToSpeechEngine?.shutdown()
+        textToSpeech.shutdown()
     }
 
     override fun deleteItem(item: HistoryItem) {
@@ -69,8 +62,9 @@ class HistoryViewModel @Inject constructor(
     }
 
     override fun textToSpeech(item: HistoryItem) {
-        textToSpeechEngine?.language = item.outputLanguage.locale
-        textToSpeechEngine?.speak(item.outputText, TextToSpeech.QUEUE_FLUSH, null, item.outputText)
+        viewModelScope.launch {
+            textToSpeech.speak(item.outputLanguage, item.outputText)
+        }
     }
 
     override fun updateItem(item: HistoryItem) {

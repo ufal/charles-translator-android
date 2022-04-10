@@ -1,12 +1,15 @@
 package cz.cuni.mff.ufal.translator.main
 
 import android.app.Application
-import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
-import cz.cuni.mff.ufal.translator.interactors.preferences.UserDataStore
+import android.content.Context
 import cz.cuni.mff.ufal.translator.interactors.api.Api
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.db.Db
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.interactors.preferences.UserDataStore
+import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +22,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object MainModule {
+
+    @Singleton
+    @Provides
+    fun provideContext(context: Application): Context = context
 
     @Singleton
     @Provides
@@ -35,4 +42,8 @@ object MainModule {
     fun provideUserDataStore(context: Application): IUserDataStore {
         return UserDataStore(context)
     }
+
+    @Singleton
+    @Provides
+    fun provideTextToSpeech(impl: TextToSpeechWrapper): ITextToSpeechWrapper = impl
 }

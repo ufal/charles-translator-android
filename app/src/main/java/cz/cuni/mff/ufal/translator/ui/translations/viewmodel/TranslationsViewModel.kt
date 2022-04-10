@@ -1,9 +1,7 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
 import android.app.Application
-import android.os.Bundle
 import android.speech.SpeechRecognizer
-import android.speech.tts.TextToSpeech
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -13,6 +11,7 @@ import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinT
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.ui.common.ContextUtils
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.*
@@ -20,11 +19,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
 
 /**
  * @author Tomas Krabac
@@ -35,6 +32,7 @@ class TranslationsViewModel @Inject constructor(
     private val api: IApi,
     private val db: IDb,
     private val userDataStore: IUserDataStore,
+    private val textToSpeech: ITextToSpeechWrapper
 ) : ITranslationsViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
@@ -42,8 +40,6 @@ class TranslationsViewModel @Inject constructor(
     private var historyTimerJob: Job? = null
 
     private var lastInputText = ""
-
-    private var textToSpeechEngine: TextToSpeech? = null
 
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
@@ -55,22 +51,14 @@ class TranslationsViewModel @Inject constructor(
         SharingStarted.WhileSubscribed(),
         true,
     )
-    override val isTextToSpeechAvailable = MutableStateFlow(false)
+    override val isTextToSpeechAvailable = textToSpeech.isTextToSpeechAvailable
     override val isSpeechRecognizerAvailable: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
 
     override fun onStart() {
         super.onStart()
 
-        textToSpeechEngine = TextToSpeech(getApplication()) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                textToSpeechEngine?.language = outputLanguage.value.locale
-                isTextToSpeechAvailable.value = true
-            } else {
-                logE("TTS error ${getTextToSpeechInitError(status)}")
-            }
-        }
-
+        textToSpeech.init()
         startTextCheckerTimer()
     }
 
@@ -86,13 +74,13 @@ class TranslationsViewModel @Inject constructor(
         textCheckerJob?.cancel()
         textCheckerJob = null
 
-        textToSpeechEngine?.stop()
+        textToSpeech.stop()
     }
 
     override fun onCleared() {
         super.onCleared()
 
-        textToSpeechEngine?.shutdown()
+        textToSpeech.shutdown()
     }
 
     override fun setInputText(data: InputTextData) {
@@ -114,8 +102,6 @@ class TranslationsViewModel @Inject constructor(
         outputTextData.value = OutputTextData(mainText = newMainText, secondaryText = "")
 
         translate()
-
-        textToSpeechEngine?.language = outputLanguage.value.locale
     }
 
     override fun copyToClipBoard(text: String) {
@@ -147,12 +133,10 @@ class TranslationsViewModel @Inject constructor(
 
     override fun textToSpeech() {
         viewModelScope.launch {
-            val settings = Bundle().apply {
-                putBoolean(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, userDataStore.useNetworkTTS.first())
-            }
-
-            val text = outputTextData.value.mainText
-            textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, settings, text)
+            textToSpeech.speak(
+                language = outputLanguage.value,
+                text = outputTextData.value.mainText
+            )
         }
     }
 
@@ -241,20 +225,6 @@ class TranslationsViewModel @Inject constructor(
             if (updated == 0) {
                 db.historyDao.insert(item)
             }
-        }
-    }
-
-    private fun getTextToSpeechInitError(status: Int): String {
-        return when (status) {
-            TextToSpeech.ERROR_SYNTHESIS -> "ERROR_SYNTHESIS"
-            TextToSpeech.ERROR_SERVICE -> "ERROR_SERVICE"
-            TextToSpeech.ERROR_OUTPUT -> "ERROR_OUTPUT"
-            TextToSpeech.ERROR_NETWORK -> "ERROR_NETWORK"
-            TextToSpeech.ERROR_NETWORK_TIMEOUT -> "ERROR_NETWORK_TIMEOUT"
-            TextToSpeech.ERROR_INVALID_REQUEST -> "ERROR_INVALID_REQUEST"
-            TextToSpeech.ERROR_NOT_INSTALLED_YET -> "ERROR_NOT_INSTALLED_YET"
-            TextToSpeech.ERROR -> "ERROR"
-            else -> "unknown error $status"
         }
     }
 
