@@ -3,6 +3,7 @@ package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 import android.app.Application
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -64,8 +65,9 @@ class TranslationsViewModel @Inject constructor(
             if (status == TextToSpeech.SUCCESS) {
                 textToSpeechEngine?.language = outputLanguage.value.locale
                 isTextToSpeechAvailable.value = true
+            } else {
+                logE("TTS error ${getTextToSpeechInitError(status)}")
             }
-            // TODO: error states
         }
 
         startTextCheckerTimer()
@@ -232,6 +234,20 @@ class TranslationsViewModel @Inject constructor(
             if (updated == 0) {
                 db.historyDao.insert(item)
             }
+        }
+    }
+
+    private fun getTextToSpeechInitError(status: Int): String {
+        return when (status) {
+            TextToSpeech.ERROR_SYNTHESIS -> "ERROR_SYNTHESIS"
+            TextToSpeech.ERROR_SERVICE -> "ERROR_SERVICE"
+            TextToSpeech.ERROR_OUTPUT -> "ERROR_OUTPUT"
+            TextToSpeech.ERROR_NETWORK -> "ERROR_NETWORK"
+            TextToSpeech.ERROR_NETWORK_TIMEOUT -> "ERROR_NETWORK_TIMEOUT"
+            TextToSpeech.ERROR_INVALID_REQUEST -> "ERROR_INVALID_REQUEST"
+            TextToSpeech.ERROR_NOT_INSTALLED_YET -> "ERROR_NOT_INSTALLED_YET"
+            TextToSpeech.ERROR -> "ERROR"
+            else -> "unknown error $status"
         }
     }
 
