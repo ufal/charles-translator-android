@@ -151,6 +151,7 @@ class TranslationsViewModel @Inject constructor(
         if (inputTextData.value.text.isBlank()) {
             apiJob?.cancel()
             outputTextData.value = OutputTextData()
+            lastInputText = ""
             state.value = TranslationsScreenState.Idle
             return
         }
