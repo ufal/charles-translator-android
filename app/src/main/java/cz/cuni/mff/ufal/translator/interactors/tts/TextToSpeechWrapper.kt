@@ -1,7 +1,6 @@
 package cz.cuni.mff.ufal.translator.interactors.tts
 
 import android.content.Context
-import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
@@ -37,12 +36,23 @@ class TextToSpeechWrapper @Inject constructor(
     }
 
     override suspend fun speak(language: Language, text: String) {
-        val settings = Bundle().apply {
-            putBoolean(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, userDataStore.useNetworkTTS.first())
-        }
+        val useNetwork = userDataStore.useNetworkTTS.first()
 
-        textToSpeech.language = language.locale
-        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, settings, text)
+        textToSpeech.apply {
+            val voicesForLanguages = voices.filter {
+                it.locale.toString().lowercase() == language.locale.toString().lowercase()
+            }
+            val voiceNetworkSettings = voicesForLanguages.find { it.isNetworkConnectionRequired == useNetwork }
+            val selectedVoice = voiceNetworkSettings ?: voicesForLanguages.firstOrNull()
+            if (selectedVoice != null) {
+                voice = selectedVoice
+            } else {
+                logE("voice for ${language.locale} not found")
+                this.language = language.locale
+            }
+
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
+        }
     }
 
     override fun stop() {

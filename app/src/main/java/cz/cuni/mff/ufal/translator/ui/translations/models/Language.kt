@@ -7,5 +7,5 @@ import java.util.*
  */
 enum class Language(val code: String, val locale: Locale) {
     Czech("cs", Locale("cs-CZ")),
-    Ukrainian("uk", Locale("ru_UA"))
+    Ukrainian("uk", Locale("uk_UA"))
 }
