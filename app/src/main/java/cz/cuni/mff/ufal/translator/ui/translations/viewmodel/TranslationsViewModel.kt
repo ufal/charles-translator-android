@@ -1,9 +1,9 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
 import android.app.Application
+import android.os.Bundle
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -20,6 +20,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -145,8 +146,14 @@ class TranslationsViewModel @Inject constructor(
     }
 
     override fun textToSpeech() {
-        val text = outputTextData.value.mainText
-        textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
+        viewModelScope.launch {
+            val settings = Bundle().apply {
+                putBoolean(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, userDataStore.useNetworkTTS.first())
+            }
+
+            val text = outputTextData.value.mainText
+            textToSpeechEngine?.speak(text, TextToSpeech.QUEUE_FLUSH, settings, text)
+        }
     }
 
     private fun translate() {

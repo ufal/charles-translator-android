@@ -29,4 +29,16 @@ class SettingsViewModel @Inject constructor(
             userDataStore.saveAgreementDataCollection(agree)
         }
     }
+
+    override val useNetworkTTS= userDataStore.useNetworkTTS.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        true,
+    )
+
+    override fun saveUseNetworkTTS(useOnlineVersion: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDataStore.saveUseNetworkTTS(useOnlineVersion)
+        }
+    }
 }

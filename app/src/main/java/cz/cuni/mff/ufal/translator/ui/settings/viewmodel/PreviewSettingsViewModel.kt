@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class PreviewSettingsViewModel : ISettingsViewModel {
 
     override val agreeWithDataCollection = MutableStateFlow(true)
+    override val useNetworkTTS = MutableStateFlow(true)
 
     override fun saveAgreementDataCollection(agree: Boolean) {}
+    override fun saveUseNetworkTTS(useOnlineVersion: Boolean) {}
 }

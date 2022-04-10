@@ -12,4 +12,8 @@ interface ISettingsViewModel: IBaseViewModel {
 
     fun saveAgreementDataCollection(agree: Boolean)
 
+    val useNetworkTTS: StateFlow<Boolean>
+
+    fun saveUseNetworkTTS(useOnlineVersion: Boolean)
+
 }

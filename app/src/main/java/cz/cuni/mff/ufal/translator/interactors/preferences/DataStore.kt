@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 /**
@@ -19,6 +20,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
     companion object {
         val HAS_FINISHED_ONBOARDING = booleanPreferencesKey("HAS_FINISHED_ONBOARDING")
         val AGREE_WITH_DATA_COLLECTION = booleanPreferencesKey("AGREE_WITH_DATA_COLLECTION")
+        val USE_NETWORK_TTS = booleanPreferencesKey("USE_NETWORK_TTS")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -39,5 +41,15 @@ class UserDataStore(private val context: Context) : IUserDataStore {
 
     override fun agreeWithDataCollection() = context.userDataStore.data.map {
         it[AGREE_WITH_DATA_COLLECTION] ?: false
+    }
+
+    override val useNetworkTTS = context.userDataStore.data.map {
+        it[USE_NETWORK_TTS] ?: true
+    }
+
+    override suspend fun saveUseNetworkTTS(useOnlineVersion: Boolean) {
+        context.userDataStore.edit {
+            it[USE_NETWORK_TTS] = useOnlineVersion
+        }
     }
 }

@@ -14,4 +14,8 @@ interface IUserDataStore {
     suspend fun saveAgreementDataCollection(agree: Boolean)
 
     fun agreeWithDataCollection(): Flow<Boolean>
+
+    val useNetworkTTS: Flow<Boolean>
+
+    suspend fun saveUseNetworkTTS(useOnlineVersion: Boolean)
 }

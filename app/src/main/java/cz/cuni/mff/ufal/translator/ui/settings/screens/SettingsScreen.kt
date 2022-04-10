@@ -31,6 +31,7 @@ fun SettingsScreen(viewModel: ISettingsViewModel, mainController: IMainControlle
 @Composable
 private fun Content(viewModel: ISettingsViewModel, mainController: IMainController) {
     val agreeWithDataCollection by viewModel.agreeWithDataCollection.collectAsState()
+    val useNetworkTTS by viewModel.useNetworkTTS.collectAsState()
 
     Column {
         BaseToolbar(titleRes = R.string.settings_title) {
@@ -44,6 +45,14 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
             isChecked = agreeWithDataCollection,
 
             onCheckedChange = viewModel::saveAgreementDataCollection
+        )
+
+        SettingItem(
+            titleRes = R.string.settings_network_tts_title,
+            descriptionRes = R.string.settings_network_tts_description,
+            isChecked = useNetworkTTS,
+
+            onCheckedChange = viewModel::saveUseNetworkTTS
         )
 
 
