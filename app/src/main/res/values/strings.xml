@@ -20,10 +20,13 @@
 
     <!--About screen -->
     <string name="about_title">About app</string>
+    <string name="about_text_intro">
+        <![CDATA[
+The Translator was developed at the <a href="https://ufal.mff.cuni.cz/">Institute of Formal and Applied Linguistics</a>, Faculty of Mathematics and Physics, Charles University and was supported by the <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a> project.
+]]>
+    </string>
     <string name="about_text">
 <![CDATA[
-The Translator was developed at the <a href="https://ufal.mff.cuni.cz/">Institute of Formal and Applied Linguistics</a>, Faculty of Mathematics and Physics, Charles University and was supported by the <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a> project.<br><br>
-
 <b>Development of the translation system:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
 <b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br>

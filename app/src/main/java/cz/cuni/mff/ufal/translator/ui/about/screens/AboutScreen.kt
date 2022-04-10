@@ -2,17 +2,24 @@ package cz.cuni.mff.ufal.translator.ui.about.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ireward.htmlcompose.HtmlText
+import cz.cuni.mff.ufal.translator.BuildConfig
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
@@ -42,49 +49,95 @@ private fun Content(mainController: IMainController) {
             mainController.onBackPressed()
         }
 
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Image(
-                    modifier = Modifier.height(56.dp),
-                    painter = painterResource(id = R.drawable.img_ufal),
-                    contentDescription = stringResource(id = R.string.ufal_cd),
-                )
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
 
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Image(
-                    modifier = Modifier.height(56.dp),
-                    painter = painterResource(id = R.drawable.img_lindat),
-                    contentDescription = stringResource(id = R.string.lindat_cd),
-                )
-            }
+            AppVersionItem()
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            HtmlText(
-                text = stringResource(id = R.string.about_text, SUPPORT_MAIL),
-                URLSpanStyle = SpanStyle(
-                    color = MaterialTheme.colors.primary,
-                    textDecoration = TextDecoration.Underline
-                ),
-                linkClicked = { url ->
-                    if (url == "/support-mail") {
-                        mainController.sendMail(SUPPORT_MAIL)
-                    } else {
-                        mainController.openWebUrl(url)
-                    }
-                }
-            )
+            IntroTextItem()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            LogoItem()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            HtmlTextItem(mainController = mainController)
+
+            Spacer(modifier = Modifier.height(8.dp))
         }
-
-
     }
 }
 
+@Composable
+private fun AppVersionItem() {
+    val appName = stringResource(id = R.string.app_name)
+    val versionCode = BuildConfig.VERSION_CODE
+    val versionName = BuildConfig.VERSION_NAME
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = "$appName \n $versionName ($versionCode)",
+        textAlign = TextAlign.Center,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+private fun IntroTextItem() {
+    HtmlText(
+        text = stringResource(id = R.string.about_text_intro),
+    )
+}
+
+@Composable
+private fun LogoItem() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        val imageHeight = 88.dp
+        Image(
+            modifier = Modifier.height(imageHeight),
+            painter = painterResource(id = R.drawable.img_ufal),
+            contentDescription = stringResource(id = R.string.ufal_cd),
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Image(
+            modifier = Modifier.height(imageHeight),
+            painter = painterResource(id = R.drawable.img_lindat),
+            contentDescription = stringResource(id = R.string.lindat_cd),
+        )
+    }
+}
+
+
+@Composable
+private fun HtmlTextItem(mainController: IMainController) {
+    HtmlText(
+        text = stringResource(id = R.string.about_text, SUPPORT_MAIL),
+        URLSpanStyle = SpanStyle(
+            color = MaterialTheme.colors.primary,
+            textDecoration = TextDecoration.Underline
+        ),
+        linkClicked = { url ->
+            if (url == "/support-mail") {
+                mainController.sendMail(SUPPORT_MAIL)
+            } else {
+                mainController.openWebUrl(url)
+            }
+        }
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
