@@ -58,7 +58,10 @@ class TranslationsViewModel @Inject constructor(
     override fun onStart() {
         super.onStart()
 
-        textToSpeech.init()
+        viewModelScope.launch {
+            textToSpeech.init()
+        }
+
         startTextCheckerTimer()
     }
 

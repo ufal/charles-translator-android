@@ -54,6 +54,7 @@
     <string name="settings_data_collection_description">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
     <string name="settings_network_tts_title">Мережеве перетворення тексту в мовлення</string>
     <string name="settings_network_tts_description">У разі наявності використовувати якісніше мережеве перетворення тексту в мову.</string>
+    <string name="settings_tts_engine_title">TTS Програма</string>
 
     <!--Content descriptions -->
     <string name="ufal_cd">UFAL логотип</string>

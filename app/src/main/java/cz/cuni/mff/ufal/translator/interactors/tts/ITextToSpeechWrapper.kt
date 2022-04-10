@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.interactors.tts
 
+import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.StateFlow
 
@@ -10,7 +11,9 @@ interface ITextToSpeechWrapper {
 
     val isTextToSpeechAvailable: StateFlow<Boolean>
 
-    fun init()
+    val engines: StateFlow<List<TextToSpeech.EngineInfo>>
+
+    suspend fun init()
 
     suspend fun speak(language: Language, text: String)
 

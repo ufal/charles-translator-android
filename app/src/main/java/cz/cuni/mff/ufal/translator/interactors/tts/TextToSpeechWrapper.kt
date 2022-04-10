@@ -21,17 +21,19 @@ class TextToSpeechWrapper @Inject constructor(
     private lateinit var textToSpeech: TextToSpeech
 
     override val isTextToSpeechAvailable = MutableStateFlow(false)
+    override val engines = MutableStateFlow(emptyList<TextToSpeech.EngineInfo>())
 
-    override fun init() {
+    override suspend fun init() {
         val ttsListener = TextToSpeech.OnInitListener { status ->
             if (status == TextToSpeech.SUCCESS) {
                 isTextToSpeechAvailable.value = true
+                engines.value = textToSpeech.engines
             } else {
                 logE("TTS error ${getTextToSpeechInitError(status)}")
             }
         }
 
-        textToSpeech = TextToSpeech(context, ttsListener, GOOGLE_TTS_ENGINE)
+        textToSpeech = TextToSpeech(context, ttsListener, userDataStore.ttsEngine.first())
     }
 
     override suspend fun speak(language: Language, text: String) {
@@ -66,7 +68,7 @@ class TextToSpeechWrapper @Inject constructor(
     }
 
     companion object {
-        private const val GOOGLE_TTS_ENGINE = "com.google.android.tts"
+        const val DEFAULT_TTS_ENGINE = "com.google.android.tts"
     }
 
 }

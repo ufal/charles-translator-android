@@ -54,6 +54,7 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="settings_data_collection_description">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
     <string name="settings_network_tts_title">Prefer network text-to-speech</string>
     <string name="settings_network_tts_description">Use better network text-to-speech whenever available.</string>
+    <string name="settings_tts_engine_title">TTS application</string>
 
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>

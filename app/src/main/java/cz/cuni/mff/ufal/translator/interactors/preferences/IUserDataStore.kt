@@ -18,4 +18,8 @@ interface IUserDataStore {
     val useNetworkTTS: Flow<Boolean>
 
     suspend fun saveUseNetworkTTS(useOnlineVersion: Boolean)
+
+    val ttsEngine: Flow<String>
+
+    suspend fun saveTTSengine(engine: String)
 }

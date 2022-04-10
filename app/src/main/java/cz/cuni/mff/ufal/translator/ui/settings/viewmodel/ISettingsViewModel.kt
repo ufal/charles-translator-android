@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 
+import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.base.IBaseViewModel
 import kotlinx.coroutines.flow.StateFlow
 
@@ -15,5 +16,11 @@ interface ISettingsViewModel: IBaseViewModel {
     val useNetworkTTS: StateFlow<Boolean>
 
     fun saveUseNetworkTTS(useOnlineVersion: Boolean)
+
+    val engines: StateFlow<List<TextToSpeech.EngineInfo>>
+
+    val selectedTtsEngine: StateFlow<String>
+
+    fun saveTTSengine(engine: String)
 
 }

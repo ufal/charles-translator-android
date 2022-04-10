@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper.Companion.DEFAULT_TTS_ENGINE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -21,6 +23,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         val HAS_FINISHED_ONBOARDING = booleanPreferencesKey("HAS_FINISHED_ONBOARDING")
         val AGREE_WITH_DATA_COLLECTION = booleanPreferencesKey("AGREE_WITH_DATA_COLLECTION")
         val USE_NETWORK_TTS = booleanPreferencesKey("USE_NETWORK_TTS")
+        val TTS_ENGINE = stringPreferencesKey("TTS_ENGINE")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -50,6 +53,16 @@ class UserDataStore(private val context: Context) : IUserDataStore {
     override suspend fun saveUseNetworkTTS(useOnlineVersion: Boolean) {
         context.userDataStore.edit {
             it[USE_NETWORK_TTS] = useOnlineVersion
+        }
+    }
+
+    override val ttsEngine = context.userDataStore.data.map {
+        it[TTS_ENGINE] ?: DEFAULT_TTS_ENGINE
+    }
+
+    override suspend fun saveTTSengine(engine: String) {
+        context.userDataStore.edit {
+            it[TTS_ENGINE] = engine
         }
     }
 }

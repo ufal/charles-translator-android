@@ -1,7 +1,6 @@
 package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
 import android.app.Application
-import android.speech.tts.TextToSpeech
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -34,7 +33,10 @@ class HistoryViewModel @Inject constructor(
     override fun onStart() {
         super.onStart()
 
-        textToSpeech.init()
+        viewModelScope.launch {
+            textToSpeech.init()
+        }
+
         startListenHistoryItems()
     }
 

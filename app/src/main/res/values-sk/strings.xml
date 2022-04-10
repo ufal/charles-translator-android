@@ -54,6 +54,7 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
     <string name="settings_network_tts_title">Síťový převod textu na řeč</string>
     <string name="settings_network_tts_description">V případě dostupnosti používat kvalitnější síťový převod textu na řeč.</string>
+    <string name="settings_tts_engine_title">TTS aplikace</string>
 
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>

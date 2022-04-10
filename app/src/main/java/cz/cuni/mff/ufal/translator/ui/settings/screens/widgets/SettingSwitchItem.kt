@@ -5,8 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,7 +20,7 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
  */
 
 @Composable
-fun SettingItem(
+fun SettingSwitchItem(
     @StringRes titleRes: Int,
     @StringRes descriptionRes: Int,
     isChecked: Boolean,
@@ -83,7 +81,7 @@ fun SettingItem(
 @Composable
 private fun SettingsItemCheckedPreview() {
     LindatTheme {
-        SettingItem(
+        SettingSwitchItem(
             titleRes = R.string.settings_data_collection_title,
             descriptionRes = R.string.settings_data_collection_description,
             isChecked = true,
@@ -97,7 +95,7 @@ private fun SettingsItemCheckedPreview() {
 @Composable
 private fun SettingsItemUncheckedPreview() {
     LindatTheme {
-        SettingItem(
+        SettingSwitchItem(
             titleRes = R.string.settings_data_collection_title,
             descriptionRes = R.string.settings_data_collection_description,
             isChecked = false,

@@ -3,6 +3,8 @@ package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val userDataStore: IUserDataStore,
+    private val textToSpeech: ITextToSpeechWrapper,
 ) : ISettingsViewModel, ViewModel() {
 
     override val agreeWithDataCollection = userDataStore.agreeWithDataCollection().stateIn(
@@ -30,7 +33,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override val useNetworkTTS= userDataStore.useNetworkTTS.stateIn(
+    override val useNetworkTTS = userDataStore.useNetworkTTS.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
         true,
@@ -39,6 +42,20 @@ class SettingsViewModel @Inject constructor(
     override fun saveUseNetworkTTS(useOnlineVersion: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             userDataStore.saveUseNetworkTTS(useOnlineVersion)
+        }
+    }
+
+    override val engines = textToSpeech.engines
+
+    override val selectedTtsEngine = userDataStore.ttsEngine.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        TextToSpeechWrapper.DEFAULT_TTS_ENGINE,
+    )
+
+    override fun saveTTSengine(engine: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDataStore.saveTTSengine(engine)
         }
     }
 }
