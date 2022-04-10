@@ -106,6 +106,10 @@ class TranslationsViewModel @Inject constructor(
         inputLanguage.value = outputLanguage.value
         outputLanguage.value = tmpInputLanguage
 
+        val newMainText = inputTextData.value.text
+        inputTextData.value = InputTextData(text = outputTextData.value.mainText, TextSource.SwapLanguages)
+        outputTextData.value = OutputTextData(mainText = newMainText, secondaryText = "")
+
         translate()
 
         textToSpeechEngine?.language = outputLanguage.value.locale

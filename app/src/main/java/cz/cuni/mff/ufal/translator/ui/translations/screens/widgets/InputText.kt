@@ -53,7 +53,7 @@ fun InputText(
         }
     }
 
-    var textFieldValue by remember(data.source) {
+    var textFieldValue by remember(data.source, language) {
         mutableStateOf(
             TextFieldValue(text, TextRange(text.length))
         )

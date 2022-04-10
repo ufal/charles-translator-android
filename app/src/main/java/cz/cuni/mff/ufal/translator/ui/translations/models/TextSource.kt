@@ -9,4 +9,5 @@ enum class TextSource(val api: String) {
     Clipboard("clipboard"),
     ClearButton("keyboard"),
     History("history"),
+    SwapLanguages("swap-languages"),
 }
