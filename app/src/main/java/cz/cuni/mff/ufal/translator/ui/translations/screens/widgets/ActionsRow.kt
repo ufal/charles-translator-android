@@ -30,8 +30,9 @@ fun ActionsRow(
 ) {
     val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
     val isTextToSpeechAvailable by viewModel.isTextToSpeechAvailable.collectAsState()
+    val inputLanguage by viewModel.inputLanguage.collectAsState()
 
-    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract()) { text ->
+    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract(inputLanguage)) { text ->
         if (text != null) {
             viewModel.setInputText(InputTextData(text, TextSource.Voice))
         }
