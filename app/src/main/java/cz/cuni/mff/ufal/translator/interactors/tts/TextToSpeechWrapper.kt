@@ -28,7 +28,7 @@ class TextToSpeechWrapper @Inject constructor(
                 isTextToSpeechAvailable.value = true
                 engines.value = textToSpeech.engines
             } else {
-                logE("TTS error ${getTextToSpeechInitError(status)}")
+                logE("TTS error", Throwable("TTS error ${getTextToSpeechInitError(status)}"))
             }
         }
 
@@ -47,7 +47,10 @@ class TextToSpeechWrapper @Inject constructor(
             if (selectedVoice != null) {
                 voice = selectedVoice
             } else {
-                logE("voice for ${language.locale} not found")
+                logE(
+                    message = "language not found",
+                    throwable = Throwable("voice in engine ${userDataStore.ttsEngine.first()} for ${language.locale} not found")
+                )
                 this.language = language.locale
             }
 
