@@ -40,7 +40,18 @@ fun InputText(
     onValueChange: (data: InputTextData) -> Unit,
     pasteFromClipBoard: () -> Unit
 ) {
+    var textFieldValue by remember { mutableStateOf(TextFieldValue()) }
+    var lastSource by remember { mutableStateOf(TextSource.ClearButton) }
     val text = data.text
+
+    val selection = if (lastSource != data.source) {
+        lastSource = data.source
+        TextRange(text.length)
+    } else {
+        textFieldValue.selection
+    }
+    textFieldValue = textFieldValue.copy(text, selection)
+
 
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(language, hasFinishedOnboarding) {
@@ -51,12 +62,6 @@ fun InputText(
         } else {
             focusRequester.freeFocus()
         }
-    }
-
-    var textFieldValue by remember(data.source, language) {
-        mutableStateOf(
-            TextFieldValue(text, TextRange(text.length))
-        )
     }
 
     val keyboardController = LocalSoftwareKeyboardController.current
