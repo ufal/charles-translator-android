@@ -85,6 +85,9 @@ fun InputText(
                         fontSize = 22.sp,
                     )
                 },
+                trailingIcon = {
+                    Box(Modifier.size(16.dp)) //fake end padding
+                },
                 onValueChange = {
                     textFieldValue = it
                     onValueChange(InputTextData(it.text, TextSource.Keyboard))
