@@ -2,9 +2,13 @@ package cz.cuni.mff.ufal.translator.interactors.tts
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import cz.cuni.mff.ufal.translator.extensions.logD
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -19,20 +23,43 @@ class TextToSpeechWrapper @Inject constructor(
 
     private lateinit var textToSpeech: TextToSpeech
 
-    override val isTextToSpeechAvailable = MutableStateFlow(false)
+    override val errors = MutableSharedFlow<TextToSpeechError>(extraBufferCapacity = 10)
     override val engines = MutableStateFlow(emptyList<TextToSpeech.EngineInfo>())
 
     override suspend fun init() {
-        val ttsListener = TextToSpeech.OnInitListener { status ->
+        val ttsInitListener = TextToSpeech.OnInitListener { status ->
             if (status == TextToSpeech.SUCCESS) {
-                isTextToSpeechAvailable.value = true
                 engines.value = textToSpeech.engines
             } else {
+                errors.tryEmit(TextToSpeechError.InitError)
                 logE("TTS error", Throwable("TTS error ${getTextToSpeechInitError(status)}"))
             }
         }
 
-        textToSpeech = TextToSpeech(context, ttsListener, userDataStore.ttsEngine.first())
+        val ttsProgressListener = object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {
+                logD("start TTS: $utteranceId")
+            }
+
+            override fun onDone(utteranceId: String?) {
+                logD("finish TTS: $utteranceId")
+            }
+
+            override fun onError(utteranceId: String?) {
+                logE("error TTS speak $utteranceId")
+                errors.tryEmit(TextToSpeechError.SpeakError)
+            }
+
+            override fun onError(utteranceId: String?, errorCode: Int) {
+                logE("error TTS speak ${getTextToSpeechInitError(errorCode)}")
+                errors.tryEmit(TextToSpeechError.SpeakError)
+            }
+
+        }
+
+        textToSpeech = TextToSpeech(context, ttsInitListener, userDataStore.ttsEngine.first()).apply {
+            setOnUtteranceProgressListener(ttsProgressListener)
+        }
     }
 
     override suspend fun speak(language: Language, text: String) {

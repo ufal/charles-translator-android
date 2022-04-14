@@ -1,11 +1,13 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emptyFlow
 
 /**
  * @author Tomas Krabac
@@ -17,7 +19,7 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow(TranslationsScreenState.Success)
     override val hasFinishedOnboarding = MutableStateFlow(true)
-    override val isTextToSpeechAvailable = MutableStateFlow(true)
+    override val textToSpeechErrors = emptyFlow<TextToSpeechError>()
     override val isSpeechRecognizerAvailable = true
 
     override fun setInputText(data: InputTextData) {}

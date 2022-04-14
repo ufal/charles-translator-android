@@ -1,9 +1,11 @@
 package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.emptyFlow
 
 /**
  * @author Tomas Krabac
@@ -29,8 +31,7 @@ class PreviewHistoryViewModel : IHistoryViewModel {
     override val allItems = MutableStateFlow(items)
     override val favouritesItems = MutableStateFlow(items)
 
-    override val isTextToSpeechAvailable: StateFlow<Boolean>
-        get() = TODO("Not yet implemented")
+    override val textToSpeechErrors = emptyFlow<TextToSpeechError>()
 
     override fun deleteItem(item: HistoryItem) {}
     override fun copyToClipBoard(text: String) {}

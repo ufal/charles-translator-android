@@ -56,6 +56,12 @@
     <string name="settings_network_tts_description">У разі наявності використовувати якісніше мережеве перетворення тексту в мову.</string>
     <string name="settings_tts_engine_title">TTS Програма</string>
 
+    <!--Missing TTS dialog -->
+    <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
+    <string name="dialog_tts_message">Під час перетворення тексту на мову виникла помилка. Рекомендуємо встановити додаток Google Голосовий сервіс з Google Play</string>
+    <string name="dialog_tts_download">Завантажити</string>
+    <string name="dialog_tts_cancel">Скасувати</string>
+
     <!--Content descriptions -->
     <string name="ufal_cd">UFAL логотип</string>
     <string name="lindat_cd">LINDAT логотип</string>

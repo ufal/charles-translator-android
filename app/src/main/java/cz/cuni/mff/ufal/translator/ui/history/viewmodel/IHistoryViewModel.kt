@@ -1,8 +1,10 @@
 package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
 import cz.cuni.mff.ufal.translator.base.IBaseViewModel
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -14,7 +16,7 @@ interface IHistoryViewModel : IBaseViewModel {
 
     val favouritesItems: StateFlow<List<HistoryItem>>
 
-    val isTextToSpeechAvailable: StateFlow<Boolean>
+    val textToSpeechErrors: Flow<TextToSpeechError>
 
     fun deleteItem(item: HistoryItem)
 

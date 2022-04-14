@@ -56,6 +56,12 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <string name="settings_network_tts_description">V případě dostupnosti používat kvalitnější síťový převod textu na řeč.</string>
     <string name="settings_tts_engine_title">TTS aplikace</string>
 
+    <!--Missing TTS dialog -->
+    <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
+    <string name="dialog_tts_message">Při převodu textu na řeč nastala chyba. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
+    <string name="dialog_tts_download">Stáhnout</string>
+    <string name="dialog_tts_cancel">Zrušit</string>
+
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>

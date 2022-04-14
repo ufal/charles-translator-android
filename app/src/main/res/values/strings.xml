@@ -56,6 +56,12 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="settings_network_tts_description">Use better network text-to-speech whenever available.</string>
     <string name="settings_tts_engine_title">TTS application</string>
 
+    <!--Missing TTS dialog -->
+    <string name="dialog_tts_title">Text to speech error</string>
+    <string name="dialog_tts_message">There was an error when converting text to speech. We recommend installing the Speech Services by Google app from Google Play</string>
+    <string name="dialog_tts_download">Download</string>
+    <string name="dialog_tts_cancel">Cancel</string>
+
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>

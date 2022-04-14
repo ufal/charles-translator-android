@@ -26,7 +26,7 @@ class HistoryViewModel @Inject constructor(
     private val textToSpeech: ITextToSpeechWrapper
 ) : IHistoryViewModel, AndroidViewModel(context) {
 
-    override val isTextToSpeechAvailable = textToSpeech.isTextToSpeechAvailable
+    override val textToSpeechErrors = textToSpeech.errors
     override val allItems = MutableStateFlow(emptyList<HistoryItem>())
     override val favouritesItems = MutableStateFlow(emptyList<HistoryItem>())
 

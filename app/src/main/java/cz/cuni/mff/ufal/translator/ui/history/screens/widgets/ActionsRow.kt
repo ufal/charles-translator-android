@@ -25,7 +25,6 @@ import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.ActionItem
 
 @Composable
 fun ActionsRow(
-    isTextToSpeechAvailable: Boolean,
     isFavourite: Boolean,
 
     onFavouriteClicked: () -> Unit,
@@ -55,13 +54,11 @@ fun ActionsRow(
                 copyToClipBoard()
             }
 
-            if (isTextToSpeechAvailable) {
-                ActionItem(
-                    drawableRes = R.drawable.ic_tts,
-                    contentDescriptionRes = R.string.tts_cd
-                ) {
-                    textToSpeech()
-                }
+            ActionItem(
+                drawableRes = R.drawable.ic_tts,
+                contentDescriptionRes = R.string.tts_cd
+            ) {
+                textToSpeech()
             }
         }
     }
@@ -88,7 +85,6 @@ private fun FavouriteItem(isFavourite: Boolean, onClick: () -> Unit) {
 private fun ActionsRowPreview() {
     LindatTheme {
         ActionsRow(
-            isTextToSpeechAvailable = true,
             isFavourite = false,
 
             onFavouriteClicked = {},

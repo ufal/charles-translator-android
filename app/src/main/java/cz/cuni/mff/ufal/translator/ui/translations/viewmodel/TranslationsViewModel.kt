@@ -51,7 +51,7 @@ class TranslationsViewModel @Inject constructor(
         SharingStarted.WhileSubscribed(),
         true,
     )
-    override val isTextToSpeechAvailable = textToSpeech.isTextToSpeechAvailable
+    override val textToSpeechErrors = textToSpeech.errors
     override val isSpeechRecognizerAvailable: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
 

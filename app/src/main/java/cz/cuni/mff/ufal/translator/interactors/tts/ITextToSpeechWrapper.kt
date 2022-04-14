@@ -2,6 +2,7 @@ package cz.cuni.mff.ufal.translator.interactors.tts
 
 import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface ITextToSpeechWrapper {
 
-    val isTextToSpeechAvailable: StateFlow<Boolean>
+    val errors: Flow<TextToSpeechError>
 
     val engines: StateFlow<List<TextToSpeech.EngineInfo>>
 
@@ -20,4 +21,9 @@ interface ITextToSpeechWrapper {
     fun stop()
 
     fun shutdown()
+}
+
+enum class TextToSpeechError{
+    InitError,
+    SpeakError,
 }

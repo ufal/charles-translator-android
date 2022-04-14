@@ -6,21 +6,23 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.translations.MissingTtsDialog
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import kotlinx.coroutines.flow.collect
 
 /**
  * @author Tomas Krabac
@@ -32,11 +34,18 @@ fun HistoryCard(
     viewModel: IHistoryViewModel,
     mainController: IMainController,
 ) {
-    val isTextToSpeechAvailable by viewModel.isTextToSpeechAvailable.collectAsState()
+    val isMissingTtsDialogVisible = remember { mutableStateOf(false) }
+
+    LaunchedEffect(viewModel) {
+        viewModel.textToSpeechErrors.collect {
+            if (it == TextToSpeechError.SpeakError) {
+                isMissingTtsDialogVisible.value = true
+            }
+        }
+    }
 
     HistoryCard(
         item = item,
-        isTextToSpeechAvailable = isTextToSpeechAvailable,
 
         onRowClicked = { mainController.navigateMainScreen(item) },
         onDeleteClicked = { viewModel.deleteItem(item) },
@@ -47,12 +56,13 @@ fun HistoryCard(
         copyToClipBoardClicked = { viewModel.copyToClipBoard(item.outputText) },
         textToSpeechClicked = { viewModel.textToSpeech(item) }
     )
+
+    MissingTtsDialog(isMissingTtsDialogVisible, LocalContext.current)
 }
 
 @Composable
 private fun HistoryCard(
     item: HistoryItem,
-    isTextToSpeechAvailable: Boolean,
 
     onRowClicked: () -> Unit,
     onFavouriteClicked: () -> Unit,
@@ -85,7 +95,6 @@ private fun HistoryCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             ActionsRow(
-                isTextToSpeechAvailable = isTextToSpeechAvailable,
                 isFavourite = item.isFavourite,
                 onFavouriteClicked = onFavouriteClicked,
                 copyToClipBoard = copyToClipBoardClicked,
@@ -116,7 +125,6 @@ private fun HistoryCardPreview() {
     LindatTheme {
         HistoryCard(
             item = HistoryItem("test", "preklad", Language.Czech, Language.Ukrainian, false),
-            isTextToSpeechAvailable = true,
 
             onRowClicked = {},
             onFavouriteClicked = {},
