@@ -47,6 +47,8 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <!--History screen -->
     <string name="history_bottom_all">All</string>
     <string name="history_bottom_favourites">Favourites</string>
+    <string name="history_all_empty">During translation, the texts are automatically saved and you can see their history here.</string>
+    <string name="history_favourites_empty">Save your favorite translations from history (star icon). You can then find them on this screen.</string>
 
     <!--Settings screen -->
     <string name="settings_title">Settings</string>

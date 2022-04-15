@@ -47,6 +47,8 @@
     <!--History screen -->
     <string name="history_bottom_all">Усе</string>
     <string name="history_bottom_favourites">Улюблені</string>
+    <string name="history_all_empty">Під час перекладу тексти зберігаються автоматично, і ви побачите тут їхню історію.</string>
+    <string name="history_favourites_empty">Зберігайте свої улюблені переклади з історії (іконка, зірочки). Потім ви знайдете їх на цьому екрані.</string>
 
     <!--Settings screen -->
     <string name="settings_title">Налаштування</string>

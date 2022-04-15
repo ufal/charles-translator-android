@@ -18,6 +18,7 @@ import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
 import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryCard
+import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryEmpty
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
@@ -44,29 +45,34 @@ private fun Content(viewModel: IHistoryViewModel, mainController: IMainControlle
             mainController.onBackPressed()
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth(),
-            state = rememberLazyListState(),
-        ) {
-            historyItems.forEachIndexed { index, historyItem ->
-                item(historyItem.insertedMS) {
-                    Column(modifier = Modifier.animateItemPlacement()) {
-                        if (index == 0) {
+        if (historyItems.isEmpty()) {
+            HistoryEmpty(R.string.history_favourites_empty)
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                state = rememberLazyListState(),
+            ) {
+                historyItems.forEachIndexed { index, historyItem ->
+                    item(historyItem.insertedMS) {
+                        Column(modifier = Modifier.animateItemPlacement()) {
+                            if (index == 0) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
+
+                            HistoryCard(
+                                item = historyItem,
+                                viewModel = viewModel,
+                                mainController = mainController,
+                            )
+
                             Spacer(modifier = Modifier.height(16.dp))
                         }
-
-                        HistoryCard(
-                            item = historyItem,
-                            viewModel = viewModel,
-                            mainController = mainController,
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
             }
         }
+
     }
 }
 

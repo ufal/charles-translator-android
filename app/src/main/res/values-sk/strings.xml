@@ -47,6 +47,8 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <!--History screen -->
     <string name="history_bottom_all">Vše</string>
     <string name="history_bottom_favourites">Oblíbené</string>
+    <string name="history_all_empty">Během překládání se texty automaticky ukládají a uvidíte zde jejich historii.</string>
+    <string name="history_favourites_empty">Uložté si své oblíbené překlady z historie (ikonka hvězdičky). Poté je najdete na této obrazovce.</string>
 
     <!--Settings screen -->
     <string name="settings_title">Nastavení</string>
