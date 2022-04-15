@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.interactors.ContextUtils
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
-import cz.cuni.mff.ufal.translator.ui.common.ContextUtils
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

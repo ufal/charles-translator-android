@@ -64,6 +64,11 @@
     <string name="dialog_tts_download">Завантажити</string>
     <string name="dialog_tts_cancel">Скасувати</string>
 
+    <!--Unsupported api dialog -->
+    <string name="dialog_unsupported_api_title">Додаток не є поточним</string>
+    <string name="dialog_unsupported_api_message">Вибачте, але необхідно оновити додаток, інакше він не зможе працювати далі.</string>
+    <string name="dialog_unsupported_api_download">Завантажити</string>
+
     <!--Content descriptions -->
     <string name="ufal_cd">UFAL логотип</string>
     <string name="lindat_cd">LINDAT логотип</string>

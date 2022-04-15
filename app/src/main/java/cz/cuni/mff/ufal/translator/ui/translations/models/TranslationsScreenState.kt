@@ -1,12 +1,15 @@
 package cz.cuni.mff.ufal.translator.ui.translations.models
 
+import cz.cuni.mff.ufal.translator.interactors.api.data.NotImplementedData
+
 /**
  * @author Tomas Krabac
  */
-enum class TranslationsScreenState {
-    Idle,
-    Loading,
-    Error,
-    Success,
-    Offline // TODO: implement
+sealed class TranslationsScreenState {
+    object Idle: TranslationsScreenState()
+    object Loading: TranslationsScreenState()
+    object Error: TranslationsScreenState()
+    data class UnSupportedApiError(val data: NotImplementedData): TranslationsScreenState()
+    object Success: TranslationsScreenState()
+    object Offline: TranslationsScreenState() // TODO: implement
 }

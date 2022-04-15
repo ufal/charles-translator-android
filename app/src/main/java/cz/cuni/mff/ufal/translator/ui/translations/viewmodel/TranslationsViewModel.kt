@@ -6,13 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.extensions.logE
+import cz.cuni.mff.ufal.translator.interactors.ContextUtils
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
+import cz.cuni.mff.ufal.translator.interactors.api.UnsupportedApiException
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
-import cz.cuni.mff.ufal.translator.ui.common.ContextUtils
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +46,7 @@ class TranslationsViewModel @Inject constructor(
     override val outputTextData = MutableStateFlow(OutputTextData())
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
-    override val state = MutableStateFlow(TranslationsScreenState.Idle)
+    override val state = MutableStateFlow<TranslationsScreenState>(TranslationsScreenState.Idle)
     override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
@@ -179,7 +180,12 @@ class TranslationsViewModel @Inject constructor(
                 }
                 state.value = TranslationsScreenState.Success
             }.onFailure {
-                state.value = TranslationsScreenState.Error
+                if (it is UnsupportedApiException) {
+                    state.value = TranslationsScreenState.UnSupportedApiError(it.data)
+                } else {
+                    state.value = TranslationsScreenState.Error
+                }
+
                 logE("translate error", it)
             }
         }

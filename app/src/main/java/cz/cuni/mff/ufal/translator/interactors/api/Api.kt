@@ -2,6 +2,7 @@ package cz.cuni.mff.ufal.translator.interactors.api
 
 import android.util.Log
 import cz.cuni.mff.ufal.translator.BuildConfig
+import cz.cuni.mff.ufal.translator.interactors.api.data.NotImplementedData
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
@@ -15,6 +16,8 @@ import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import java.util.*
 import javax.inject.Inject
@@ -77,10 +80,16 @@ class Api @Inject constructor(
                     body = data
                 }
 
-                if (response.status == HttpStatusCode.OK) {
-                    return@withContext Result.success(parseResponse(response.readText()))
-                } else {
-                    return@withContext Result.failure(Exception("Bad status - ${response.status} - ${response.readText()}"))
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        return@withContext Result.success(parseSuccessResponse(response.readText()))
+                    }
+                    HttpStatusCode.NotImplemented -> {
+                        return@withContext Result.failure(parseNotImplementedResponse(response.readText()))
+                    }
+                    else -> {
+                        return@withContext Result.failure(Exception("Bad status - ${response.status} - ${response.readText()}"))
+                    }
                 }
             } catch (ex: Throwable) {
                 return@withContext Result.failure(ex)
@@ -97,7 +106,7 @@ class Api @Inject constructor(
         return "$baseUrl/languages/?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&inputType=${textSource.api}"
     }
 
-    private fun parseResponse(rawData: String): String {
+    private fun parseSuccessResponse(rawData: String): String {
         val result = StringBuilder()
         val array = JSONArray(rawData)
         for (i in 0 until array.length()) {
@@ -118,5 +127,11 @@ class Api @Inject constructor(
             text
         }
     }
+
+    private fun parseNotImplementedResponse(rawData: String): UnsupportedApiException {
+        val data = Json.decodeFromString<NotImplementedData>(rawData)
+        return UnsupportedApiException(data)
+    }
+
 
 }

@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.interactors.api.data.NotImplementedData
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
@@ -72,18 +74,21 @@ fun Content(viewModel: ITranslationsViewModel, mainController: IMainController) 
         )
 
         when (state) {
-            TranslationsScreenState.Idle -> {
+            is TranslationsScreenState.Idle -> {
                 // nothing
             }
-            TranslationsScreenState.Error -> {
+            is TranslationsScreenState.UnSupportedApiError -> {
+                UnsupportedApiDialog(LocalContext.current, (state as TranslationsScreenState.UnSupportedApiError).data)
+            }
+            is TranslationsScreenState.Error -> {
                 ErrorItem(modifier = Modifier) {
                     viewModel.retry()
                 }
             }
-            TranslationsScreenState.Offline -> {
+            is TranslationsScreenState.Offline -> {
                 OfflineItem(modifier = Modifier)
             }
-            TranslationsScreenState.Success, TranslationsScreenState.Loading -> {
+            is TranslationsScreenState.Success, is TranslationsScreenState.Loading -> {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutputItem(

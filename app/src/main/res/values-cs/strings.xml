@@ -64,6 +64,11 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <string name="dialog_tts_download">Stáhnout</string>
     <string name="dialog_tts_cancel">Zrušit</string>
 
+    <!--Unsupported api dialog -->
+    <string name="dialog_unsupported_api_title">Aplikace není aktuální</string>
+    <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nemůže dále fungovat</string>
+    <string name="dialog_unsupported_api_download">Stáhnout</string>
+
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>

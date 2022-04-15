@@ -20,7 +20,7 @@ import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
-import cz.cuni.mff.ufal.translator.ui.translations.MissingTtsDialog
+import cz.cuni.mff.ufal.translator.ui.translations.screens.MissingTtsDialog
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.collect
 

@@ -1,9 +1,7 @@
-package cz.cuni.mff.ufal.translator.ui.common
+package cz.cuni.mff.ufal.translator.interactors
 
-import android.content.ClipData
-import android.content.ClipDescription
-import android.content.ClipboardManager
-import android.content.Context
+import android.content.*
+import android.net.Uri
 import android.widget.Toast
 import cz.cuni.mff.ufal.translator.R
 
@@ -27,6 +25,19 @@ object ContextUtils {
             clipboard.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
         } else{
             ""
+        }
+    }
+
+    fun openGooglePlay(context: Context, packageName: String) {
+        try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+        } catch (e: ActivityNotFoundException) {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                )
+            )
         }
     }
 
