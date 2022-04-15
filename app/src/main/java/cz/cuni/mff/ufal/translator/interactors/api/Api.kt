@@ -2,6 +2,7 @@ package cz.cuni.mff.ufal.translator.interactors.api
 
 import android.util.Log
 import cz.cuni.mff.ufal.translator.BuildConfig
+import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.api.data.NotImplementedData
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
@@ -129,7 +130,13 @@ class Api @Inject constructor(
     }
 
     private fun parseNotImplementedResponse(rawData: String): UnsupportedApiException {
-        val data = Json.decodeFromString<NotImplementedData>(rawData)
+        var data = NotImplementedData("", "")
+        try {
+            data = Json.decodeFromString(rawData)
+        } catch (throwable: Throwable) {
+            logE("error parsing", throwable)
+        }
+
         return UnsupportedApiException(data)
     }
 
