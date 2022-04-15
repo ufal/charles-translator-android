@@ -110,10 +110,13 @@ class Api @Inject constructor(
     private fun parseSuccessResponse(rawData: String): String {
         val result = StringBuilder()
         val array = JSONArray(rawData)
+
         for (i in 0 until array.length()) {
             var text = array.get(i).toString()
-            if (i == array.length() - 1) {
-                text = removeLastNewLines(text)
+            text = if (i == array.length() - 1) {
+                removeLastNewLines(text)
+            } else {
+                "$text "
             }
             result.append(text)
         }
