@@ -13,10 +13,10 @@
     <string name="insert_text">Enter text</string>
 
 
-    <string name="dialog_title">Data processing</string>
-    <string name="dialog_message">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
-    <string name="dialog_agree">Agree</string>
-    <string name="dialog_disagree">Disagree</string>
+    <string name="dialog_data_processing_title">Data processing</string>
+    <string name="dialog_data_processing_message">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
+    <string name="dialog__data_processing_agree">Agree</string>
+    <string name="dialog__data_processing_disagree">Disagree</string>
 
     <!--About screen -->
     <string name="about_title">About app</string>

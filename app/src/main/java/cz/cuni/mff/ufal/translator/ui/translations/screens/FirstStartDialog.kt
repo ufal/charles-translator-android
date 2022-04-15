@@ -24,10 +24,10 @@ fun FirstStartDialog(onAgreeAction: (agree: Boolean) -> Unit) {
                 // clicks outside dialog are disabled
             },
             title = {
-                Text(stringResource(id = R.string.dialog_title))
+                Text(stringResource(id = R.string.dialog_data_processing_title))
             },
             text = {
-                Text(stringResource(id = R.string.dialog_message))
+                Text(stringResource(id = R.string.dialog_data_processing_message))
             },
             confirmButton = {
                 TextButton(
@@ -35,7 +35,7 @@ fun FirstStartDialog(onAgreeAction: (agree: Boolean) -> Unit) {
                         openDialog.value = false
                         onAgreeAction(true)
                     }) {
-                    Text(stringResource(id = R.string.dialog_agree))
+                    Text(stringResource(id = R.string.dialog__data_processing_agree))
                 }
             },
             dismissButton = {
@@ -44,7 +44,7 @@ fun FirstStartDialog(onAgreeAction: (agree: Boolean) -> Unit) {
                         openDialog.value = false
                         onAgreeAction(false)
                     }) {
-                    Text(stringResource(id = R.string.dialog_disagree))
+                    Text(stringResource(id = R.string.dialog__data_processing_disagree))
                 }
             },
         )

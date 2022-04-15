@@ -13,10 +13,10 @@
     <string name="insert_text">Написати текст</string>
 
 
-    <string name="dialog_title">Обробка даних</string>
-    <string name="dialog_message">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
-    <string name="dialog_agree">Я згоден</string>
-    <string name="dialog_disagree">Я не згоден</string>
+    <string name="dialog_data_processing_title">Обробка даних</string>
+    <string name="dialog_data_processing_message">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
+    <string name="dialog__data_processing_agree">Я згоден</string>
+    <string name="dialog__data_processing_disagree">Я не згоден</string>
 
     <!--About screen -->
     <string name="about_title">Про додаток</string>
