@@ -63,25 +63,28 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
 
                 onCheckedChange = viewModel::saveUseNetworkTTS
             )
+        }
 
+        if (ttsEngines.size > 1) {
             SettingSingleItem(
                 titleRes = R.string.settings_tts_engine_title,
                 value = selectedEngine.label
             ) {
                 dialogState.show()
             }
+        }
 
-            SingleSelectionDialog(
-                dialogState = dialogState,
-                title = stringResource(id = R.string.settings_tts_engine_title),
-                selectedItem = selectedEngine.label,
-                items = ttsEngines.map { it.label }
-            ) { selectedIndex ->
-                val engine = ttsEngines[selectedIndex]
-                viewModel.saveTTSengine(engine.name)
-            }
+        SingleSelectionDialog(
+            dialogState = dialogState,
+            title = stringResource(id = R.string.settings_tts_engine_title),
+            selectedItem = selectedEngine.label,
+            items = ttsEngines.map { it.label }
+        ) { selectedIndex ->
+            val engine = ttsEngines[selectedIndex]
+            viewModel.saveTTSengine(engine.name)
         }
     }
+
 }
 
 @Preview(showBackground = true)
