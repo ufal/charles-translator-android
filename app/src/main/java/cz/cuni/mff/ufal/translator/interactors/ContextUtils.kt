@@ -4,6 +4,7 @@ import android.content.*
 import android.net.Uri
 import android.widget.Toast
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.extensions.logE
 
 /**
  * @author Tomas Krabac
@@ -17,13 +18,17 @@ object ContextUtils {
         Toast.makeText(context, R.string.toast_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
-    fun pasteFromClipBoard(context: Context) : String {
+    fun pasteFromClipBoard(context: Context): String {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
         clipboard ?: return ""
 
-        return if (clipboard.primaryClipDescription?.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) == true) {
+        val description = clipboard.primaryClipDescription ?: return ""
+
+        return if (description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) || description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)) {
             clipboard.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
-        } else{
+        } else {
+            val mimeType = clipboard.primaryClipDescription?.getMimeType(0)
+            logE("unsupported mime type $mimeType", Exception("unsupported mime type $mimeType"))
             ""
         }
     }
