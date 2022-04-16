@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.interactors.DiacriticsFixer
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
@@ -89,8 +90,10 @@ fun InputText(
                     Box(Modifier.size(16.dp)) //fake end padding
                 },
                 onValueChange = {
-                    textFieldValue = it
-                    onValueChange(InputTextData(it.text, TextSource.Keyboard))
+                    val fixedText = DiacriticsFixer.fixDiacritic(it.text)
+
+                    textFieldValue = it.copy(fixedText)
+                    onValueChange(InputTextData(fixedText , TextSource.Keyboard))
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
                 keyboardActions = KeyboardActions(
