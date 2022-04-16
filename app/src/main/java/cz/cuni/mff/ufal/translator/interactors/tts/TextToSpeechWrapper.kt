@@ -7,7 +7,6 @@ import cz.cuni.mff.ufal.translator.extensions.logD
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -21,6 +20,7 @@ class TextToSpeechWrapper @Inject constructor(
     private val userDataStore: IUserDataStore
 ) : ITextToSpeechWrapper {
 
+    private var initError = false
     private lateinit var textToSpeech: TextToSpeech
 
     override val errors = MutableSharedFlow<TextToSpeechError>(extraBufferCapacity = 10)
@@ -31,6 +31,7 @@ class TextToSpeechWrapper @Inject constructor(
             if (status == TextToSpeech.SUCCESS) {
                 engines.value = textToSpeech.engines
             } else {
+                initError = true
                 errors.tryEmit(TextToSpeechError.InitError)
                 logE("TTS error", Throwable("TTS error ${getTextToSpeechInitError(status)}"))
             }
@@ -63,6 +64,11 @@ class TextToSpeechWrapper @Inject constructor(
     }
 
     override suspend fun speak(language: Language, text: String) {
+        if (initError) {
+            errors.tryEmit(TextToSpeechError.SpeakError)
+            return
+        }
+
         val useNetwork = userDataStore.useNetworkTTS.first()
 
         textToSpeech.apply {
