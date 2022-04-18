@@ -1,5 +1,7 @@
 package cz.cuni.mff.ufal.translator.main
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import cz.cuni.mff.ufal.translator.extensions.isTablet
 import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
 import cz.cuni.mff.ufal.translator.ui.about.screens.AboutScreen
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
@@ -24,8 +27,14 @@ import kotlinx.serialization.json.Json
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!isTablet) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
+        }
+
         setContent {
             // TODO: 08.04.2022 tomaskrabac: refactor as History navigation
             val controller = rememberMainController()
