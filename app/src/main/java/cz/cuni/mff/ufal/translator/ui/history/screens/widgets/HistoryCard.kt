@@ -32,7 +32,7 @@ import kotlinx.coroutines.flow.collect
 fun HistoryCard(
     item: HistoryItem,
     viewModel: IHistoryViewModel,
-    mainController: IMainController,
+    onRowClicked: (item: HistoryItem) -> Unit,
 ) {
     val isMissingTtsDialogVisible = remember { mutableStateOf(false) }
 
@@ -47,7 +47,7 @@ fun HistoryCard(
     HistoryCard(
         item = item,
 
-        onRowClicked = { mainController.navigateMainScreen(item) },
+        onRowClicked = { onRowClicked(item) },
         onDeleteClicked = { viewModel.deleteItem(item) },
         onFavouriteClicked = {
             val updatedItem = item.copy(isFavourite = !item.isFavourite)

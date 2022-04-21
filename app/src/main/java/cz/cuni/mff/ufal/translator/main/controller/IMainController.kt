@@ -9,8 +9,6 @@ interface IMainController {
 
     fun navigateHistory()
 
-    fun navigateMainScreen(item: HistoryItem)
-
     fun navigateAboutScreen()
 
     fun navigateSettingsScreen()

@@ -17,6 +17,7 @@ import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryCard
 import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryEmpty
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
@@ -27,22 +28,31 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
  * @author Tomas Krabac
  */
 @Composable
-fun HistoryAllScreen(viewModel: IHistoryViewModel, mainController: IMainController) {
+fun HistoryAllScreen(
+    viewModel: IHistoryViewModel,
+    mainController: IMainController,
+    onRowClicked: (item: HistoryItem) -> Unit,
+) {
     BaseScreen(viewModel = viewModel) {
         Content(
             viewModel = viewModel,
-            mainController = mainController,
+            onBackPressed = mainController::onBackPressed,
+            onRowClicked = onRowClicked,
         )
     }
 }
 
 @Composable
-private fun Content(viewModel: IHistoryViewModel, mainController: IMainController) {
+private fun Content(
+    viewModel: IHistoryViewModel,
+    onBackPressed: () -> Unit,
+    onRowClicked: (item: HistoryItem) -> Unit,
+) {
     val historyItems by viewModel.allItems.collectAsState()
 
     Column {
         BaseToolbar(titleRes = R.string.history_title) {
-            mainController.onBackPressed()
+            onBackPressed()
         }
 
         if (historyItems.isEmpty()) {
@@ -63,7 +73,7 @@ private fun Content(viewModel: IHistoryViewModel, mainController: IMainControlle
                             HistoryCard(
                                 item = historyItem,
                                 viewModel = viewModel,
-                                mainController = mainController,
+                                onRowClicked = { onRowClicked(it) }
                             )
 
                             Spacer(modifier = Modifier.height(16.dp))
@@ -82,6 +92,7 @@ private fun HistoryScreenPreview() {
         HistoryAllScreen(
             viewModel = PreviewHistoryViewModel(),
             mainController = PreviewIMainController(),
+            onRowClicked = {},
         )
     }
 }

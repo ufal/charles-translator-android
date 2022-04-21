@@ -4,27 +4,46 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.result.NavResult
+import com.ramcosta.composedestinations.result.ResultRecipient
 import cz.cuni.mff.ufal.translator.base.BaseScreen
-import cz.cuni.mff.ufal.translator.interactors.api.data.NotImplementedData
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
+import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.*
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.PreviewTranslationsViewModel
+import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
 
 /**
  * @author Tomas Krabac
  */
 
+@Destination(start = true)
 @Composable
-fun TranslationsScreen(viewModel: ITranslationsViewModel, mainController: IMainController) {
+fun TranslationsScreen(
+    viewModel: ITranslationsViewModel = hiltViewModel<TranslationsViewModel>(),
+    mainController: IMainController,
+    resultRecipient: ResultRecipient<MainHistoryScreenDestination, HistoryItem>
+) {
+    resultRecipient.onNavResult { result ->
+        if (result is NavResult.Value) {
+            viewModel.setFromHistoryItem(result.value)
+        }
+    }
+
     BaseScreen(viewModel = viewModel) {
         Content(
             viewModel = viewModel,
@@ -34,7 +53,10 @@ fun TranslationsScreen(viewModel: ITranslationsViewModel, mainController: IMainC
 }
 
 @Composable
-fun Content(viewModel: ITranslationsViewModel, mainController: IMainController) {
+fun Content(
+    viewModel: ITranslationsViewModel,
+    mainController: IMainController,
+) {
     val inputTextData by viewModel.inputTextData.collectAsState()
     val outputTextData by viewModel.outputTextData.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
@@ -110,7 +132,7 @@ fun Content(viewModel: ITranslationsViewModel, mainController: IMainController) 
 @Composable
 private fun MainScreenPreview() {
     LindatTheme {
-        TranslationsScreen(
+        Content(
             viewModel = PreviewTranslationsViewModel(),
             mainController = PreviewIMainController(),
         )
@@ -121,7 +143,7 @@ private fun MainScreenPreview() {
 @Composable
 private fun MainScreenDarkModePreview() {
     LindatTheme {
-        TranslationsScreen(
+        Content(
             viewModel = PreviewTranslationsViewModel(),
             mainController = PreviewIMainController(),
         )

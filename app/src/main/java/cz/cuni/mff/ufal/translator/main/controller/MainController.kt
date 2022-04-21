@@ -12,10 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.ramcosta.composedestinations.navigation.navigateTo
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
+import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
+import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
+import cz.cuni.mff.ufal.translator.ui.destinations.TranslationsScreenDestination
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 
 /**
@@ -26,20 +29,15 @@ class MainController(
     private val context: Context,
 ) : IMainController {
     override fun navigateHistory() {
-        navController.navigate("history")
-    }
-
-    override fun navigateMainScreen(item: HistoryItem) {
-        val json = Json.encodeToString(item)
-        navController.navigate("translations/${json}")
+        navController.navigateTo(MainHistoryScreenDestination)
     }
 
     override fun navigateAboutScreen() {
-        navController.navigate("about")
+        navController.navigateTo(AboutScreenDestination)
     }
 
     override fun navigateSettingsScreen() {
-        navController.navigate("settings")
+        navController.navigateTo(SettingsScreenDestination)
     }
 
     override fun openWebUrl(url: String) {

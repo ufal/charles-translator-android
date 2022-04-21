@@ -6,6 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.annotation.Destination
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
@@ -17,13 +19,19 @@ import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingSwitchItem
 import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SingleSelectionDialog
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.ISettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.PreviewSettingsViewModel
+import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.SettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
 
 /**
  * @author Tomas Krabac
  */
+@Destination()
 @Composable
-fun SettingsScreen(viewModel: ISettingsViewModel, mainController: IMainController) {
+fun SettingsScreen(
+    viewModel: ISettingsViewModel = hiltViewModel<SettingsViewModel>(),
+    mainController: IMainController
+) {
     BaseScreen(viewModel) {
         Content(
             viewModel = viewModel,
