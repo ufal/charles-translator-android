@@ -85,11 +85,17 @@ class Api @Inject constructor(
                     HttpStatusCode.OK -> {
                         return@withContext Result.success(parseSuccessResponse(response.readText()))
                     }
-                    HttpStatusCode.NotImplemented -> {
-                        return@withContext Result.failure(parseNotImplementedResponse(response.readText()))
-                    }
                     else -> {
                         return@withContext Result.failure(Exception("Bad status - ${response.status} - ${response.readText()}"))
+                    }
+                }
+            } catch (serverEx: ServerResponseException) {
+                return@withContext when (serverEx.response.status) {
+                    HttpStatusCode.NotImplemented -> {
+                        Result.failure(parseNotImplementedResponse(serverEx.response.readText()))
+                    }
+                    else -> {
+                        Result.failure(serverEx)
                     }
                 }
             } catch (ex: Throwable) {
