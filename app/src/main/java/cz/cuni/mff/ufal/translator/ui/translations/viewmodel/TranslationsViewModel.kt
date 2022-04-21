@@ -121,7 +121,7 @@ class TranslationsViewModel @Inject constructor(
     override fun setFromHistoryItem(item: HistoryItem) {
         inputLanguage.value = item.inputLanguage
         outputLanguage.value = item.outputLanguage
-        setInputText(InputTextData(item.outputText, TextSource.History))
+        setInputText(InputTextData(item.inputText, TextSource.History))
     }
 
     override fun retry() {
