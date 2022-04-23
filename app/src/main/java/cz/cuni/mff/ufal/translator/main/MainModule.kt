@@ -42,8 +42,7 @@ object MainModule {
     fun provideUserDataStore(context: Application): IUserDataStore {
         return UserDataStore(context)
     }
-
-    @Singleton
+    
     @Provides
     fun provideTextToSpeech(impl: TextToSpeechWrapper): ITextToSpeechWrapper = impl
 }

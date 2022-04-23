@@ -21,6 +21,26 @@ class SettingsViewModel @Inject constructor(
     private val textToSpeech: ITextToSpeechWrapper,
 ) : ISettingsViewModel, ViewModel() {
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModelScope.launch {
+            textToSpeech.init()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        textToSpeech.stop()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        textToSpeech.shutdown()
+    }
+
     override val agreeWithDataCollection = userDataStore.agreeWithDataCollection().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
