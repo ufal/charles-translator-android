@@ -57,6 +57,8 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <string name="settings_network_tts_title">Síťový převod textu na řeč</string>
     <string name="settings_network_tts_description">V případě dostupnosti používat kvalitnější síťový převod textu na řeč.</string>
     <string name="settings_tts_engine_title">TTS aplikace</string>
+    <string name="settings_organization_name_label">Jméno organizace (volitelné)</string>
+    <string name="settings_organization_name_placeholder">Vyplňte jméno organizace, pokud jste k tomu byli vyžádání</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>

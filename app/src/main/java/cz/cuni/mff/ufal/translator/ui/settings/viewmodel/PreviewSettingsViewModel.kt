@@ -3,7 +3,6 @@ package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 /**
  * @author Tomas Krabac
@@ -20,4 +19,7 @@ class PreviewSettingsViewModel : ISettingsViewModel {
     override val engines = MutableStateFlow(emptyList<TextToSpeech.EngineInfo>())
 
     override fun saveTTSengine(engine: String) {}
+
+    override val organizationName = MutableStateFlow("organization")
+    override fun saveOrganizationName(organizationName: String) {}
 }

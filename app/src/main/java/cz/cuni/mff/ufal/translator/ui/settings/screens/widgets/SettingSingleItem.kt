@@ -52,10 +52,6 @@ fun SettingSingleItem(
             fontSize = 14.sp,
             color = MaterialTheme.colors.onSurface
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Divider(color = MaterialTheme.colors.primary)
     }
 }
 

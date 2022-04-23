@@ -67,11 +67,14 @@ class Api @Inject constructor(
     ): Result<String> {
         return withContext(Dispatchers.IO) {
             val logInput = userDataStore.agreeWithDataCollection().first()
+            val organizationName = userDataStore.organizationName.first()
+
             val url = createTranslateUrl(
                 inputLanguage = inputLanguage,
                 outputLanguage = outputLanguage,
                 logInput = logInput,
                 textSource = textSource,
+                organizationName = organizationName,
             )
 
             val data = "input_text=$text"
@@ -109,8 +112,25 @@ class Api @Inject constructor(
         outputLanguage: Language,
         logInput: Boolean,
         textSource: TextSource,
+        organizationName: String,
     ): String {
-        return "$baseUrl/languages/?src=${inputLanguage.code}&tgt=${outputLanguage.code}&logInput=$logInput&inputType=${textSource.api}"
+        val builder = StringBuilder().apply {
+            append("$baseUrl/languages/?")
+            append("src=${inputLanguage.code}")
+            append("&")
+            append("tgt=${outputLanguage.code}")
+            append("&")
+            append("logInput=$logInput")
+            append("&")
+            append("inputType=${textSource.api}")
+
+            if (organizationName.isNotBlank()) {
+                append("&")
+                append("author=${organizationName}")
+            }
+        }
+
+        return builder.toString()
     }
 
     private fun parseSuccessResponse(rawData: String): String {

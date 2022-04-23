@@ -2,6 +2,7 @@ package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 
 import android.speech.tts.TextToSpeech
 import cz.cuni.mff.ufal.translator.base.IBaseViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -22,5 +23,9 @@ interface ISettingsViewModel: IBaseViewModel {
     val selectedTtsEngine: StateFlow<String>
 
     fun saveTTSengine(engine: String)
+
+    val organizationName: StateFlow<String>
+
+    fun saveOrganizationName(organizationName: String)
 
 }

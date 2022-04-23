@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper.Companion.DEFAULT_TTS_ENGINE
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 /**
@@ -24,6 +23,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         val AGREE_WITH_DATA_COLLECTION = booleanPreferencesKey("AGREE_WITH_DATA_COLLECTION")
         val USE_NETWORK_TTS = booleanPreferencesKey("USE_NETWORK_TTS")
         val TTS_ENGINE = stringPreferencesKey("TTS_ENGINE")
+        val ORGANIZATION_NAME = stringPreferencesKey("ORGANIZATION_NAME")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -63,6 +63,16 @@ class UserDataStore(private val context: Context) : IUserDataStore {
     override suspend fun saveTTSengine(engine: String) {
         context.userDataStore.edit {
             it[TTS_ENGINE] = engine
+        }
+    }
+
+    override val organizationName = context.userDataStore.data.map {
+        it[ORGANIZATION_NAME] ?: ""
+    }
+
+    override suspend fun saveOrganizationName(organizationName: String) {
+        context.userDataStore.edit {
+            it[ORGANIZATION_NAME] = organizationName
         }
     }
 }

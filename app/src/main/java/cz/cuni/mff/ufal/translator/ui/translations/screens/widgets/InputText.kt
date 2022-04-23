@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.DiacriticsFixer
+import cz.cuni.mff.ufal.translator.ui.common.widgets.ClearItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
@@ -93,7 +94,7 @@ fun InputText(
                     val fixedText = DiacriticsFixer.fixDiacritic(it.text)
 
                     textFieldValue = it.copy(fixedText)
-                    onValueChange(InputTextData(fixedText , TextSource.Keyboard))
+                    onValueChange(InputTextData(fixedText, TextSource.Keyboard))
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
                 keyboardActions = KeyboardActions(
@@ -149,20 +150,6 @@ private fun ActionPasteItem(
             text = stringResource(id = R.string.paste).uppercase(),
             fontSize = 16.sp,
             color = MaterialTheme.colors.primary
-        )
-    }
-}
-
-@Composable
-private fun ClearItem(modifier: Modifier, onClick: () -> Unit) {
-    IconButton(
-        modifier = modifier,
-        onClick = onClick,
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_clear),
-            tint = MaterialTheme.colors.primary,
-            contentDescription = stringResource(id = R.string.clear_cd),
         )
     }
 }

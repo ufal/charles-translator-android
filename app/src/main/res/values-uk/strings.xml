@@ -57,6 +57,8 @@
     <string name="settings_network_tts_title">Мережеве перетворення тексту в мовлення</string>
     <string name="settings_network_tts_description">У разі наявності використовувати якісніше мережеве перетворення тексту в мову.</string>
     <string name="settings_tts_engine_title">TTS Програма</string>
+    <string name="settings_organization_name_label">Назва організації (за бажанням)</string>
+    <string name="settings_organization_name_placeholder">Заповніть назву організації, якщо вас про це попросили</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>

@@ -58,4 +58,16 @@ class SettingsViewModel @Inject constructor(
             userDataStore.saveTTSengine(engine)
         }
     }
+
+    override val organizationName = userDataStore.organizationName.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        "",
+    )
+
+    override fun saveOrganizationName(organizationName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDataStore.saveOrganizationName(organizationName)
+        }
+    }
 }

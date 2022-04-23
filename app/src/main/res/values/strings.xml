@@ -57,6 +57,8 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="settings_network_tts_title">Prefer network text-to-speech</string>
     <string name="settings_network_tts_description">Use better network text-to-speech whenever available.</string>
     <string name="settings_tts_engine_title">TTS application</string>
+    <string name="settings_organization_name_label">Organization name (optional)</string>
+    <string name="settings_organization_name_placeholder">Fill in the name of the organisation if you have been asked to do</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Text to speech error</string>

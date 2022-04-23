@@ -22,4 +22,8 @@ interface IUserDataStore {
     val ttsEngine: Flow<String>
 
     suspend fun saveTTSengine(engine: String)
+
+    val organizationName: Flow<String>
+
+    suspend fun saveOrganizationName(organizationName: String)
 }

@@ -1,11 +1,19 @@
 package cz.cuni.mff.ufal.translator.ui.settings.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -14,6 +22,7 @@ import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
+import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingEditTextItem
 import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingSingleItem
 import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingSwitchItem
 import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SingleSelectionDialog
@@ -21,7 +30,6 @@ import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.ISettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.PreviewSettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.SettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
-import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewModel
 
 /**
  * @author Tomas Krabac
@@ -46,11 +54,12 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
     val useNetworkTTS by viewModel.useNetworkTTS.collectAsState()
     val selectedTtsEngineName by viewModel.selectedTtsEngine.collectAsState()
     val ttsEngines by viewModel.engines.collectAsState()
+    val organizationName by viewModel.organizationName.collectAsState()
 
     val selectedEngine = ttsEngines.find { it.name == selectedTtsEngineName } ?: ttsEngines.firstOrNull()
     val dialogState = rememberMaterialDialogState()
 
-    Column {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         BaseToolbar(titleRes = R.string.settings_title) {
             mainController.onBackPressed()
         }
@@ -63,6 +72,19 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
             onCheckedChange = viewModel::saveAgreementDataCollection
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SettingEditTextItem(
+            labelRes = R.string.settings_organization_name_label,
+            placeholderRes = R.string.settings_organization_name_placeholder,
+            value = organizationName,
+            onValueChange = viewModel::saveOrganizationName
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Divider(color = MaterialTheme.colors.primary)
+
         if (ttsEngines.isNotEmpty()) {
             SettingSwitchItem(
                 titleRes = R.string.settings_network_tts_title,
@@ -71,6 +93,10 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
 
                 onCheckedChange = viewModel::saveUseNetworkTTS
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Divider(color = MaterialTheme.colors.primary)
         }
 
         if (ttsEngines.size > 1 && selectedEngine != null) {
@@ -80,6 +106,10 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
             ) {
                 dialogState.show()
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Divider(color = MaterialTheme.colors.primary)
 
             SingleSelectionDialog(
                 dialogState = dialogState,
