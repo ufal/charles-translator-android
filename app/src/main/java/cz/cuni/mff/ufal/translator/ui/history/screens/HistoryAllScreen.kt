@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
@@ -33,7 +34,7 @@ fun HistoryAllScreen(
     mainController: IMainController,
     onRowClicked: (item: HistoryItem) -> Unit,
 ) {
-    BaseScreen(viewModel = viewModel) {
+    BaseScreen(screen = Screen.HistoryAll, viewModel = viewModel) {
         Content(
             viewModel = viewModel,
             onBackPressed = mainController::onBackPressed,

@@ -23,6 +23,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import cz.cuni.mff.ufal.translator.BuildConfig
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
@@ -37,7 +38,7 @@ private const val SUPPORT_MAIL = "u4u@ufal.mff.cuni.cz"
 @Destination()
 @Composable
 fun AboutScreen(mainController: IMainController) {
-    BaseScreen {
+    BaseScreen(screen = Screen.About) {
         Content(
             mainController = mainController,
         )

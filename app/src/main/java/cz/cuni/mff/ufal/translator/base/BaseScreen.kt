@@ -9,13 +9,16 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.google.accompanist.insets.ProvideWindowInsets
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.FirebaseHelper.setFirebaseScreen
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
+fun BaseScreen(screen: Screen, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
+    setFirebaseScreen(screen)
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->

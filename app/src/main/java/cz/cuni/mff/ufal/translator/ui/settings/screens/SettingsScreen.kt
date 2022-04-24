@@ -19,6 +19,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
@@ -40,7 +41,7 @@ fun SettingsScreen(
     viewModel: ISettingsViewModel = hiltViewModel<SettingsViewModel>(),
     mainController: IMainController
 ) {
-    BaseScreen(viewModel) {
+    BaseScreen(screen = Screen.Settings,viewModel) {
         Content(
             viewModel = viewModel,
             mainController = mainController,

@@ -16,6 +16,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.ResultRecipient
 import cz.cuni.mff.ufal.translator.base.BaseScreen
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
@@ -44,7 +45,7 @@ fun TranslationsScreen(
         }
     }
 
-    BaseScreen(viewModel = viewModel) {
+    BaseScreen(screen = Screen.Translations, viewModel = viewModel) {
         Content(
             viewModel = viewModel,
             mainController = mainController,
