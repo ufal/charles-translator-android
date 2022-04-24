@@ -1,7 +1,9 @@
 package cz.cuni.mff.ufal.translator.ui.settings.screens.widgets
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -36,7 +38,8 @@ fun SettingEditTextItem(
             .imePadding()
             .fillMaxWidth(),
     ) {
-        var textFieldValue by remember { mutableStateOf(TextFieldValue(value)) }
+        var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
+        val textFieldValue = textFieldValueState.copy(text = value)
 
         OutlinedTextField(
             modifier = Modifier
@@ -63,14 +66,16 @@ fun SettingEditTextItem(
             trailingIcon = {
                 if (textFieldValue.text.isNotEmpty()) {
                     ClearItem(onClick = {
-                        textFieldValue = TextFieldValue("")
+                        textFieldValueState = TextFieldValue()
                         onValueChange("")
                     })
                 }
             },
             onValueChange = {
-                textFieldValue = it
-                onValueChange(it.text)
+                textFieldValueState = it
+                if (value != it.text) {
+                    onValueChange(it.text)
+                }
             },
         )
     }

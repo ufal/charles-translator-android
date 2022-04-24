@@ -42,18 +42,13 @@ fun InputText(
     onValueChange: (data: InputTextData) -> Unit,
     pasteFromClipBoard: () -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue()) }
-    var lastSource by remember { mutableStateOf(TextSource.ClearButton) }
     val text = data.text
+    var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = text)) }
+    val textFieldValue = textFieldValueState.copy(text = text)
 
-    val selection = if (lastSource != data.source) {
-        lastSource = data.source
-        TextRange(text.length)
-    } else {
-        textFieldValue.selection
+    if (data.source != TextSource.Keyboard && textFieldValueState.text != text) {
+        textFieldValueState = textFieldValue.copy(text, TextRange(text.length))
     }
-    textFieldValue = textFieldValue.copy(text, selection)
-
 
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(language, hasFinishedOnboarding) {
@@ -92,9 +87,11 @@ fun InputText(
                 },
                 onValueChange = {
                     val fixedText = DiacriticsFixer.fixDiacritic(it.text)
+                    textFieldValueState = it.copy(fixedText)
 
-                    textFieldValue = it.copy(fixedText)
-                    onValueChange(InputTextData(fixedText, TextSource.Keyboard))
+                    if (text != it.text) {
+                        onValueChange(InputTextData(fixedText, TextSource.Keyboard))
+                    }
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
                 keyboardActions = KeyboardActions(
@@ -114,6 +111,7 @@ fun InputText(
                         .align(Alignment.TopEnd)
                         .padding(end = 8.dp)
                 ) {
+                    textFieldValueState = TextFieldValue()
                     onValueChange(InputTextData("", TextSource.ClearButton))
                 }
             }
