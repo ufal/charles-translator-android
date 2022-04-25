@@ -10,4 +10,5 @@ enum class TextSource(val api: String) {
     ClearButton("keyboard"),
     History("history"),
     SwapLanguages("swap-languages"),
+    ClearVoice("keyboard"),
 }

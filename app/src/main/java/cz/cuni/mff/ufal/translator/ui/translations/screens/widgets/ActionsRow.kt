@@ -70,6 +70,7 @@ fun ActionsRow(
                     drawableRes = R.drawable.ic_mic,
                     contentDescriptionRes = R.string.speech_recognizer_cd
                 ) {
+                    viewModel.setInputText(InputTextData("", TextSource.ClearVoice))
                     voiceLauncher.launch()
                 }
             }
