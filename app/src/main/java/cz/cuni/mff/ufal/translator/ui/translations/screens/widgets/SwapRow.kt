@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 /**
@@ -64,7 +65,7 @@ private fun SwapItem(modifier: Modifier, onClick: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_swap),
-            tint = MaterialTheme.colors.primary,
+            tint = LindatTheme.colors.primary,
             contentDescription = stringResource(id = R.string.swap_cd),
         )
     }

@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 
+import androidx.compose.foundation.background
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac

@@ -22,6 +22,7 @@ import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.*
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
@@ -45,7 +46,11 @@ fun TranslationsScreen(
         }
     }
 
-    BaseScreen(screen = Screen.Translations, viewModel = viewModel) {
+    BaseScreen(
+        screen = Screen.Translations,
+        isDarkMode = mainController.isDarkMode,
+        viewModel = viewModel,
+    ) {
         Content(
             viewModel = viewModel,
             mainController = mainController,
@@ -132,7 +137,7 @@ fun Content(
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-    LindatTheme {
+    LindatThemePreview {
         Content(
             viewModel = PreviewTranslationsViewModel(),
             mainController = PreviewIMainController(),
@@ -143,7 +148,7 @@ private fun MainScreenPreview() {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun MainScreenDarkModePreview() {
-    LindatTheme {
+    LindatThemePreview {
         Content(
             viewModel = PreviewTranslationsViewModel(),
             mainController = PreviewIMainController(),

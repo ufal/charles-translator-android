@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -46,7 +47,7 @@ fun HistoryEmpty(
 @Preview(showBackground = true)
 @Composable
 private fun HistoryEmptyPreview() {
-    LindatTheme {
+    LindatThemePreview {
         HistoryEmpty(
             textRes = R.string.history_all_empty
         )

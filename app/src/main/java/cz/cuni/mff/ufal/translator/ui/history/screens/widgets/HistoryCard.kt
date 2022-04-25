@@ -20,6 +20,7 @@ import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.screens.MissingTtsDialog
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.collect
@@ -113,7 +114,7 @@ private fun DeleteItem(modifier: Modifier, onClick: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_delete),
-            tint = MaterialTheme.colors.primary,
+            tint = LindatTheme.colors.primary,
             contentDescription = stringResource(id = R.string.delete_cd),
         )
     }
@@ -122,7 +123,7 @@ private fun DeleteItem(modifier: Modifier, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 private fun HistoryCardPreview() {
-    LindatTheme {
+    LindatThemePreview {
         HistoryCard(
             item = HistoryItem("test", "preklad", Language.Czech, Language.Ukrainian, false),
 

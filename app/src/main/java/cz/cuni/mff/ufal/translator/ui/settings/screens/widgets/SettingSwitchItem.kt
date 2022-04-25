@@ -7,13 +7,16 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatColors
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -44,21 +47,21 @@ fun SettingSwitchItem(
                 text = stringResource(id = titleRes),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onSurface,
+                color = LindatTheme.colors.onSurface,
             )
 
             Spacer(modifier = Modifier.width(4.dp))
 
             Switch(
+                colors = SwitchDefaults.colors(
+                    uncheckedThumbColor = LindatTheme.colors.uncheckedThumb,
+                    uncheckedTrackColor = LindatTheme.colors.uncheckedTrack,
+                    uncheckedTrackAlpha = 1f
+                ),
                 checked = isChecked,
                 onCheckedChange = {
                     onCheckedChange(it)
                 },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = MaterialTheme.colors.primary,
-                    uncheckedThumbColor = MaterialTheme.colors.secondary,
-                    uncheckedTrackColor = MaterialTheme.colors.secondaryVariant,
-                )
             )
 
             Spacer(modifier = Modifier.width(16.dp))
@@ -68,7 +71,7 @@ fun SettingSwitchItem(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = stringResource(id = descriptionRes),
             fontSize = 14.sp,
-            color = MaterialTheme.colors.onSurface
+            color = LindatTheme.colors.onSurface
         )
     }
 }
@@ -76,7 +79,7 @@ fun SettingSwitchItem(
 @Preview(showBackground = true)
 @Composable
 private fun SettingsItemCheckedPreview() {
-    LindatTheme {
+    LindatThemePreview {
         SettingSwitchItem(
             titleRes = R.string.settings_data_collection_title,
             descriptionRes = R.string.settings_data_collection_description,
@@ -90,7 +93,7 @@ private fun SettingsItemCheckedPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun SettingsItemUncheckedPreview() {
-    LindatTheme {
+    LindatThemePreview {
         SettingSwitchItem(
             titleRes = R.string.settings_data_collection_title,
             descriptionRes = R.string.settings_data_collection_description,

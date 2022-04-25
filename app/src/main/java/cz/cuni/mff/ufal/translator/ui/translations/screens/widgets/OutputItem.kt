@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
 
 /**
@@ -24,8 +25,8 @@ fun OutputItem(modifier: Modifier, data: OutputTextData) {
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
-            .border(2.dp, MaterialTheme.colors.primary, RoundedCornerShape(4.dp))
-            .background(MaterialTheme.colors.background)
+            .border(2.dp, LindatTheme.colors.primary, RoundedCornerShape(4.dp))
+            .background(LindatTheme.colors.background)
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .verticalScroll(rememberScrollState())
     ) {

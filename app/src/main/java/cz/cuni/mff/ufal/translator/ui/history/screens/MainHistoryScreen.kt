@@ -26,7 +26,7 @@ fun MainHistoryScreen(
     viewModel: IHistoryViewModel = hiltViewModel<HistoryViewModel>(),
     resultNavigator: ResultBackNavigator<HistoryItem>,
 ) {
-    LindatTheme {
+    LindatTheme(mainController.isDarkMode) {
         val historyController = rememberNavController()
         Scaffold(
             bottomBar = { HistoryBottomNavigation(navController = historyController) }

@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -19,12 +20,12 @@ fun BaseToolbar(
     onBackPressed: () -> Unit,
 ) {
     TopAppBar(
-        backgroundColor = MaterialTheme.colors.primary,
+        backgroundColor = LindatTheme.colors.toolbarBackground,
         navigationIcon = {
             IconButton(onClick = onBackPressed) {
                 Icon(
                     painter = painterResource(R.drawable.ic_back),
-                    tint = MaterialTheme.colors.onPrimary,
+                    tint = LindatTheme.colors.onPrimary,
                     contentDescription = ""
                 )
             }
@@ -32,7 +33,7 @@ fun BaseToolbar(
         title = {
             Text(
                 text = stringResource(titleRes),
-                color = MaterialTheme.colors.onPrimary,
+                color = LindatTheme.colors.onPrimary,
             )
         },
         modifier = Modifier.statusBarsPadding(),

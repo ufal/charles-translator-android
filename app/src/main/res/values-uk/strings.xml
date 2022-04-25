@@ -29,7 +29,7 @@
 <![CDATA[
 <b>Розробка системи перекладу:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
-<b>Підготовка даних:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br>
+<b>Підготовка даних:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
 Дякуємо k <a href="https://intercorp.korpus.cz/">korpus.cz</a> за надання <b>InterCorp v14</b>, який є частиною проекту Чеського національного корпусу.<br><br>
 
 <b>Розробка сервера:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> і Lindat команда<br><br>
@@ -59,6 +59,8 @@
     <string name="settings_tts_engine_title">TTS Програма</string>
     <string name="settings_organization_name_label">Назва організації (за бажанням)</string>
     <string name="settings_organization_name_placeholder">Заповніть назву організації, якщо вас про це попросили</string>
+    <string name="settings_dark_mode_title">Темна тема</string>
+    <string name="settings_dark_mode_description">Поки тільки експериментальний, він може не вести себе коректно, а зміна вступить в силу після перезавантаження.</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>

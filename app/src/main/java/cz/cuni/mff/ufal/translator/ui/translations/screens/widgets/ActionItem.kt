@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -33,7 +34,7 @@ fun ActionItem(
         Icon(
             modifier = Modifier.size(size),
             painter = painterResource(id = drawableRes),
-            tint = MaterialTheme.colors.primary,
+            tint = LindatTheme.colors.primary,
             contentDescription = stringResource(id = contentDescriptionRes),
         )
     }

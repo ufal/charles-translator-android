@@ -20,6 +20,7 @@ import com.google.accompanist.insets.imePadding
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.common.widgets.ClearItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -47,7 +48,7 @@ fun SettingEditTextItem(
                 .fillMaxWidth(),
             value = textFieldValue,
             textStyle = TextStyle(
-                color = MaterialTheme.colors.onBackground,
+                color = LindatTheme.colors.onBackground,
                 fontSize = 22.sp,
             ),
             singleLine = true,
@@ -84,7 +85,7 @@ fun SettingEditTextItem(
 @Preview(showBackground = true)
 @Composable
 private fun SettingsSingleItemPreview() {
-    LindatTheme {
+    LindatThemePreview {
         SettingEditTextItem(
             labelRes = R.string.settings_organization_name_label,
             placeholderRes = R.string.settings_organization_name_placeholder,

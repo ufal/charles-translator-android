@@ -8,6 +8,7 @@ import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -88,6 +89,18 @@ class SettingsViewModel @Inject constructor(
     override fun saveOrganizationName(organizationName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userDataStore.saveOrganizationName(organizationName)
+        }
+    }
+
+    override val isExperimentalDarkMode = userDataStore.isExperimentalDarkMode.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        false,
+    )
+
+    override fun saveExperimentalDarkMode(isDarkModeExperimental: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDataStore.saveExperimentalDarkMode(isDarkModeExperimental)
         }
     }
 }

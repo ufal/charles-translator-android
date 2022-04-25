@@ -1,17 +1,19 @@
 package cz.cuni.mff.ufal.translator.ui.about.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -28,6 +30,7 @@ import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -38,7 +41,7 @@ private const val SUPPORT_MAIL = "u4u@ufal.mff.cuni.cz"
 @Destination()
 @Composable
 fun AboutScreen(mainController: IMainController) {
-    BaseScreen(screen = Screen.About) {
+    BaseScreen(screen = Screen.About, isDarkMode = mainController.isDarkMode) {
         Content(
             mainController = mainController,
         )
@@ -95,6 +98,9 @@ private fun AppVersionItem() {
 @Composable
 private fun IntroTextItem() {
     HtmlText(
+        style = TextStyle(
+            color = LindatTheme.colors.onSurface,
+        ),
         text = stringResource(id = R.string.about_text_intro),
     )
 }
@@ -108,7 +114,10 @@ private fun LogoItem() {
     ) {
         val imageHeight = 88.dp
         Image(
-            modifier = Modifier.height(imageHeight),
+            modifier = Modifier
+                .height(imageHeight)
+                .background(Color.White)
+                .padding(horizontal = 8.dp),
             painter = painterResource(id = R.drawable.img_ufal),
             contentDescription = stringResource(id = R.string.ufal_cd),
         )
@@ -116,7 +125,9 @@ private fun LogoItem() {
         Spacer(modifier = Modifier.width(16.dp))
 
         Image(
-            modifier = Modifier.height(imageHeight),
+            modifier = Modifier
+                .height(imageHeight)
+                .background(Color.White),
             painter = painterResource(id = R.drawable.img_lindat),
             contentDescription = stringResource(id = R.string.lindat_cd),
         )
@@ -128,8 +139,11 @@ private fun LogoItem() {
 private fun HtmlTextItem(mainController: IMainController) {
     HtmlText(
         text = stringResource(id = R.string.about_text, SUPPORT_MAIL),
+        style = TextStyle(
+            color = LindatTheme.colors.onSurface,
+        ),
         URLSpanStyle = SpanStyle(
-            color = MaterialTheme.colors.primary,
+            color = LindatTheme.colors.primary,
             textDecoration = TextDecoration.Underline
         ),
         linkClicked = { url ->
@@ -145,7 +159,7 @@ private fun HtmlTextItem(mainController: IMainController) {
 @Preview(showBackground = true)
 @Composable
 private fun AboutScreenPreview() {
-    LindatTheme {
+    LindatThemePreview {
         AboutScreen(
             mainController = PreviewIMainController(),
         )

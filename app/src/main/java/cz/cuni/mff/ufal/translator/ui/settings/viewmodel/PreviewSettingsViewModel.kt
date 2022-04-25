@@ -22,4 +22,7 @@ class PreviewSettingsViewModel : ISettingsViewModel {
 
     override val organizationName = MutableStateFlow("organization")
     override fun saveOrganizationName(organizationName: String) {}
+
+    override val isExperimentalDarkMode = MutableStateFlow(false)
+    override fun saveExperimentalDarkMode(isDarkModeExperimental: Boolean) {}
 }

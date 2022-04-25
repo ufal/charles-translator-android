@@ -4,6 +4,9 @@ package cz.cuni.mff.ufal.translator.main.controller
  * @author Tomas Krabac
  */
 class PreviewIMainController : IMainController {
+
+    override val isDarkMode = false
+
     override fun navigateHistory() {}
     override fun navigateAboutScreen() {}
     override fun navigateSettingsScreen() {}

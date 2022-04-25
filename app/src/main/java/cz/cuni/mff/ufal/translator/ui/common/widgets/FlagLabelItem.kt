@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 /**
@@ -34,7 +35,7 @@ fun FlagLabelItem(modifier: Modifier = Modifier, language: Language) {
 
         Text(
             text = stringResource(id = labelRes),
-            color = MaterialTheme.colors.onSurface
+            color = LindatTheme.colors.onSurface
         )
     }
 

@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import cz.cuni.mff.ufal.translator.ui.history.screens.menu.HistoryNavItem
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -19,8 +20,8 @@ fun HistoryBottomNavigation(navController: NavController) {
         HistoryNavItem.Favourites,
     )
     BottomNavigation(
-        backgroundColor = MaterialTheme.colors.surface,
-        contentColor = MaterialTheme.colors.onSurface,
+        backgroundColor = LindatTheme.colors.surface,
+        contentColor = LindatTheme.colors.onSurface,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -40,8 +41,8 @@ fun HistoryBottomNavigation(navController: NavController) {
                         text = title,
                     )
                 },
-                selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = MaterialTheme.colors.primary.copy(0.4f),
+                selectedContentColor = LindatTheme.colors.primary,
+                unselectedContentColor = LindatTheme.colors.primary.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screenRoute,
                 onClick = {

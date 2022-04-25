@@ -17,8 +17,6 @@ import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
-import cz.cuni.mff.ufal.translator.ui.destinations.TranslationsScreenDestination
-import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 
 
 /**
@@ -27,6 +25,7 @@ import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 class MainController(
     val navController: NavHostController,
     private val context: Context,
+    override val isDarkMode: Boolean,
 ) : IMainController {
     override fun navigateHistory() {
         navController.navigateTo(MainHistoryScreenDestination)
@@ -64,13 +63,14 @@ class MainController(
 }
 
 @Composable
-fun rememberMainController(): MainController {
+fun rememberMainController(isDarkMode: Boolean): MainController {
     val navController = rememberNavController()
     val context = LocalContext.current
     return remember {
         MainController(
             navController = navController,
             context = context,
+            isDarkMode = isDarkMode,
         )
     }
 }

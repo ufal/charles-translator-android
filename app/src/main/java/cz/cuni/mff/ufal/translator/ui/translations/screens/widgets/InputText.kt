@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.DiacriticsFixer
 import cz.cuni.mff.ufal.translator.ui.common.widgets.ClearItem
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
@@ -73,7 +74,7 @@ fun InputText(
                     .focusRequester(focusRequester),
                 value = textFieldValue,
                 textStyle = TextStyle(
-                    color = MaterialTheme.colors.onBackground,
+                    color = LindatTheme.colors.onBackground,
                     fontSize = 22.sp,
                 ),
                 placeholder = {
@@ -129,16 +130,16 @@ private fun ActionPasteItem(
         modifier = modifier,
         shape = RoundedCornerShape(80),
         onClick = onClick,
-        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+        border = BorderStroke(1.dp, LindatTheme.colors.primary),
         colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = MaterialTheme.colors.background,
-            contentColor = MaterialTheme.colors.onBackground,
+            backgroundColor = LindatTheme.colors.background,
+            contentColor = LindatTheme.colors.onBackground,
         )
     )
     {
         Icon(
             painter = painterResource(id = R.drawable.ic_paste),
-            tint = MaterialTheme.colors.primary,
+            tint = LindatTheme.colors.primary,
             contentDescription = stringResource(id = R.string.paste_cd),
         )
 
@@ -147,7 +148,7 @@ private fun ActionPasteItem(
         Text(
             text = stringResource(id = R.string.paste).uppercase(),
             fontSize = 16.sp,
-            color = MaterialTheme.colors.primary
+            color = LindatTheme.colors.primary
         )
     }
 }

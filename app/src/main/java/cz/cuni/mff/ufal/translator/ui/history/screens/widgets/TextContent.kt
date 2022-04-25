@@ -10,6 +10,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
+import cz.cuni.mff.ufal.translator.ui.theme.LindatColors
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -27,7 +29,7 @@ fun TextContent(modifier: Modifier, item: HistoryItem) {
 
         Text(
             text = item.inputText,
-            color = MaterialTheme.colors.onBackground,
+            color = LindatTheme.colors.onBackground,
             maxLines = 10,
             overflow = TextOverflow.Ellipsis,
         )
@@ -41,7 +43,7 @@ fun TextContent(modifier: Modifier, item: HistoryItem) {
         Text(
             text = item.outputText,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onBackground,
+            color = LindatTheme.colors.onBackground,
             maxLines = 10,
             overflow = TextOverflow.Ellipsis,
         )
@@ -51,7 +53,7 @@ fun TextContent(modifier: Modifier, item: HistoryItem) {
         Text(
             text = item.secondaryText,
 
-            color = MaterialTheme.colors.onBackground,
+            color = LindatTheme.colors.onBackground,
             maxLines = 10,
             overflow = TextOverflow.Ellipsis,
         )

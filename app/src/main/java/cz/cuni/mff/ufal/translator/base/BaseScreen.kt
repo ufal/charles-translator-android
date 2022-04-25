@@ -17,7 +17,7 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(screen: Screen, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
+fun BaseScreen(screen: Screen, isDarkMode: Boolean, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
     setFirebaseScreen(screen)
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
@@ -36,7 +36,7 @@ fun BaseScreen(screen: Screen, viewModel: IBaseViewModel? = null, content: @Comp
         }
     }
 
-    LindatTheme {
+    LindatTheme(isDarkMode) {
         ProvideWindowInsets {
             Surface(
                 modifier = Modifier.fillMaxSize(),

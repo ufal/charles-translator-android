@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -32,7 +32,7 @@ fun ErrorItem(modifier: Modifier, retryAction: () -> Unit) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(id = R.string.api_error),
-            color = MaterialTheme.colors.onBackground,
+            color = LindatTheme.colors.onBackground,
             fontSize = 14.sp,
             lineHeight = 20.sp,
             textAlign = TextAlign.Center,
@@ -41,10 +41,10 @@ fun ErrorItem(modifier: Modifier, retryAction: () -> Unit) {
         OutlinedButton(
             shape = RoundedCornerShape(50),
             onClick = retryAction,
-            border = BorderStroke(1.dp, color = MaterialTheme.colors.onBackground),
+            border = BorderStroke(1.dp, color = LindatTheme.colors.onBackground),
             colors = ButtonDefaults.outlinedButtonColors(
-                backgroundColor = MaterialTheme.colors.background,
-                contentColor = MaterialTheme.colors.onBackground,
+                backgroundColor = LindatTheme.colors.background,
+                contentColor = LindatTheme.colors.onBackground,
             )
         ) {
             Text(

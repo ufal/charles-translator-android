@@ -23,7 +23,7 @@ import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryCard
 import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryEmpty
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
-import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -34,7 +34,11 @@ fun HistoryFavouritesScreen(
     mainController: IMainController,
     onRowClicked: (item: HistoryItem) -> Unit,
 ) {
-    BaseScreen(screen = Screen.HistoryFavourites, viewModel = viewModel) {
+    BaseScreen(
+        screen = Screen.HistoryFavourites,
+        isDarkMode = mainController.isDarkMode,
+        viewModel = viewModel
+    ) {
         Content(
             viewModel = viewModel,
             onBackPressed = mainController::onBackPressed,
@@ -90,7 +94,7 @@ private fun Content(
 @Preview(showBackground = true)
 @Composable
 private fun HistoryFavouritesScreenPreview() {
-    LindatTheme {
+    LindatThemePreview {
         HistoryFavouritesScreen(
             viewModel = PreviewHistoryViewModel(),
             mainController = PreviewIMainController(),

@@ -26,4 +26,8 @@ interface IUserDataStore {
     val organizationName: Flow<String>
 
     suspend fun saveOrganizationName(organizationName: String)
+
+    val isExperimentalDarkMode: Flow<Boolean>
+
+    suspend fun saveExperimentalDarkMode(isExperimentalDarkMode: Boolean)
 }

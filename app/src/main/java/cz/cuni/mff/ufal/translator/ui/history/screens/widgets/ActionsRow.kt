@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.ActionItem
 
 /**
@@ -36,7 +37,7 @@ fun ActionsRow(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.background)
+            .background(LindatTheme.colors.background)
             .padding(horizontal = 16.dp),
     ) {
         Row(modifier = Modifier.align(Alignment.CenterStart)) {
@@ -74,7 +75,7 @@ private fun FavouriteItem(isFavourite: Boolean, onClick: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(id = iconRes),
-            tint = MaterialTheme.colors.primary,
+            tint = LindatTheme.colors.primary,
             contentDescription = stringResource(id = contentDescriptionRes),
         )
     }
@@ -83,7 +84,7 @@ private fun FavouriteItem(isFavourite: Boolean, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 private fun ActionsRowPreview() {
-    LindatTheme {
+    LindatThemePreview {
         ActionsRow(
             isFavourite = false,
 

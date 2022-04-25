@@ -29,7 +29,7 @@ The Translator was developed at the <a href="https://ufal.mff.cuni.cz/">Institut
 <![CDATA[
 <b>Development of the translation system:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
-<b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br>
+<b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
 Many thanks to <a href="https://intercorp.korpus.cz/">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br><br>
 
 <b>Back-end development:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> and the Lindat team<br><br>
@@ -59,6 +59,8 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="settings_tts_engine_title">TTS application</string>
     <string name="settings_organization_name_label">Organization name (optional)</string>
     <string name="settings_organization_name_placeholder">Fill in the name of the organisation if you have been asked to do</string>
+    <string name="settings_dark_mode_title">Darkmode</string>
+    <string name="settings_dark_mode_description">For now only experimental, may not behave correctly and it will change after restart</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Text to speech error</string>

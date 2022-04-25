@@ -28,4 +28,8 @@ interface ISettingsViewModel: IBaseViewModel {
 
     fun saveOrganizationName(organizationName: String)
 
+    val isExperimentalDarkMode: StateFlow<Boolean>
+
+    fun saveExperimentalDarkMode(isDarkModeExperimental: Boolean)
+
 }

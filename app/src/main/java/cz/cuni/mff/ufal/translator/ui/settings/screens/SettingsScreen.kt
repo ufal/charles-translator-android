@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,6 +30,7 @@ import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.ISettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.PreviewSettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.SettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -41,7 +41,11 @@ fun SettingsScreen(
     viewModel: ISettingsViewModel = hiltViewModel<SettingsViewModel>(),
     mainController: IMainController
 ) {
-    BaseScreen(screen = Screen.Settings,viewModel) {
+    BaseScreen(
+        screen = Screen.Settings,
+        isDarkMode = mainController.isDarkMode,
+        viewModel = viewModel,
+    ) {
         Content(
             viewModel = viewModel,
             mainController = mainController,
@@ -56,6 +60,7 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
     val selectedTtsEngineName by viewModel.selectedTtsEngine.collectAsState()
     val ttsEngines by viewModel.engines.collectAsState()
     val organizationName by viewModel.organizationName.collectAsState()
+    val isExperimentalDarkMode by viewModel.isExperimentalDarkMode.collectAsState()
 
     val selectedEngine = ttsEngines.find { it.name == selectedTtsEngineName } ?: ttsEngines.firstOrNull()
     val dialogState = rememberMaterialDialogState()
@@ -82,9 +87,7 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
             onValueChange = viewModel::saveOrganizationName
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Divider(color = MaterialTheme.colors.primary)
+        SettingsDivider()
 
         if (ttsEngines.isNotEmpty()) {
             SettingSwitchItem(
@@ -95,9 +98,7 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
                 onCheckedChange = viewModel::saveUseNetworkTTS
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Divider(color = MaterialTheme.colors.primary)
+            SettingsDivider()
         }
 
         if (ttsEngines.size > 1 && selectedEngine != null) {
@@ -108,9 +109,7 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
                 dialogState.show()
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Divider(color = MaterialTheme.colors.primary)
+            SettingsDivider()
 
             SingleSelectionDialog(
                 dialogState = dialogState,
@@ -122,14 +121,31 @@ private fun Content(viewModel: ISettingsViewModel, mainController: IMainControll
                 viewModel.saveTTSengine(engine.name)
             }
         }
-    }
 
+        SettingSwitchItem(
+            titleRes = R.string.settings_dark_mode_title,
+            descriptionRes = R.string.settings_dark_mode_description,
+            isChecked = isExperimentalDarkMode,
+
+            onCheckedChange = viewModel::saveExperimentalDarkMode
+        )
+
+        SettingsDivider()
+
+    }
+}
+
+@Composable
+private fun SettingsDivider(){
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Divider(color = LindatTheme.colors.primary)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SettingsScreenPreview() {
-    LindatTheme {
+    LindatThemePreview {
         SettingsScreen(
             viewModel = PreviewSettingsViewModel(),
             mainController = PreviewIMainController(),

@@ -24,6 +24,7 @@ import cz.cuni.mff.ufal.translator.ui.history.screens.widgets.HistoryEmpty
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.PreviewHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -34,7 +35,10 @@ fun HistoryAllScreen(
     mainController: IMainController,
     onRowClicked: (item: HistoryItem) -> Unit,
 ) {
-    BaseScreen(screen = Screen.HistoryAll, viewModel = viewModel) {
+    BaseScreen(
+        screen = Screen.HistoryAll,
+        isDarkMode = mainController.isDarkMode,
+        viewModel = viewModel) {
         Content(
             viewModel = viewModel,
             onBackPressed = mainController::onBackPressed,
@@ -89,7 +93,7 @@ private fun Content(
 @Preview(showBackground = true)
 @Composable
 private fun HistoryScreenPreview() {
-    LindatTheme {
+    LindatThemePreview {
         HistoryAllScreen(
             viewModel = PreviewHistoryViewModel(),
             mainController = PreviewIMainController(),

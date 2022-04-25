@@ -24,6 +24,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         val USE_NETWORK_TTS = booleanPreferencesKey("USE_NETWORK_TTS")
         val TTS_ENGINE = stringPreferencesKey("TTS_ENGINE")
         val ORGANIZATION_NAME = stringPreferencesKey("ORGANIZATION_NAME")
+        val IS_DARK_MODE_EXPERIMENTAL = booleanPreferencesKey("IS_DARK_MODE_EXPERIMENTAL")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -73,6 +74,16 @@ class UserDataStore(private val context: Context) : IUserDataStore {
     override suspend fun saveOrganizationName(organizationName: String) {
         context.userDataStore.edit {
             it[ORGANIZATION_NAME] = organizationName
+        }
+    }
+
+    override val isExperimentalDarkMode = context.userDataStore.data.map {
+        it[IS_DARK_MODE_EXPERIMENTAL] ?: false
+    }
+
+    override suspend fun saveExperimentalDarkMode(isExperimentalDarkMode: Boolean) {
+        context.userDataStore.edit {
+            it[IS_DARK_MODE_EXPERIMENTAL] = isExperimentalDarkMode
         }
     }
 }

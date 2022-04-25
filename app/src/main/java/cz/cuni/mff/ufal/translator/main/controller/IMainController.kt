@@ -1,11 +1,11 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
-import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-
 /**
  * @author Tomas Krabac
  */
 interface IMainController {
+
+    val isDarkMode: Boolean
 
     fun navigateHistory()
 

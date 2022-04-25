@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 /**
  * @author Tomas Krabac
@@ -41,7 +42,7 @@ fun SettingSingleItem(
             text = stringResource(id = titleRes),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onSurface,
+            color = LindatTheme.colors.onSurface,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -50,7 +51,7 @@ fun SettingSingleItem(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = value,
             fontSize = 14.sp,
-            color = MaterialTheme.colors.onSurface
+            color = LindatTheme.colors.onSurface
         )
     }
 }
@@ -58,7 +59,7 @@ fun SettingSingleItem(
 @Preview(showBackground = true)
 @Composable
 private fun SettingsSingleItemPreview() {
-    LindatTheme {
+    LindatThemePreview {
         SettingSingleItem(
             titleRes = R.string.settings_tts_engine_title,
             value = "Google TTS",
