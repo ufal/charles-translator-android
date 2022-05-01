@@ -60,7 +60,7 @@ For any questions about this Translator, please contact <a href="/support-mail">
     <string name="settings_organization_name_label">Organization name (optional)</string>
     <string name="settings_organization_name_placeholder">Fill in the name of the organisation if you have been asked to do</string>
     <string name="settings_dark_mode_title">Darkmode</string>
-    <string name="settings_dark_mode_description">For now only experimental, may not behave correctly and it will change after restart</string>
+    <string name="settings_dark_mode_description">For now only experimental, may not behave correctly</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Text to speech error</string>

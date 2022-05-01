@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.*
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
@@ -15,6 +16,7 @@ import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
 import cz.cuni.mff.ufal.translator.ui.NavGraphs
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -30,17 +32,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         if (!isTablet) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
 
         setBaseFirebaseInfo(this)
 
         setContent {
-            val isDarkMode = runBlocking {
-                dataStore.isExperimentalDarkMode.first()
+            var isDarkMode by remember {
+                mutableStateOf(runBlocking { dataStore.isExperimentalDarkMode.first() })
             }
 
-            val controller = rememberMainController(isDarkMode)
+            val controller = rememberMainController()
+
+            LaunchedEffect(Unit) {
+                dataStore.isExperimentalDarkMode.collect {
+                    isDarkMode = it
+                    controller.setDarkMode(it)
+                }
+            }
 
             LindatTheme(isDarkMode) {
                 val systemUiController = rememberSystemUiController()

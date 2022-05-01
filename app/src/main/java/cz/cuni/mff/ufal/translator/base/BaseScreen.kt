@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -12,12 +14,13 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.FirebaseHelper.setFirebaseScreen
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(screen: Screen, isDarkMode: Boolean, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
+fun BaseScreen(screen: Screen, isDarkMode: StateFlow<Boolean>, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
     setFirebaseScreen(screen)
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
@@ -36,7 +39,9 @@ fun BaseScreen(screen: Screen, isDarkMode: Boolean, viewModel: IBaseViewModel? =
         }
     }
 
-    LindatTheme(isDarkMode) {
+    val state by isDarkMode.collectAsState()
+
+    LindatTheme(state) {
         ProvideWindowInsets {
             Surface(
                 modifier = Modifier.fillMaxSize(),

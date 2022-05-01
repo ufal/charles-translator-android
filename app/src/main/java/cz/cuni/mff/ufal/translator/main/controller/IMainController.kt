@@ -1,11 +1,13 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * @author Tomas Krabac
  */
 interface IMainController {
 
-    val isDarkMode: Boolean
+    val isDarkMode: StateFlow<Boolean>
 
     fun navigateHistory()
 
@@ -18,4 +20,6 @@ interface IMainController {
     fun sendMail(mail: String)
 
     fun onBackPressed()
+
+    fun setDarkMode(isDarkMode: Boolean)
 }

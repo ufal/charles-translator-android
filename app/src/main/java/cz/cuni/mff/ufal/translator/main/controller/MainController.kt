@@ -17,6 +17,7 @@ import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 /**
@@ -25,8 +26,10 @@ import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
 class MainController(
     val navController: NavHostController,
     private val context: Context,
-    override val isDarkMode: Boolean,
 ) : IMainController {
+
+    override val isDarkMode = MutableStateFlow(false)
+
     override fun navigateHistory() {
         navController.navigateTo(MainHistoryScreenDestination)
     }
@@ -60,17 +63,20 @@ class MainController(
     override fun onBackPressed() {
         navController.popBackStack()
     }
+
+    override fun setDarkMode(isDarkMode: Boolean) {
+        this.isDarkMode.value = isDarkMode
+    }
 }
 
 @Composable
-fun rememberMainController(isDarkMode: Boolean): MainController {
+fun rememberMainController(): MainController {
     val navController = rememberNavController()
     val context = LocalContext.current
-    return remember {
+    return remember() {
         MainController(
             navController = navController,
             context = context,
-            isDarkMode = isDarkMode,
         )
     }
 }
