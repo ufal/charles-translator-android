@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
             LindatTheme(isDarkMode) {
                 val systemUiController = rememberSystemUiController()
                 systemUiController.setSystemBarsColor(
-                    color = LindatTheme.colors.toolbarBackground
+                    color = LindatTheme.colors.statusBar
                 )
             }
 
