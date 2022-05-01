@@ -64,7 +64,8 @@
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
-    <string name="dialog_tts_message">Під час перетворення тексту на мову виникла помилка. Рекомендуємо встановити додаток Google Голосовий сервіс з Google Play</string>
+    <string name="dialog_tts_message_unknown_error">Під час перетворення тексту на мову сталася невідома помилка.</string>
+    <string name="dialog_tts_message_missing_google_tts">Під час перетворення тексту на мову виникла помилка. Рекомендуємо встановити додаток Google Голосовий сервіс з Google Play.</string>
     <string name="dialog_tts_download">Завантажити</string>
     <string name="dialog_tts_cancel">Скасувати</string>
 

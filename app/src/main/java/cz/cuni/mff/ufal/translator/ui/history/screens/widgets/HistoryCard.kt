@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -16,13 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
-import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
-import cz.cuni.mff.ufal.translator.ui.translations.screens.MissingTtsDialog
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
 import kotlinx.coroutines.flow.collect
 
 /**
@@ -35,12 +36,12 @@ fun HistoryCard(
     viewModel: IHistoryViewModel,
     onRowClicked: (item: HistoryItem) -> Unit,
 ) {
-    val isMissingTtsDialogVisible = remember { mutableStateOf(false) }
+    val isTtsErrorDialogVisible = remember { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
         viewModel.textToSpeechErrors.collect {
             if (it == TextToSpeechError.SpeakError) {
-                isMissingTtsDialogVisible.value = true
+                isTtsErrorDialogVisible.value = true
             }
         }
     }
@@ -58,7 +59,7 @@ fun HistoryCard(
         textToSpeechClicked = { viewModel.textToSpeech(item) }
     )
 
-    MissingTtsDialog(isMissingTtsDialogVisible, LocalContext.current)
+    TtsErrorDialog(isTtsErrorDialogVisible, LocalContext.current)
 }
 
 @Composable

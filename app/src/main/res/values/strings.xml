@@ -64,7 +64,8 @@ For any questions about this Translator, please contact <a href="/support-mail">
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Text to speech error</string>
-    <string name="dialog_tts_message">There was an error when converting text to speech. We recommend installing the Speech Services by Google app from Google Play</string>
+    <string name="dialog_tts_message_unknown_error">There was an unknown error when converting text to speech.</string>
+    <string name="dialog_tts_message_missing_google_tts">There was an error when converting text to speech. We recommend installing the Speech Services by Google app from Google Play</string>
     <string name="dialog_tts_download">Download</string>
     <string name="dialog_tts_cancel">Cancel</string>
 

@@ -5,6 +5,7 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.MaterialDialogState
 import com.vanpra.composematerialdialogs.listItemsSingleChoice
 import com.vanpra.composematerialdialogs.title
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -24,6 +25,7 @@ fun SingleSelectionDialog(
     val initialSingleSelection = items.indexOf(selectedItem)
 
     MaterialDialog(
+        backgroundColor = LindatTheme.colors.dialogBackgound,
         dialogState = dialogState,
         buttons = {
             positiveButton("Ok")

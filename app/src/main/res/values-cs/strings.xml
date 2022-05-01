@@ -64,7 +64,8 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
-    <string name="dialog_tts_message">Při převodu textu na řeč nastala chyba. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
+    <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč nastala neznámá chyba</string>
+    <string name="dialog_tts_message_missing_google_tts">Při převodu textu na řeč nastala chyba. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
     <string name="dialog_tts_download">Stáhnout</string>
     <string name="dialog_tts_cancel">Zrušit</string>
 

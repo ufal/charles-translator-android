@@ -1,10 +1,12 @@
 package cz.cuni.mff.ufal.translator.interactors
 
 import android.content.*
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.widget.Toast
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.extensions.logE
+
 
 /**
  * @author Tomas Krabac
@@ -45,5 +47,15 @@ object ContextUtils {
             )
         }
     }
+
+    fun isPackageInstalled(context: Context, packageName: String): Boolean {
+        return try {
+            context.packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
 
 }

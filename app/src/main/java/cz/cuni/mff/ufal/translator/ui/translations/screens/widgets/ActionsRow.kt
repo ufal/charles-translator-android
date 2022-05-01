@@ -15,9 +15,9 @@ import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.ui.VoiceContract
-import cz.cuni.mff.ufal.translator.ui.translations.screens.MissingTtsDialog
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
+import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
 import kotlinx.coroutines.flow.collect
 
@@ -32,7 +32,7 @@ fun ActionsRow(
 ) {
     val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
     val inputLanguage by viewModel.inputLanguage.collectAsState()
-    val isMissingTtsDialogVisible = remember { mutableStateOf(false) }
+    val isTtsErrorDialogVisible = remember { mutableStateOf(false) }
 
     val voiceLauncher = rememberLauncherForActivityResult(VoiceContract(inputLanguage)) { text ->
         if (text != null) {
@@ -43,7 +43,7 @@ fun ActionsRow(
     LaunchedEffect(viewModel) {
         viewModel.textToSpeechErrors.collect {
             if (it == TextToSpeechError.SpeakError) {
-                isMissingTtsDialogVisible.value = true
+                isTtsErrorDialogVisible.value = true
             }
         }
     }
@@ -96,6 +96,6 @@ fun ActionsRow(
             }
         }
 
-        MissingTtsDialog(isMissingTtsDialogVisible, LocalContext.current)
+        TtsErrorDialog(isTtsErrorDialogVisible, LocalContext.current)
     }
 }

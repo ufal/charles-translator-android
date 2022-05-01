@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 
 /**
  * @author Tomas Krabac
@@ -20,6 +21,7 @@ fun FirstStartDialog(onAgreeAction: (agree: Boolean) -> Unit) {
     if (openDialog.value) {
 
         AlertDialog(
+            backgroundColor = LindatTheme.colors.dialogBackgound,
             onDismissRequest = {
                 // clicks outside dialog are disabled
             },

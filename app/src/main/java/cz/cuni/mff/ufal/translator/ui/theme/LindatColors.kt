@@ -26,6 +26,7 @@ class LindatColors(
     uncheckedTrack: Color,
     toolbarBackground: Color,
     statusBar: Color,
+    dialogBackgound: Color,
 ) {
     var isLight by mutableStateOf(isLight, structuralEqualityPolicy())
         internal set
@@ -60,6 +61,8 @@ class LindatColors(
     var toolbarBackground by mutableStateOf(toolbarBackground, structuralEqualityPolicy())
         internal set
     var statusBar by mutableStateOf(statusBar, structuralEqualityPolicy())
+        internal set
+    var dialogBackgound by mutableStateOf(dialogBackgound, structuralEqualityPolicy())
         internal set
 }
 

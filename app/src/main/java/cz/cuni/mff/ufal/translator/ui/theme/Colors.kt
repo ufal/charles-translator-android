@@ -23,6 +23,7 @@ val LightColorPalette = LindatColors(
     uncheckedTrack = Color(0xFFBDBDBD),
     toolbarBackground = Color(0xFF2196F3),
     statusBar = Color(0xFF2196F3),
+    dialogBackgound = Color(0xFFFFFFFF),
 )
 
 val DarkColorPalette = LindatColors(
@@ -43,4 +44,5 @@ val DarkColorPalette = LindatColors(
     uncheckedTrack = Color(0xFFBDBDBD),
     toolbarBackground = Color(0xFF161616),
     statusBar = Color(0xFF161616),
+    dialogBackgound = Color(0xFF424242),
 )
