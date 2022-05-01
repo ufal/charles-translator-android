@@ -33,11 +33,10 @@ fun ActionsRow(
     textToSpeech: () -> Unit,
 ) {
 
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LindatTheme.colors.background)
+            .background(LindatTheme.colors.historyActionRow)
             .padding(horizontal = 16.dp),
     ) {
         Row(modifier = Modifier.align(Alignment.CenterStart)) {

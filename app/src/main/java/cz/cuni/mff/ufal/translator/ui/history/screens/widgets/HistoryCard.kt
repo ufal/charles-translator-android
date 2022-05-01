@@ -77,6 +77,7 @@ private fun HistoryCard(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable(onClick = onRowClicked),
+        backgroundColor = LindatTheme.colors.historyCardBackground,
         elevation = 8.dp
     ) {
         Column {

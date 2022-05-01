@@ -27,6 +27,10 @@ class LindatColors(
     toolbarBackground: Color,
     statusBar: Color,
     dialogBackgound: Color,
+    historyCardBackground: Color,
+    historyActionRow: Color,
+    selected: Color,
+    unselected: Color,
 ) {
     var isLight by mutableStateOf(isLight, structuralEqualityPolicy())
         internal set
@@ -63,6 +67,14 @@ class LindatColors(
     var statusBar by mutableStateOf(statusBar, structuralEqualityPolicy())
         internal set
     var dialogBackgound by mutableStateOf(dialogBackgound, structuralEqualityPolicy())
+        internal set
+    var historyCardBackground by mutableStateOf(historyCardBackground, structuralEqualityPolicy())
+        internal set
+    var historyActionRow by mutableStateOf(historyActionRow, structuralEqualityPolicy())
+        internal set
+    var selected by mutableStateOf(selected, structuralEqualityPolicy())
+        internal set
+    var unselected by mutableStateOf(unselected, structuralEqualityPolicy())
         internal set
 }
 

@@ -41,8 +41,8 @@ fun HistoryBottomNavigation(navController: NavController) {
                         text = title,
                     )
                 },
-                selectedContentColor = LindatTheme.colors.primary,
-                unselectedContentColor = LindatTheme.colors.primary.copy(0.4f),
+                selectedContentColor = LindatTheme.colors.selected,
+                unselectedContentColor = LindatTheme.colors.unselected,
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screenRoute,
                 onClick = {
