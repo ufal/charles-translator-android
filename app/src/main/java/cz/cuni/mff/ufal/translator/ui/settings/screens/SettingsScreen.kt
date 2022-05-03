@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
@@ -25,10 +24,7 @@ import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
-import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingEditTextItem
-import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingSingleItem
-import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SettingSwitchItem
-import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.SingleSelectionDialog
+import cz.cuni.mff.ufal.translator.ui.settings.screens.widgets.*
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.ISettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.PreviewSettingsViewModel
 import cz.cuni.mff.ufal.translator.ui.settings.viewmodel.SettingsViewModel
@@ -139,7 +135,7 @@ fun TtsEngineSettingItem(
 
     saveTtsEngine: (TextToSpeech.EngineInfo) -> Unit,
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val dialogState = rememberDialogState()
 
     SettingSingleItem(
         titleRes = R.string.settings_tts_engine_title,
@@ -148,11 +144,12 @@ fun TtsEngineSettingItem(
         dialogState.show()
     }
 
-    SingleSelectionDialog(
-        dialogState = dialogState,
+    SingleSelectDialog(
         title = stringResource(id = R.string.settings_tts_engine_title),
+        optionsList = ttsEngines.map { it.label },
         selectedItem = selectedEngine.label,
-        items = ttsEngines.map { it.label }
+        submitButtonText = stringResource(id = android.R.string.ok),
+        dialogState = dialogState,
     ) { selectedIndex ->
         val engine = ttsEngines[selectedIndex]
         saveTtsEngine(engine)
@@ -166,7 +163,7 @@ fun DarkModeSettingItem(
 
     saveSetting: (DarkModeSetting) -> Unit,
 ) {
-    val dialogState = rememberMaterialDialogState()
+    val dialogState = rememberDialogState()
 
     SettingSingleItem(
         titleRes = R.string.settings_dark_mode_title,
@@ -175,14 +172,15 @@ fun DarkModeSettingItem(
         dialogState.show()
     }
 
-    SingleSelectionDialog(
-        dialogState = dialogState,
+    SingleSelectDialog(
         title = stringResource(id = R.string.settings_dark_mode_title),
+        optionsList = darkModeSettings.map { stringResource(id = it.labelRes) },
         selectedItem = stringResource(id = selectedSetting.labelRes),
-        items = darkModeSettings.map { stringResource(id = it.labelRes) }
+        submitButtonText = stringResource(id = android.R.string.ok),
+        dialogState = dialogState,
     ) { selectedIndex ->
-        val selectedSetting = darkModeSettings[selectedIndex]
-        saveSetting(selectedSetting)
+        val selectedItem = darkModeSettings[selectedIndex]
+        saveSetting(selectedItem)
     }
 }
 

@@ -153,7 +153,6 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
     implementation 'com.github.ireward:compose-html:1.0.2'
-    implementation "io.github.vanpra.compose-material-dialogs:core:0.7.0"
 
     implementation 'io.github.raamcosta.compose-destinations:core:1.5.1-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.5.1-beta'
