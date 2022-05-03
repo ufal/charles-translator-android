@@ -28,7 +28,7 @@ fun MainHistoryScreen(
     viewModel: IHistoryViewModel = hiltViewModel<HistoryViewModel>(),
     resultNavigator: ResultBackNavigator<HistoryItem>,
 ) {
-    val isDarkMode by mainController.isDarkMode.collectAsState()
+    val isDarkMode by mainController.darkModeSetting.collectAsState()
 
     LindatTheme(isDarkMode) {
         val historyController = rememberNavController()

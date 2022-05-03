@@ -60,7 +60,9 @@
     <string name="settings_organization_name_label">Назва організації (за бажанням)</string>
     <string name="settings_organization_name_placeholder">Заповніть назву організації, якщо вас про це попросили</string>
     <string name="settings_dark_mode_title">Темна тема</string>
-    <string name="settings_dark_mode_description">Поки тільки експериментальний, він може не вести себе коректно</string>
+    <string name="settings_dark_mode_value_system">За системою</string>
+    <string name="settings_dark_mode_value_enabled">Дозволено</string>
+    <string name="settings_dark_mode_value_disabled">Вимкнено</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>

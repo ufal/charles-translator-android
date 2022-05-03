@@ -36,7 +36,7 @@ fun HistoryFavouritesScreen(
 ) {
     BaseScreen(
         screen = Screen.HistoryFavourites,
-        isDarkMode = mainController.isDarkMode,
+        darkModeSetting = mainController.darkModeSetting,
         viewModel = viewModel
     ) {
         Content(

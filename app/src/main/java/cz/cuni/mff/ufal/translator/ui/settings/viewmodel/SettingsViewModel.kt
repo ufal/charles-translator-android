@@ -3,12 +3,12 @@ package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,7 +74,7 @@ class SettingsViewModel @Inject constructor(
         TextToSpeechWrapper.DEFAULT_TTS_ENGINE,
     )
 
-    override fun saveTTSengine(engine: String) {
+    override fun saveTtsEngine(engine: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userDataStore.saveTTSengine(engine)
         }
@@ -92,15 +92,15 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override val isExperimentalDarkMode = userDataStore.isExperimentalDarkMode.stateIn(
+    override val darkModeSetting = userDataStore.darkModeSetting.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
-        false,
+        DarkModeSetting.System,
     )
 
-    override fun saveExperimentalDarkMode(isDarkModeExperimental: Boolean) {
+    override fun saveDarkModeSetting(darkModeSetting: DarkModeSetting) {
         viewModelScope.launch(Dispatchers.IO) {
-            userDataStore.saveExperimentalDarkMode(isDarkModeExperimental)
+            userDataStore.saveDarkModeSetting(darkModeSetting)
         }
     }
 }

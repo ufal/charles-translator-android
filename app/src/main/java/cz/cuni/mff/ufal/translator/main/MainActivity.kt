@@ -39,15 +39,15 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             var isDarkMode by remember {
-                mutableStateOf(runBlocking { dataStore.isExperimentalDarkMode.first() })
+                mutableStateOf(runBlocking { dataStore.darkModeSetting.first() })
             }
 
             val controller = rememberMainController()
 
             LaunchedEffect(Unit) {
-                dataStore.isExperimentalDarkMode.collect {
+                dataStore.darkModeSetting.collect {
                     isDarkMode = it
-                    controller.setDarkMode(it)
+                    controller.setDarkModeSettings(it)
                 }
             }
 

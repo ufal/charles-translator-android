@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.interactors.preferences
 
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -27,7 +28,7 @@ interface IUserDataStore {
 
     suspend fun saveOrganizationName(organizationName: String)
 
-    val isExperimentalDarkMode: Flow<Boolean>
+    val darkModeSetting: Flow<DarkModeSetting>
 
-    suspend fun saveExperimentalDarkMode(isExperimentalDarkMode: Boolean)
+    suspend fun saveDarkModeSetting(darkModeSetting: DarkModeSetting)
 }

@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -7,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 class PreviewIMainController : IMainController {
 
-    override val isDarkMode = MutableStateFlow(false)
+    override val darkModeSetting = MutableStateFlow(DarkModeSetting.System)
 
     override fun navigateHistory() {}
     override fun navigateAboutScreen() {}
@@ -15,5 +16,5 @@ class PreviewIMainController : IMainController {
     override fun openWebUrl(url: String) {}
     override fun sendMail(mail: String) {}
     override fun onBackPressed() {}
-    override fun setDarkMode(isDarkMode: Boolean) {}
+    override fun setDarkModeSettings(darkModeSetting: DarkModeSetting) {}
 }

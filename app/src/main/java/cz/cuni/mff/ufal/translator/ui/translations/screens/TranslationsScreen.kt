@@ -21,7 +21,6 @@ import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.*
@@ -48,7 +47,7 @@ fun TranslationsScreen(
 
     BaseScreen(
         screen = Screen.Translations,
-        isDarkMode = mainController.isDarkMode,
+        darkModeSetting = mainController.darkModeSetting,
         viewModel = viewModel,
     ) {
         Content(

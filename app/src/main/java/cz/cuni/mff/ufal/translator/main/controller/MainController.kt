@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.navigation.navigateTo
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
@@ -28,7 +29,7 @@ class MainController(
     private val context: Context,
 ) : IMainController {
 
-    override val isDarkMode = MutableStateFlow(false)
+    override val darkModeSetting = MutableStateFlow(DarkModeSetting.System)
 
     override fun navigateHistory() {
         navController.navigateTo(MainHistoryScreenDestination)
@@ -64,8 +65,8 @@ class MainController(
         navController.popBackStack()
     }
 
-    override fun setDarkMode(isDarkMode: Boolean) {
-        this.isDarkMode.value = isDarkMode
+    override fun setDarkModeSettings(darkModeSetting: DarkModeSetting) {
+        this.darkModeSetting.value = darkModeSetting
     }
 }
 

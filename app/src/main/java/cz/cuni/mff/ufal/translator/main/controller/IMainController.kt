@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -7,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface IMainController {
 
-    val isDarkMode: StateFlow<Boolean>
+    val darkModeSetting: StateFlow<DarkModeSetting>
 
     fun navigateHistory()
 
@@ -21,5 +22,5 @@ interface IMainController {
 
     fun onBackPressed()
 
-    fun setDarkMode(isDarkMode: Boolean)
+    fun setDarkModeSettings(darkModeSetting: DarkModeSetting)
 }

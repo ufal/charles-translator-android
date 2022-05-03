@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import com.google.accompanist.insets.ProvideWindowInsets
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.FirebaseHelper.setFirebaseScreen
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import kotlinx.coroutines.flow.StateFlow
 
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(screen: Screen, isDarkMode: StateFlow<Boolean>, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
+fun BaseScreen(screen: Screen, darkModeSetting: StateFlow<DarkModeSetting>, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
     setFirebaseScreen(screen)
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
@@ -39,7 +40,7 @@ fun BaseScreen(screen: Screen, isDarkMode: StateFlow<Boolean>, viewModel: IBaseV
         }
     }
 
-    val state by isDarkMode.collectAsState()
+    val state by darkModeSetting.collectAsState()
 
     LindatTheme(state) {
         ProvideWindowInsets {

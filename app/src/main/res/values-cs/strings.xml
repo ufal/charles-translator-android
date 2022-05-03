@@ -60,7 +60,9 @@ Pro jakékoliv dotazy týkající se tohoto překladače nás můžete kontaktov
     <string name="settings_organization_name_label">Jméno organizace (volitelné)</string>
     <string name="settings_organization_name_placeholder">Vyplňte jméno organizace, pokud jste k tomu byli vyžádání</string>
     <string name="settings_dark_mode_title">Tmavé téma</string>
-    <string name="settings_dark_mode_description">Zatím pouze experimentální, nemusí se chovat korektně</string>
+    <string name="settings_dark_mode_value_system">Podle systému</string>
+    <string name="settings_dark_mode_value_enabled">Povolen</string>
+    <string name="settings_dark_mode_value_disabled">Zakázán</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>

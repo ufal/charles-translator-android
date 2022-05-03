@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 
 private object MainRippleTheme : RippleTheme {
     @Composable
@@ -24,8 +25,15 @@ private object MainRippleTheme : RippleTheme {
 }
 
 @Composable
-fun LindatTheme(darkTheme: Boolean, content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
+fun LindatTheme(darkModeSetting: DarkModeSetting, content: @Composable () -> Unit) {
+
+    val darkMode = when(darkModeSetting){
+        DarkModeSetting.System -> isSystemInDarkTheme()
+        DarkModeSetting.Enabled -> true
+        DarkModeSetting.Disabled -> false
+    }
+
+    val colors = if (darkMode) {
         DarkColorPalette
     } else {
         LightColorPalette
@@ -46,7 +54,7 @@ fun LindatTheme(darkTheme: Boolean, content: @Composable () -> Unit) {
 
 @Composable
 fun LindatThemePreview(content: @Composable () -> Unit) {
-    LindatTheme(isSystemInDarkTheme(), content)
+    LindatTheme(DarkModeSetting.System, content)
 }
 
 object LindatTheme {

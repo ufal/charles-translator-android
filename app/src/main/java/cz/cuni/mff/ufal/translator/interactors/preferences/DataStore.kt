@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper.Companion.DEFAULT_TTS_ENGINE
 import kotlinx.coroutines.flow.map
 
@@ -24,7 +25,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         val USE_NETWORK_TTS = booleanPreferencesKey("USE_NETWORK_TTS")
         val TTS_ENGINE = stringPreferencesKey("TTS_ENGINE")
         val ORGANIZATION_NAME = stringPreferencesKey("ORGANIZATION_NAME")
-        val IS_DARK_MODE_EXPERIMENTAL = booleanPreferencesKey("IS_DARK_MODE_EXPERIMENTAL")
+        val DARK_MODE_SETTINGS = stringPreferencesKey("DARK_MODE_SETTINGS")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -77,13 +78,18 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         }
     }
 
-    override val isExperimentalDarkMode = context.userDataStore.data.map {
-        it[IS_DARK_MODE_EXPERIMENTAL] ?: false
+    override val darkModeSetting = context.userDataStore.data.map {
+        when (it[DARK_MODE_SETTINGS]) {
+            DarkModeSetting.System.key -> DarkModeSetting.System
+            DarkModeSetting.Enabled.key -> DarkModeSetting.Enabled
+            DarkModeSetting.Disabled.key -> DarkModeSetting.Disabled
+            else -> DarkModeSetting.System
+        }
     }
 
-    override suspend fun saveExperimentalDarkMode(isExperimentalDarkMode: Boolean) {
+    override suspend fun saveDarkModeSetting(darkModeSetting: DarkModeSetting) {
         context.userDataStore.edit {
-            it[IS_DARK_MODE_EXPERIMENTAL] = isExperimentalDarkMode
+            it[DARK_MODE_SETTINGS] = darkModeSetting.key
         }
     }
 }

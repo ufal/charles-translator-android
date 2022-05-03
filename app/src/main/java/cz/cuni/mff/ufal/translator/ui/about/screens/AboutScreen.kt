@@ -41,7 +41,7 @@ private const val SUPPORT_MAIL = "u4u@ufal.mff.cuni.cz"
 @Destination()
 @Composable
 fun AboutScreen(mainController: IMainController) {
-    BaseScreen(screen = Screen.About, isDarkMode = mainController.isDarkMode) {
+    BaseScreen(screen = Screen.About, darkModeSetting = mainController.darkModeSetting) {
         Content(
             mainController = mainController,
         )
