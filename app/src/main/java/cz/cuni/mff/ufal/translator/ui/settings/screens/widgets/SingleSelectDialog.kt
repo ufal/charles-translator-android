@@ -1,6 +1,7 @@
 package cz.cuni.mff.ufal.translator.ui.settings.screens.widgets
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.MaterialDialogState
 import com.vanpra.composematerialdialogs.listItemsSingleChoice
@@ -28,7 +29,7 @@ fun SingleSelectionDialog(
         backgroundColor = LindatTheme.colors.dialogBackgound,
         dialogState = dialogState,
         buttons = {
-            positiveButton("Ok")
+            positiveButton(stringResource(id = android.R.string.ok))
         },
     ) {
         title(text = title)
