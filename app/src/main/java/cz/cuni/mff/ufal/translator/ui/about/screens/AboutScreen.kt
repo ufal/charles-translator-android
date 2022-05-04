@@ -66,7 +66,10 @@ private fun Content(mainController: IMainController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            IntroTextItem()
+            HtmlTextItem(
+                text = stringResource(id = R.string.about_text_intro),
+                mainController = mainController
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -74,7 +77,10 @@ private fun Content(mainController: IMainController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            HtmlTextItem(mainController = mainController)
+            HtmlTextItem(
+                text = stringResource(id = R.string.about_text, SUPPORT_MAIL),
+                mainController = mainController
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -136,9 +142,12 @@ private fun LogoItem() {
 
 
 @Composable
-private fun HtmlTextItem(mainController: IMainController) {
+private fun HtmlTextItem(
+    text: String,
+    mainController: IMainController,
+) {
     HtmlText(
-        text = stringResource(id = R.string.about_text, SUPPORT_MAIL),
+        text = text,
         style = TextStyle(
             color = LindatTheme.colors.onSurface,
         ),
