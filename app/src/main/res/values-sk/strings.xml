@@ -46,7 +46,7 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <!--History screen -->
     <string name="history_bottom_all">Všetko</string>
     <string name="history_bottom_favourites">Obľúbené</string>
-    <string name="history_all_empty">Behom prekladania sa texty automaticky ukladajú a uvidíte tu ich históriu.</string>
+    <string name="history_all_empty">V priebehu prekladania sa texty automaticky ukladajú a uvidíte tu ich históriu.</string>
     <string name="history_favourites_empty">Uložte si svoje obľúbené preklady z histórie (ikonka hviezdičky). Následne ju nájdete na tejto obrazovke.</string>
 
     <!--Settings screen -->
