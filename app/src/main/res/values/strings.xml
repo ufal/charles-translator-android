@@ -32,11 +32,11 @@ The Translator was developed at the <a href="https://ufal.mff.cuni.cz/">Institut
 <b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
 Many thanks to <a href="https://intercorp.korpus.cz/">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br><br>
 
-<b>Back-end development:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> and the Lindat team<br><br>
+<b>Back-end development:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> and the LINDAT team<br><br>
 
 <b>Android development:</b> Tomáš Krabač<br><br>
 
-For any questions about this Translator, please contact <a href="/support-mail">%1$s</a>. You can also report bugs using the issues on the <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.
+For any questions about this translator, please contact <a href="/support-mail">%1$s</a>. You can also report errors on <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.
 
 ]]>
     </string>
