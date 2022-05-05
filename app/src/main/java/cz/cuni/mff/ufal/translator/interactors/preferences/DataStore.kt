@@ -34,7 +34,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         }
     }
 
-    override fun hasFinishedOnboarding() = context.userDataStore.data.map {
+    override val hasFinishedOnboarding = context.userDataStore.data.map {
         it[HAS_FINISHED_ONBOARDING] ?: false
     }
 
@@ -44,7 +44,7 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         }
     }
 
-    override fun agreeWithDataCollection() = context.userDataStore.data.map {
+    override val agreeWithDataCollection = context.userDataStore.data.map {
         it[AGREE_WITH_DATA_COLLECTION] ?: false
     }
 

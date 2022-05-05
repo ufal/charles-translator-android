@@ -9,6 +9,8 @@ import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.ContextUtils
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
+import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.TranslateEvent
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.api.UnsupportedApiException
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
@@ -33,7 +35,8 @@ class TranslationsViewModel @Inject constructor(
     private val api: IApi,
     private val db: IDb,
     private val userDataStore: IUserDataStore,
-    private val textToSpeech: ITextToSpeechWrapper
+    private val textToSpeech: ITextToSpeechWrapper,
+    private val analytics: IAnalytics,
 ) : ITranslationsViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
@@ -47,7 +50,7 @@ class TranslationsViewModel @Inject constructor(
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
     override val state = MutableStateFlow<TranslationsScreenState>(TranslationsScreenState.Idle)
-    override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding().stateIn(
+    override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
         true,
@@ -157,6 +160,12 @@ class TranslationsViewModel @Inject constructor(
         apiJob = viewModelScope.launch {
             lastInputText = inputTextData.value.text
             state.value = TranslationsScreenState.Loading
+
+            analytics.logEvent(TranslateEvent(
+                inputLanguage = inputLanguage.value,
+                outputLanguage = outputLanguage.value,
+                data = inputTextData.value,
+            ))
 
             api.translate(
                 inputLanguage = inputLanguage.value,

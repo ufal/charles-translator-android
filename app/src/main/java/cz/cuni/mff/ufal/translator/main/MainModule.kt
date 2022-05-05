@@ -2,6 +2,8 @@ package cz.cuni.mff.ufal.translator.main
 
 import android.app.Application
 import android.content.Context
+import cz.cuni.mff.ufal.translator.interactors.analytics.Analytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
 import cz.cuni.mff.ufal.translator.interactors.api.Api
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.db.Db
@@ -45,4 +47,8 @@ object MainModule {
     
     @Provides
     fun provideTextToSpeech(impl: TextToSpeechWrapper): ITextToSpeechWrapper = impl
+
+    @Provides
+    fun provideAnalytics(impl: Analytics): IAnalytics = impl
+
 }

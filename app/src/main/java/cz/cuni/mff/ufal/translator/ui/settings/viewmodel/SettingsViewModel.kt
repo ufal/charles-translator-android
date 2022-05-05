@@ -42,7 +42,7 @@ class SettingsViewModel @Inject constructor(
         textToSpeech.shutdown()
     }
 
-    override val agreeWithDataCollection = userDataStore.agreeWithDataCollection().stateIn(
+    override val agreeWithDataCollection = userDataStore.agreeWithDataCollection.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
         true,

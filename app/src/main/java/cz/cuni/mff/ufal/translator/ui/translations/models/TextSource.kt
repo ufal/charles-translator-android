@@ -3,7 +3,7 @@ package cz.cuni.mff.ufal.translator.ui.translations.models
 /**
  * @author Tomas Krabac
  */
-enum class TextSource(val api: String) {
+enum class TextSource(val key: String) {
     Keyboard("keyboard"),
     Voice("voice"),
     Clipboard("clipboard"),

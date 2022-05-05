@@ -10,7 +10,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
 import cz.cuni.mff.ufal.translator.extensions.isTablet
-import cz.cuni.mff.ufal.translator.interactors.crashlytics.FirebaseHelper.setBaseFirebaseInfo
+import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
 import cz.cuni.mff.ufal.translator.ui.NavGraphs
@@ -27,6 +27,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var dataStore: IUserDataStore
 
+    @Inject
+    lateinit var analytics: IAnalytics
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,7 @@ class MainActivity : ComponentActivity() {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
 
-        setBaseFirebaseInfo(this)
+        analytics.setBaseInfo(this)
 
         setContent {
             var isDarkMode by remember {

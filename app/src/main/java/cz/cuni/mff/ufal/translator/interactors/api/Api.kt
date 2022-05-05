@@ -66,7 +66,7 @@ class Api @Inject constructor(
         textSource: TextSource
     ): Result<String> {
         return withContext(Dispatchers.IO) {
-            val logInput = userDataStore.agreeWithDataCollection().first()
+            val logInput = userDataStore.agreeWithDataCollection.first()
             val organizationName = userDataStore.organizationName.first()
 
             val url = createTranslateUrl(
@@ -122,7 +122,7 @@ class Api @Inject constructor(
             append("&")
             append("logInput=$logInput")
             append("&")
-            append("inputType=${textSource.api}")
+            append("inputType=${textSource.key}")
 
             if (organizationName.isNotBlank()) {
                 append("&")

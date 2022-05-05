@@ -10,11 +10,11 @@ interface IUserDataStore {
 
     suspend fun setFinishedOnboarding()
 
-    fun hasFinishedOnboarding(): Flow<Boolean>
+    val hasFinishedOnboarding: Flow<Boolean>
 
     suspend fun saveAgreementDataCollection(agree: Boolean)
 
-    fun agreeWithDataCollection(): Flow<Boolean>
+    val agreeWithDataCollection: Flow<Boolean>
 
     val useNetworkTTS: Flow<Boolean>
 
