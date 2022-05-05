@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.ui.history.screens.menu
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -23,6 +24,10 @@ fun HistoryNavigationGraph(
     viewModel: IHistoryViewModel,
     resultNavigator: ResultBackNavigator<HistoryItem>,
 ) {
+    BackHandler {
+        mainController.onBackPressed()
+    }
+
     NavHost(
         modifier = modifier,
         navController = historyController,
