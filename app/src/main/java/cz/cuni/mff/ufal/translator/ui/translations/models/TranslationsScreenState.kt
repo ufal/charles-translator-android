@@ -9,7 +9,8 @@ sealed class TranslationsScreenState {
     object Idle: TranslationsScreenState()
     object Loading: TranslationsScreenState()
     object Error: TranslationsScreenState()
+    object MaxCharactersLimitError: TranslationsScreenState()
     data class UnSupportedApiError(val data: NotImplementedData): TranslationsScreenState()
     object Success: TranslationsScreenState()
-    object Offline: TranslationsScreenState() // TODO: implement
+    object Offline: TranslationsScreenState()
 }

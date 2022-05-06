@@ -198,6 +198,11 @@ class TranslationsViewModel @Inject constructor(
             return
         }
 
+        if(inputTextData.value.text.length >= MAX_CHARACTERS){
+            state.value = TranslationsScreenState.MaxCharactersLimitError
+            return
+        }
+
         if (inputTextData.value.text.isBlank()) {
             apiJob?.cancel()
             outputTextData.value = OutputTextData()
@@ -313,6 +318,8 @@ class TranslationsViewModel @Inject constructor(
     }
 
     companion object {
+        const val MAX_CHARACTERS = 1000
+
         private const val MIN_INTERVAL_API_MS = 500L
         private val MIN_INTERVAL_SAVE_MS = TimeUnit.SECONDS.toMillis(2)
     }

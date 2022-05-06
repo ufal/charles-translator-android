@@ -107,6 +107,9 @@ fun Content(
             is TranslationsScreenState.UnSupportedApiError -> {
                 UnsupportedApiDialog(LocalContext.current, (state as TranslationsScreenState.UnSupportedApiError).data)
             }
+            TranslationsScreenState.MaxCharactersLimitError -> {
+                MaxCharactersErrorItem(modifier = Modifier)
+            }
             is TranslationsScreenState.Error -> {
                 ErrorItem(modifier = Modifier) {
                     viewModel.retry()
