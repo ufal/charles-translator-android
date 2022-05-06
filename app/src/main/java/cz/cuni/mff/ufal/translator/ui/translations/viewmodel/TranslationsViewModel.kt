@@ -1,12 +1,20 @@
 package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import android.speech.SpeechRecognizer
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.ContextUtils
+import cz.cuni.mff.ufal.translator.interactors.ContextUtils.isNetworkConnected
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
 import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
@@ -26,6 +34,7 @@ import kotlinx.coroutines.flow.stateIn
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+
 /**
  * @author Tomas Krabac
  */
@@ -44,6 +53,36 @@ class TranslationsViewModel @Inject constructor(
     private var historyTimerJob: Job? = null
 
     private var lastInputText = ""
+
+    private val connectivityManager =
+        getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            Log.d("logtom", "onAvailable")
+
+            state.value = if (inputTextData.value.text.isEmpty()) {
+                TranslationsScreenState.Idle
+            } else {
+                TranslationsScreenState.Success
+            }
+
+            translate()
+        }
+
+        override fun onLost(network: Network) {
+            Log.d("logtom", "onLost")
+
+
+            state.value = TranslationsScreenState.Offline
+        }
+
+        override fun onUnavailable() {
+            Log.d("logtom", "onUnavailable")
+
+            super.onUnavailable()
+        }
+    }
 
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
@@ -67,6 +106,11 @@ class TranslationsViewModel @Inject constructor(
         }
 
         startTextCheckerTimer()
+
+        if (!isNetworkConnected(getApplication<Application>())) {
+            state.value = TranslationsScreenState.Offline
+        }
+        registerNetworkCallback()
     }
 
     override fun onStop() {
@@ -82,6 +126,8 @@ class TranslationsViewModel @Inject constructor(
         textCheckerJob = null
 
         textToSpeech.stop()
+
+        unregisterNetworkCallback()
     }
 
     override fun onCleared() {
@@ -148,6 +194,10 @@ class TranslationsViewModel @Inject constructor(
     }
 
     private fun translate() {
+        if (state.value == TranslationsScreenState.Offline) {
+            return
+        }
+
         if (inputTextData.value.text.isBlank()) {
             apiJob?.cancel()
             outputTextData.value = OutputTextData()
@@ -161,11 +211,13 @@ class TranslationsViewModel @Inject constructor(
             lastInputText = inputTextData.value.text
             state.value = TranslationsScreenState.Loading
 
-            analytics.logEvent(TranslateEvent(
-                inputLanguage = inputLanguage.value,
-                outputLanguage = outputLanguage.value,
-                data = inputTextData.value,
-            ))
+            analytics.logEvent(
+                TranslateEvent(
+                    inputLanguage = inputLanguage.value,
+                    outputLanguage = outputLanguage.value,
+                    data = inputTextData.value,
+                )
+            )
 
             api.translate(
                 inputLanguage = inputLanguage.value,
@@ -244,6 +296,20 @@ class TranslationsViewModel @Inject constructor(
                 db.historyDao.insert(item)
             }
         }
+    }
+
+    private fun registerNetworkCallback() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager.registerDefaultNetworkCallback(networkCallback)
+        } else {
+            val request = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request, networkCallback)
+        }
+    }
+
+    private fun unregisterNetworkCallback() {
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
     companion object {

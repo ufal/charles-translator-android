@@ -3,10 +3,10 @@ package cz.cuni.mff.ufal.translator.ui.translations.viewmodel
 import cz.cuni.mff.ufal.translator.base.IBaseViewModel
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
+import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 

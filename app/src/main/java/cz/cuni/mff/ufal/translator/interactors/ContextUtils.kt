@@ -1,8 +1,12 @@
 package cz.cuni.mff.ufal.translator.interactors
 
+import android.app.Application
 import android.content.*
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.extensions.logE
@@ -55,6 +59,32 @@ object ContextUtils {
         } catch (e: PackageManager.NameNotFoundException) {
             false
         }
+    }
+
+    @Suppress("DEPRECATION")
+    fun isNetworkConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT < 23) {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            if (activeNetworkInfo != null) {
+                return activeNetworkInfo.isConnected && (
+                        activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+                                || activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
+                                || activeNetworkInfo.type == ConnectivityManager.TYPE_VPN
+                        )
+            }
+        } else {
+            val activeNetwork = connectivityManager.activeNetwork
+            if (activeNetwork != null) {
+                val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+                return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                        || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                        || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            }
+        }
+
+        return false
     }
 
 

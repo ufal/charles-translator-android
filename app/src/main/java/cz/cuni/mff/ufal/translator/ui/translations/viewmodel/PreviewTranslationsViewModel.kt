@@ -7,6 +7,7 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emptyFlow
 
 /**
