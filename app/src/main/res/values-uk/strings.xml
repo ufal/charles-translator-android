@@ -1,95 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Translations screen -->
-    <string name="history_title">Історія перекладів</string>
-    <string name="cz_label">чеська</string>
-    <string name="uk_label">українська</string>
-
-    <string name="copy_to_clipboard_label">Переклад</string>
-    <string name="toast_copied_to_clipboard">Переклад було вставлено в буфер обміну.</string>
-
-    <string name="api_error">Переклад зазнав невдачі, будь ласка, спробуйте ще раз.</string>
-    <string name="try_again">Спробувати знову</string>
-    <string name="paste">Вставити з кишені</string>
-    <string name="insert_text">Написати текст</string>
-    <string name="offline_text">Перевірте підключення до Інтернету</string>
-    <string name="max_limit_error">Вхідний текст перевищив ліміт (%1$s символів)</string>
-
-    <string name="dialog_data_processing_title">Обробка даних</string>
-    <string name="dialog_data_processing_message">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
-    <string name="dialog__data_processing_agree">Я згоден</string>
-    <string name="dialog__data_processing_disagree">Я не згоден</string>
-
+    <string name="history_title">Historie překladů</string>
+    <string name="cz_label">Čeština</string>
+    <string name="uk_label">Ukrajinština</string>
+    <string name="copy_to_clipboard_label">Překlad</string>
+    <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
+    <string name="api_error">Překlad selhal, zkuste to prosím znovu</string>
+    <string name="try_again">Zkusit znovu</string>
+    <string name="paste">Vložit ze schránky</string>
+    <string name="insert_text">Napište text</string>
+    <string name="offline_text">Zkontrolujte internetové připojení</string>
+    <string name="max_limit_error">Délka vstupního textu překročila limit (%1$s znaků)</string>
+    <string name="dialog_data_processing_title">Zpracování dat</string>
+    <string name="dialog_data_processing_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
+    <string name="dialog__data_processing_agree">Souhlasím</string>
+    <string name="dialog__data_processing_disagree">Nesouhlasím</string>
     <!--About screen -->
-    <string name="about_title">Про додаток</string>
-    <string name="about_text_intro">
-        <![CDATA[
-Перекладач був розроблений в <a href="https://ufal.mff.cuni.cz/">Інституті формальної та прикладної лінгвістики</a>, фізико-математичного факультету, Карлового університету за підтримки проекту <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.
-]]>
-    </string>
-    <string name="about_text">
-<![CDATA[
-<b>Розробка системи перекладу:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
+    <string name="about_title">O aplikaci</string>
+    <string name="about_text_intro"><![CDATA[        Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
+    <string name="about_text"><![CDATA[<b>Vývoj systému pro překlad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
-<b>Підготовка даних:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
-Дякуємо k <a href="https://intercorp.korpus.cz/">korpus.cz</a> за надання <b>InterCorp v14</b>, який є частиною проекту Чеського національного корпусу.<br><br>
+<b>Příprava dat:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
+Děkujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutí <b>InterCorp v14</b>, které je součástí projektu Českého národního korpusu.<br><br>
 
-<b>Розробка сервера:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> і LINDAT команда<br><br>
+<b>Vývoj backendu:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> a LINDAT tým<br><br>
 
-<b>Android програми:</b> Tomáš Krabač<br><br>
+<b>Android aplikace:</b> Tomáš Krabač<br><br>
 
-З будь-якими питаннями щодо цього перекладача ви можете зв\'язатися з нами за адресою: <a href="/support-mail">%1$s</a>. Ви також можете повідомити про помилки за допомогою issues на <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.
-
-]]>
-    </string>
-    <string name="mail_app_not_found">Не знайдено поштової програми</string>
-
+Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/support-mail">%1$s</a>. Chyby můžete hlásit i na <a href="https://github.com/ufal/lindat-translation-android/issues">Githubu</a>.]]></string>
+    <string name="mail_app_not_found">Nebyla nalezena e-mailová aplikace</string>
     <!--History screen -->
-    <string name="history_bottom_all">Усе</string>
-    <string name="history_bottom_favourites">Улюблені</string>
-    <string name="history_all_empty">Під час перекладу тексти зберігаються автоматично, і ви побачите тут їхню історію.</string>
-    <string name="history_favourites_empty">Зберігайте свої улюблені переклади з історії (іконка, зірочки). Потім ви знайдете їх на цьому екрані.</string>
-
+    <string name="history_bottom_all">Vše</string>
+    <string name="history_bottom_favourites">Oblíbené</string>
+    <string name="history_all_empty">Během překládání se texty automaticky ukládají a zde je jejich historie.</string>
+    <string name="history_favourites_empty">Uložte si své oblíbené překlady z historie (ikonka hvězdičky). Poté je najdete na této obrazovce.</string>
     <!--Settings screen -->
-    <string name="settings_title">Налаштування</string>
-    <string name="settings_data_collection_title">Обробка даних</string>
-    <string name="settings_data_collection_description">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
-    <string name="settings_network_tts_title">Мережеве перетворення тексту в мовлення</string>
-    <string name="settings_network_tts_description">У разі наявності використовувати якісніше мережеве перетворення тексту в мову.</string>
-    <string name="settings_tts_engine_title">TTS Програма</string>
-    <string name="settings_organization_name_label">Назва організації (за бажанням)</string>
-    <string name="settings_organization_name_placeholder">Заповніть назву організації, якщо вас про це попросили</string>
-    <string name="settings_dark_mode_title">Темна тема</string>
-    <string name="settings_dark_mode_value_system">За системою</string>
-    <string name="settings_dark_mode_value_enabled">Дозволено</string>
-    <string name="settings_dark_mode_value_disabled">Вимкнено</string>
-
+    <string name="settings_title">Nastavení</string>
+    <string name="settings_data_collection_title">Zpracování dat</string>
+    <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
+    <string name="settings_network_tts_title">Systém převodu textu na řeč</string>
+    <string name="settings_network_tts_description">Používejte kvalitnější systém převodu textu na řeč, pokud je k dispozici.</string>
+    <string name="settings_tts_engine_title">TTS aplikace</string>
+    <string name="settings_organization_name_label">Název organizace (volitelné)</string>
+    <string name="settings_organization_name_placeholder">Doplňte název vaší organizace, pokud jste k tomu byli vyzváni.</string>
+    <string name="settings_dark_mode_title">Tmavý režim</string>
+    <string name="settings_dark_mode_value_system">Podle systému</string>
+    <string name="settings_dark_mode_value_enabled">Povoleno</string>
+    <string name="settings_dark_mode_value_disabled">Zakázáno</string>
     <!--Missing TTS dialog -->
-    <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
-    <string name="dialog_tts_message_unknown_error">Під час перетворення тексту на мову сталася невідома помилка.</string>
-    <string name="dialog_tts_message_missing_google_tts">Під час перетворення тексту на мову виникла помилка. Рекомендуємо встановити додаток Google Голосовий сервіс з Google Play.</string>
-    <string name="dialog_tts_download">Завантажити</string>
-    <string name="dialog_tts_cancel">Скасувати</string>
-
+    <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
+    <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč došlo k neznámé chybě.</string>
+    <string name="dialog_tts_message_missing_google_tts">Při převodu textu na řeč došlo k chybě. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
+    <string name="dialog_tts_download">Stáhnout</string>
+    <string name="dialog_tts_cancel">Zrušit</string>
     <!--Unsupported api dialog -->
-    <string name="dialog_unsupported_api_title">Додаток не є поточним</string>
-    <string name="dialog_unsupported_api_message">Вибачте, але необхідно оновити додаток, інакше він не зможе працювати далі.</string>
-    <string name="dialog_unsupported_api_download">Завантажити</string>
-
+    <string name="dialog_unsupported_api_title">Aplikace není aktuální</string>
+    <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nebude dále fungovat.</string>
+    <string name="dialog_unsupported_api_download">Stáhnout</string>
     <!--Content descriptions -->
-    <string name="ufal_cd">UFAL логотип</string>
-    <string name="lindat_cd">LINDAT логотип</string>
-    <string name="more_cd">Показати більше</string>
-    <string name="tts_cd">Перетворення тексту в мову</string>
-    <string name="paste_cd">Вставити з кишені</string>
-    <string name="history_cd">Історія перекладів</string>
-    <string name="add_to_favourites_cd">Додати до Улюбленців</string>
-    <string name="remove_from_favourites_cd">Видалити з улюблених</string>
-    <string name="delete_cd">Вилучити з історії</string>
-    <string name="czech_flag_cd">Прапор Чехії</string>
-    <string name="ukraine_flag_cd">Прапор України</string>
-    <string name="swap_cd">Міняти мови</string>
-    <string name="clear_cd">видалити текст</string>
-    <string name="copy_to_clipboard_cd">Копіювати до буфера</string>
-    <string name="speech_recognizer_cd">диктування</string>
-
+    <string name="ufal_cd">ÚFAL logo</string>
+    <string name="lindat_cd">LINDAT logo</string>
+    <string name="more_cd">zobrazit vice</string>
+    <string name="tts_cd">převod textu na řeč</string>
+    <string name="paste_cd">vložit ze schránky</string>
+    <string name="history_cd">historie překladů</string>
+    <string name="add_to_favourites_cd">přidat do oblíbených</string>
+    <string name="remove_from_favourites_cd">odebrat z oblíbených</string>
+    <string name="delete_cd">smazat z historie</string>
+    <string name="czech_flag_cd">česká vlajka</string>
+    <string name="ukraine_flag_cd">ukrajinská vlajka</string>
+    <string name="swap_cd">prohodit jazyky</string>
+    <string name="clear_cd">vymazat text</string>
+    <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
+    <string name="speech_recognizer_cd">diktování</string>
 </resources>
