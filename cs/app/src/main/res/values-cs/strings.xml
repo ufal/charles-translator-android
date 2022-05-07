@@ -55,7 +55,7 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="dialog_tts_download">Stáhnout</string>
     <string name="dialog_tts_cancel">Zrušit</string>
     <!--Unsupported api dialog -->
-    <string name="dialog_unsupported_api_title">The application is not up to date</string>
+    <string name="dialog_unsupported_api_title">Aplikace není aktuální</string>
     <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nebude dále fungovat.</string>
     <string name="dialog_unsupported_api_download">Stáhnout</string>
     <!--Content descriptions -->
