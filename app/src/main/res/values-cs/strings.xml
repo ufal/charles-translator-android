@@ -1,34 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Translations screen -->
     <string name="history_title">Historie překladů</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinština</string>
-
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
-
     <string name="api_error">Překlad selhal, zkuste to prosím znovu</string>
     <string name="try_again">Zkusit znovu</string>
     <string name="paste">Vložit ze schránky</string>
     <string name="insert_text">Napište text</string>
     <string name="offline_text">Zkontrolujte internetové připojení</string>
     <string name="max_limit_error">Délka vstupního textu překročila limit (%1$s znaků)</string>
-
     <string name="dialog_data_processing_title">Zpracování dat</string>
     <string name="dialog_data_processing_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
     <string name="dialog__data_processing_agree">Souhlasím</string>
     <string name="dialog__data_processing_disagree">Nesouhlasím</string>
-
     <!--About screen -->
     <string name="about_title">O aplikaci</string>
-    <string name="about_text_intro">
-        <![CDATA[
-        Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.
-]]>
-    </string>
-    <string name="about_text">
-<![CDATA[
-<b>Vývoj systému pro překlad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
+    <string name="about_text_intro"><![CDATA[        Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
+    <string name="about_text"><![CDATA[<b>Vývoj systému pro překlad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
 <b>Příprava dat:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
 Děkujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutí <b>InterCorp v14</b>, které je součástí projektu Českého národního korpusu.<br><br>
@@ -37,18 +28,13 @@ Děkujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutí <b
 
 <b>Android aplikace:</b> Tomáš Krabač<br><br>
 
-Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/support-mail">%1$s</a>. Chyby můžete hlásit i na <a href="https://github.com/ufal/lindat-translation-android/issues">Githubu</a>.
-
-]]>
-    </string>
+Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/support-mail">%1$s</a>. Chyby můžete hlásit i na <a href="https://github.com/ufal/lindat-translation-android/issues">Githubu</a>.]]></string>
     <string name="mail_app_not_found">Nebyla nalezena e-mailová aplikace</string>
-
     <!--History screen -->
     <string name="history_bottom_all">Vše</string>
     <string name="history_bottom_favourites">Oblíbené</string>
     <string name="history_all_empty">Během překládání se texty automaticky ukládají a zde je jejich historie.</string>
     <string name="history_favourites_empty">Uložte si své oblíbené překlady z historie (ikonka hvězdičky). Poté je najdete na této obrazovce.</string>
-
     <!--Settings screen -->
     <string name="settings_title">Nastavení</string>
     <string name="settings_data_collection_title">Zpracování dat</string>
@@ -62,19 +48,16 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="settings_dark_mode_value_system">Podle systému</string>
     <string name="settings_dark_mode_value_enabled">Povoleno</string>
     <string name="settings_dark_mode_value_disabled">Zakázáno</string>
-
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
     <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč došlo k neznámé chybě.</string>
     <string name="dialog_tts_message_missing_google_tts">Při převodu textu na řeč došlo k chybě. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
     <string name="dialog_tts_download">Stáhnout</string>
     <string name="dialog_tts_cancel">Zrušit</string>
-
     <!--Unsupported api dialog -->
     <string name="dialog_unsupported_api_title">Aplikace není aktuální</string>
     <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nebude dále fungovat.</string>
     <string name="dialog_unsupported_api_download">Stáhnout</string>
-
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>
@@ -91,5 +74,4 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="clear_cd">vymazat text</string>
     <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
     <string name="speech_recognizer_cd">diktování</string>
-
 </resources>
