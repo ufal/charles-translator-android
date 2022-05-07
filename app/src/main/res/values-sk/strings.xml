@@ -1,34 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Translations screen -->
     <string name="history_title">História prekladov</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinčina</string>
-
     <string name="copy_to_clipboard_label">Preklad</string>
     <string name="toast_copied_to_clipboard">Preklad bol vložený do schránky</string>
-
     <string name="api_error">Preklad zlyhal, skúste to prosím znovu</string>
     <string name="try_again">Skúsiť znovu</string>
     <string name="paste">Vložiť zo schránky</string>
     <string name="insert_text">Napíšte text</string>
     <string name="offline_text">Skontrolujte internetové pripojenie</string>
-    <string name="max_limit_error">Vstupní text překročil limit (%1$s znaků)</string> // TODO: tomaskrabac: preklad
-
+    <string name="max_limit_error">Vstupní text překročil limit (%1$s znaků)</string>
     <string name="dialog_data_processing_title">Spracovanie dát</string>
     <string name="dialog_data_processing_message">Súhlasím s tým, aby Ústav formální a aplikované lingvistiky MFF UK ukladal vstupy a výstupy z prekladača. V prípade súhlasu môžu byť anonymizované texty využité na ďalší vývoj systému.</string>
     <string name="dialog__data_processing_agree">Súhlasím</string>
     <string name="dialog__data_processing_disagree">Nesúhlasím</string>
-
     <!--About screen -->
     <string name="about_title">O aplikácií</string>
-    <string name="about_text_intro">
-        <![CDATA[
-Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.
-]]>
-    </string>
-    <string name="about_text">
-<![CDATA[
-<b>Vývoj systému pre preklad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
+    <string name="about_text_intro"><![CDATA[Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
+    <string name="about_text"><![CDATA[<b>Vývoj systému pre preklad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
 <b>Príprava dát:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, Martin Popel<br><br>
 Ďakujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutie <b>InterCorp v14</b>, ktoré je súčasťou projektu Českého národního korpusu.<br><br>
@@ -37,17 +28,13 @@ Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formáln�
 
 <b>Android aplikácia:</b> Tomáš Krabač<br><br>
 
-V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžete kontaktovať na adrese <a href="/support-mail">%1$s</a>. Chyby môžete tiež hlásiť pomocou issues na <a href="https://github.com/ufal/lindat-translation-android/issues">Githube</a>.
-]]>
-    </string>
+V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžete kontaktovať na adrese <a href="/support-mail">%1$s</a>. Chyby môžete tiež hlásiť pomocou issues na <a href="https://github.com/ufal/lindat-translation-android/issues">Githube</a>.]]></string>
     <string name="mail_app_not_found">Nebola nájdená mailová aplikácia</string>
-
     <!--History screen -->
     <string name="history_bottom_all">Všetko</string>
     <string name="history_bottom_favourites">Obľúbené</string>
     <string name="history_all_empty">V priebehu prekladania sa texty automaticky ukladajú a uvidíte tu ich históriu.</string>
     <string name="history_favourites_empty">Uložte si svoje obľúbené preklady z histórie (ikonka hviezdičky). Následne ju nájdete na tejto obrazovke.</string>
-
     <!--Settings screen -->
     <string name="settings_title">Nastavenia</string>
     <string name="settings_data_collection_title">Spracovanie dát</string>
@@ -61,19 +48,16 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="settings_dark_mode_value_system">Podľa systému</string>
     <string name="settings_dark_mode_value_enabled">Povolené</string>
     <string name="settings_dark_mode_value_disabled">Zakázané</string>
-
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba pri prevode textu na reč</string>
     <string name="dialog_tts_message_unknown_error">Pri prevode textu na reč nastala neznáma chyba</string>
     <string name="dialog_tts_message_missing_google_tts">Pri prevode textu na reč nastala chyba. Doporučujeme nainštalovať aplikáciu Hlasové služby Googlu z Google Play</string>
     <string name="dialog_tts_download">Stiahnuť</string>
     <string name="dialog_tts_cancel">Zrušiť</string>
-
     <!--Unsupported api dialog -->
     <string name="dialog_unsupported_api_title">Aplikácia nie je aktuálna</string>
     <string name="dialog_unsupported_api_message">Ospravedlňujeme sa, ale je nutné aplikáciu aktualizovať, inak nemôže ďalej fungovať</string>
     <string name="dialog_unsupported_api_download">Stiahnuť</string>
-
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>
@@ -90,5 +74,4 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="clear_cd">vymazať text</string>
     <string name="copy_to_clipboard_cd">kopírovať do schránky</string>
     <string name="speech_recognizer_cd">diktovanie</string>
-
 </resources>
