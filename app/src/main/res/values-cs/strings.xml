@@ -7,15 +7,15 @@
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
 
-    <string name="api_error">Překlad selhal, prosím zkuste to znovu</string>
+    <string name="api_error">Překlad selhal, zkuste to prosím znovu</string>
     <string name="try_again">Zkusit znovu</string>
     <string name="paste">Vložit ze schránky</string>
     <string name="insert_text">Napište text</string>
     <string name="offline_text">Zkontrolujte internetové připojení</string>
-    <string name="max_limit_error">Vstupní text překročil limit (%1$s znaků)</string>
+    <string name="max_limit_error">Délka vstupního textu překročila limit (%1$s znaků)</string>
 
     <string name="dialog_data_processing_title">Zpracování dat</string>
-    <string name="dialog_data_processing_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
+    <string name="dialog_data_processing_message">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
     <string name="dialog__data_processing_agree">Souhlasím</string>
     <string name="dialog__data_processing_disagree">Nesouhlasím</string>
 
@@ -23,7 +23,7 @@
     <string name="about_title">O aplikaci</string>
     <string name="about_text_intro">
         <![CDATA[
-        Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.
+        Překladač byl vyvinut v <a href="https://ufal.mff.cuni.cz/">Ústavu formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.
 ]]>
     </string>
     <string name="about_text">
@@ -46,18 +46,18 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <!--History screen -->
     <string name="history_bottom_all">Vše</string>
     <string name="history_bottom_favourites">Oblíbené</string>
-    <string name="history_all_empty">Během překládání se texty automaticky ukládají a uvidíte zde jejich historii.</string>
-    <string name="history_favourites_empty">Uložté si své oblíbené překlady z historie (ikonka hvězdičky). Poté je najdete na této obrazovce.</string>
+    <string name="history_all_empty">Během překládání se texty automaticky ukládají a zde je jejich historie.</string>
+    <string name="history_favourites_empty">Uložte si své oblíbené překlady z historie (ikonka hvězdičky). Poté je najdete na této obrazovce.</string>
 
     <!--Settings screen -->
     <string name="settings_title">Nastavení</string>
     <string name="settings_data_collection_title">Zpracování dat</string>
-    <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu, mohou být anonymizované texty využity pro další vývoj systému.</string>
+    <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
     <string name="settings_network_tts_title">Síťový převod textu na řeč</string>
     <string name="settings_network_tts_description">V případě dostupnosti používat kvalitnější síťový převod textu na řeč.</string>
     <string name="settings_tts_engine_title">TTS aplikace</string>
     <string name="settings_organization_name_label">Jméno organizace (volitelné)</string>
-    <string name="settings_organization_name_placeholder">Vyplňte jméno organizace, pokud jste k tomu byli vyžádání</string>
+    <string name="settings_organization_name_placeholder">Vyplňte jméno organizace, pokud jste k tomu byli vyzváni.</string>
     <string name="settings_dark_mode_title">Tmavé téma</string>
     <string name="settings_dark_mode_value_system">Podle systému</string>
     <string name="settings_dark_mode_value_enabled">Povoleno</string>
