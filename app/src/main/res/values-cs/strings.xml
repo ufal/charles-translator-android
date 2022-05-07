@@ -41,7 +41,7 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
 
 ]]>
     </string>
-    <string name="mail_app_not_found">Nebyla nalezena mailová aplikace</string>
+    <string name="mail_app_not_found">Nebyla nalezena e-mailová aplikace</string>
 
     <!--History screen -->
     <string name="history_bottom_all">Vše</string>
@@ -53,26 +53,26 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="settings_title">Nastavení</string>
     <string name="settings_data_collection_title">Zpracování dat</string>
     <string name="settings_data_collection_description">Souhlasím s tím, aby Ústav formální a aplikované lingvistiky MFF UK ukládal vstupy a výstupy z překladače. V případě souhlasu mohou být anonymizované texty využity pro další vývoj systému.</string>
-    <string name="settings_network_tts_title">Síťový převod textu na řeč</string>
-    <string name="settings_network_tts_description">V případě dostupnosti používat kvalitnější síťový převod textu na řeč.</string>
+    <string name="settings_network_tts_title">Systém převodu textu na řeč</string>
+    <string name="settings_network_tts_description">Používejte kvalitnější systém převodu textu na řeč, pokud je k dispozici.</string>
     <string name="settings_tts_engine_title">TTS aplikace</string>
-    <string name="settings_organization_name_label">Jméno organizace (volitelné)</string>
-    <string name="settings_organization_name_placeholder">Vyplňte jméno organizace, pokud jste k tomu byli vyzváni.</string>
-    <string name="settings_dark_mode_title">Tmavé téma</string>
+    <string name="settings_organization_name_label">Název organizace (volitelné)</string>
+    <string name="settings_organization_name_placeholder">Doplňte název vaší organizace, pokud jste k tomu byli vyzváni.</string>
+    <string name="settings_dark_mode_title">Tmavý režim</string>
     <string name="settings_dark_mode_value_system">Podle systému</string>
     <string name="settings_dark_mode_value_enabled">Povoleno</string>
     <string name="settings_dark_mode_value_disabled">Zakázáno</string>
 
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
-    <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč nastala neznámá chyba</string>
-    <string name="dialog_tts_message_missing_google_tts">Při převodu textu na řeč nastala chyba. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
+    <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč došlo k neznámé chybě.</string>
+    <string name="dialog_tts_message_missing_google_tts">Při převodu textu na řeč došlo k chybě. Doporučujeme nainstalovat aplikaci Hlasové služby Googlu z Google Play</string>
     <string name="dialog_tts_download">Stáhnout</string>
     <string name="dialog_tts_cancel">Zrušit</string>
 
     <!--Unsupported api dialog -->
     <string name="dialog_unsupported_api_title">Aplikace není aktuální</string>
-    <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nemůže dále fungovat</string>
+    <string name="dialog_unsupported_api_message">Omlouváme se, ale je nutné aplikaci aktualizovat, jinak nebude dále fungovat.</string>
     <string name="dialog_unsupported_api_download">Stáhnout</string>
 
     <!--Content descriptions -->
