@@ -55,7 +55,7 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="dialog_tts_download">Download</string>
     <string name="dialog_tts_cancel">Cancel</string>
     <!--Unsupported api dialog -->
-    <string name="dialog_unsupported_api_title">The application is not up to date.</string>
+    <string name="dialog_unsupported_api_title">The application is not up to date</string>
     <string name="dialog_unsupported_api_message">Sorry, the app needs to be updated, otherwise it is no longer working.</string>
     <string name="dialog_unsupported_api_download">Download</string>
     <!--Content descriptions -->
