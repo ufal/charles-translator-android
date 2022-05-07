@@ -12,7 +12,7 @@
     <string name="paste">Paste from clipboard</string>
     <string name="insert_text">Enter text</string>
     <string name="offline_text">Check your internet connection</string>
-    <string name="max_limit_error">Input text exceeds max lenthg (%1$s characters)</string>
+    <string name="max_limit_error">Input text exceeds max length (%1$s characters)</string>
 
     <string name="dialog_data_processing_title">Data processing</string>
     <string name="dialog_data_processing_message">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
@@ -41,7 +41,7 @@ For any questions about this translator, please contact <a href="/support-mail">
 
 ]]>
     </string>
-    <string name="mail_app_not_found">No mail application found</string>
+    <string name="mail_app_not_found">No e-mail application found</string>
 
     <!--History screen -->
     <string name="history_bottom_all">All</string>
@@ -53,11 +53,11 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="settings_title">Settings</string>
     <string name="settings_data_collection_title">Data processing</string>
     <string name="settings_data_collection_description">I am giving the Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles Univeristy (UFAL MFF UK) consent to collect my inputs and translations. The texts will be anonymized and may be used for future development of the system.</string>
-    <string name="settings_network_tts_title">Prefer network text-to-speech</string>
-    <string name="settings_network_tts_description">Use better network text-to-speech whenever available.</string>
+    <string name="settings_network_tts_title">Prefer text-to-speech system</string>
+    <string name="settings_network_tts_description">Use better text-to-speech system whenever available.</string>
     <string name="settings_tts_engine_title">TTS application</string>
     <string name="settings_organization_name_label">Organization name (optional)</string>
-    <string name="settings_organization_name_placeholder">Fill in the name of the organisation if you have been asked to do</string>
+    <string name="settings_organization_name_placeholder">Fill in the name of your organisation if you have been asked to.</string>
     <string name="settings_dark_mode_title">Darkmode</string>
     <string name="settings_dark_mode_value_system">As system</string>
     <string name="settings_dark_mode_value_enabled">Enabled</string>
@@ -71,15 +71,15 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="dialog_tts_cancel">Cancel</string>
 
     <!--Unsupported api dialog -->
-    <string name="dialog_unsupported_api_title">The application is not up to date</string>
-    <string name="dialog_unsupported_api_message">Sorry, the app needs to be updated, otherwise it is nolonger working.</string>
+    <string name="dialog_unsupported_api_title">The application is not up to date.</string>
+    <string name="dialog_unsupported_api_message">Sorry, the app needs to be updated, otherwise it is no longer working.</string>
     <string name="dialog_unsupported_api_download">Download</string>
 
     <!--Content descriptions -->
     <string name="ufal_cd">ÚFAL logo</string>
     <string name="lindat_cd">LINDAT logo</string>
     <string name="more_cd">show more</string>
-    <string name="tts_cd">text to speech translation</string>
+    <string name="tts_cd">text-to-speech translation</string>
     <string name="paste_cd">paste from clipboard</string>
     <string name="history_cd">translation history</string>
     <string name="add_to_favourites_cd">add to favourites</string>
