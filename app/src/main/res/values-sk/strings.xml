@@ -39,8 +39,8 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="settings_title">Nastavenia</string>
     <string name="settings_data_collection_title">Spracovanie dát</string>
     <string name="settings_data_collection_description">Súhlasím s tým, aby Ústav formální a aplikované lingvistiky MFF UK ukladal vstupy a výstupy z prekladača. V prípade súhlasu môžu byť anonymizované texty využité na ďalší vývoj systému.</string>
-    <string name="settings_network_tts_title">Sieťový prevod textu na reč</string>
-    <string name="settings_network_tts_description">V prípade dostupnosti používať kvalitnejší sieťový prevod textu na reč.</string>
+    <string name="settings_network_tts_title">Prefer network text-to-speech</string>
+    <string name="settings_network_tts_description">Use better network text-to-speech whenever available.</string>
     <string name="settings_tts_engine_title">TTS aplikácia</string>
     <string name="settings_organization_name_label">Meno organizácie (voliteľné)</string>
     <string name="settings_organization_name_placeholder">Vyplňte meno organizácie, ak ste o to boli požiadaní.</string>
