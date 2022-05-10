@@ -59,8 +59,8 @@
     <string name="dialog_unsupported_api_message">Вибачте, але додаток необхідно оновити, інакше він не зможе працювати далі.</string>
     <string name="dialog_unsupported_api_download">Завантажити</string>
     <!--Content descriptions -->
-    <string name="ufal_cd">ÚFAL logo</string>
-    <string name="lindat_cd">LINDAT logo</string>
+    <string name="ufal_cd">логотип UFAL</string>
+    <string name="lindat_cd">логотип LINDAT</string>
     <string name="more_cd">показати більше</string>
     <string name="tts_cd">переклад синтезу мовлення</string>
     <string name="paste_cd">вставити з буферу обміну</string>
