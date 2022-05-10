@@ -51,7 +51,7 @@
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
     <string name="dialog_tts_message_unknown_error">Під час синтезу мовлення сталася невідома помилка.</string>
-    <string name="dialog_tts_message_missing_google_tts">An unknown error occured when converting text to speech. We recommend installing the Speech Services by Google app from Google Play.</string>
+    <string name="dialog_tts_message_missing_google_tts">Під час синтезу мовлення виникла помилка. Рекомендуємо встановити додаток Speech Services by Google з Google Play.</string>
     <string name="dialog_tts_download">Завантажити</string>
     <string name="dialog_tts_cancel">Скасувати</string>
     <!--Unsupported api dialog -->
