@@ -7,7 +7,6 @@ import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilT
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 
 /**
  * @author Tomas Krabac
