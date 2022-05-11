@@ -77,6 +77,8 @@ private fun Content(
                             HistoryCard(
                                 item = historyItem,
                                 viewModel = viewModel,
+                                screen = Screen.HistoryAll,
+
                                 onRowClicked = { onRowClicked(it) }
                             )
 

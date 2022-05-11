@@ -12,12 +12,12 @@ import com.google.firebase.ktx.Firebase
 object FirebaseHelper {
 
     fun setFirebaseScreen(screen: Screen) {
-        Firebase.crashlytics.setCustomKey(FirebaseConstants.PARAM_SCREEN, screen.value)
+        Firebase.crashlytics.setCustomKey(FirebaseConstants.PARAM_SCREEN, screen.key)
 
         Firebase.analytics.logEvent(
             FirebaseAnalytics.Event.SCREEN_VIEW,
             bundleOf(
-                FirebaseAnalytics.Param.SCREEN_NAME to screen.value
+                FirebaseAnalytics.Param.SCREEN_NAME to screen.key
             )
         )
     }

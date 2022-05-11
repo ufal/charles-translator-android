@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.ContextUtils
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
@@ -23,7 +24,7 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(
     context: Application,
     private val db: IDb,
-    private val textToSpeech: ITextToSpeechWrapper
+    private val textToSpeech: ITextToSpeechWrapper,
 ) : IHistoryViewModel, AndroidViewModel(context) {
 
     override val textToSpeechErrors = textToSpeech.errors
@@ -63,9 +64,9 @@ class HistoryViewModel @Inject constructor(
         ContextUtils.copyToClipBoard(getApplication(), label, text)
     }
 
-    override fun textToSpeech(item: HistoryItem) {
+    override fun textToSpeech(item: HistoryItem, screen: Screen) {
         viewModelScope.launch {
-            textToSpeech.speak(item.outputLanguage, item.outputText)
+            textToSpeech.speak(item.outputLanguage, item.outputText, screen)
         }
     }
 

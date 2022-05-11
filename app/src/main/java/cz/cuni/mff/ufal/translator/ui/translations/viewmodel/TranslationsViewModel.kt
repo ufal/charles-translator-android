@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import android.speech.SpeechRecognizer
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.R
@@ -18,9 +17,11 @@ import cz.cuni.mff.ufal.translator.interactors.ContextUtils.isNetworkConnected
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateCyrilToLatin
 import cz.cuni.mff.ufal.translator.interactors.Transliterate.transliterateLatinToCyril
 import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.SpeechToTextEvent
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.TranslateEvent
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.api.UnsupportedApiException
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
@@ -59,7 +60,6 @@ class TranslationsViewModel @Inject constructor(
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            Log.d("logtom", "onAvailable")
 
             state.value = if (inputTextData.value.text.isEmpty()) {
                 TranslationsScreenState.Idle
@@ -71,15 +71,10 @@ class TranslationsViewModel @Inject constructor(
         }
 
         override fun onLost(network: Network) {
-            Log.d("logtom", "onLost")
-
-
             state.value = TranslationsScreenState.Offline
         }
 
         override fun onUnavailable() {
-            Log.d("logtom", "onUnavailable")
-
             super.onUnavailable()
         }
     }
@@ -141,6 +136,15 @@ class TranslationsViewModel @Inject constructor(
             return
         }
 
+        if (data.source == TextSource.Voice) {
+            analytics.logEvent(
+                SpeechToTextEvent(
+                    language = inputLanguage.value,
+                    text = data.text
+                )
+            )
+        }
+
         inputTextData.value = data
         startSaveTimer()
     }
@@ -188,7 +192,8 @@ class TranslationsViewModel @Inject constructor(
         viewModelScope.launch {
             textToSpeech.speak(
                 language = outputLanguage.value,
-                text = outputTextData.value.mainText
+                text = outputTextData.value.mainText,
+                screen = Screen.Translations,
             )
         }
     }
@@ -198,7 +203,7 @@ class TranslationsViewModel @Inject constructor(
             return
         }
 
-        if(inputTextData.value.text.length >= MAX_CHARACTERS){
+        if (inputTextData.value.text.length >= MAX_CHARACTERS) {
             state.value = TranslationsScreenState.MaxCharactersLimitError
             return
         }

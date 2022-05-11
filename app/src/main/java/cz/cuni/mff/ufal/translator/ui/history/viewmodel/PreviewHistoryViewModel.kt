@@ -1,10 +1,10 @@
 package cz.cuni.mff.ufal.translator.ui.history.viewmodel
 
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emptyFlow
 
 /**
@@ -35,7 +35,7 @@ class PreviewHistoryViewModel : IHistoryViewModel {
 
     override fun deleteItem(item: HistoryItem) {}
     override fun copyToClipBoard(text: String) {}
-    override fun textToSpeech(item: HistoryItem) {}
+    override fun textToSpeech(item: HistoryItem, screen: Screen) {}
     override fun updateItem(item: HistoryItem) {}
 
 }

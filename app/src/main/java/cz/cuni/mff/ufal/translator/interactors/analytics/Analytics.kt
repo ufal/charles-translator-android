@@ -3,20 +3,20 @@ package cz.cuni.mff.ufal.translator.interactors.analytics
 import android.content.Context
 import android.content.res.Configuration
 import android.speech.SpeechRecognizer
-import android.util.Log
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.crashlytics.ktx.setCustomKeys
 import com.google.firebase.ktx.Firebase
 import cz.cuni.mff.ufal.translator.extensions.logD
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.SpeechToTextEvent
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.TextToSpeechEvent
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.TranslateEvent
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.FirebaseConstants
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import java.security.AccessController.getContext
 import java.util.*
 import javax.inject.Inject
 
@@ -67,6 +67,27 @@ class Analytics @Inject constructor(
             param("languages", "${event.inputLanguage.code}@${event.outputLanguage.code}")
             param("text_lenght", event.data.text.length.toString())
             param("text_source", event.data.source.key)
+            param("user_locale", language)
+        }
+    }
+
+    override fun logEvent(event: TextToSpeechEvent) {
+        logD("TextToSpeechEvent: $event")
+
+        firebaseAnalytics.logEvent("text_to_speech") {
+            param("output_language", event.language.code)
+            param("text_lenght", event.text.length.toString())
+            param("user_locale", language)
+            param("screen", event.screen.key)
+        }
+    }
+
+    override fun logEvent(event: SpeechToTextEvent) {
+        logD("SpeechToTextEvent: $event")
+
+        firebaseAnalytics.logEvent("speech_to_text") {
+            param("input_language", event.language.code)
+            param("text_lenght", event.text.length.toString())
             param("user_locale", language)
         }
     }

@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.history.viewmodel.IHistoryViewModel
@@ -34,6 +35,8 @@ import kotlinx.coroutines.flow.collect
 fun HistoryCard(
     item: HistoryItem,
     viewModel: IHistoryViewModel,
+    screen: Screen,
+
     onRowClicked: (item: HistoryItem) -> Unit,
 ) {
     val isTtsErrorDialogVisible = remember { mutableStateOf(false) }
@@ -56,7 +59,7 @@ fun HistoryCard(
             viewModel.updateItem(updatedItem)
         },
         copyToClipBoardClicked = { viewModel.copyToClipBoard(item.outputText) },
-        textToSpeechClicked = { viewModel.textToSpeech(item) }
+        textToSpeechClicked = { viewModel.textToSpeech(item, screen) }
     )
 
     TtsErrorDialog(isTtsErrorDialogVisible, LocalContext.current)

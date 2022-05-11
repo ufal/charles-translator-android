@@ -78,6 +78,8 @@ private fun Content(
                             HistoryCard(
                                 item = historyItem,
                                 viewModel = viewModel,
+                                screen = Screen.HistoryFavourites,
+
                                 onRowClicked = onRowClicked,
                             )
 

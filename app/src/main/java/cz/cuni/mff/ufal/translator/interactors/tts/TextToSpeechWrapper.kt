@@ -5,6 +5,10 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import cz.cuni.mff.ufal.translator.extensions.logD
 import cz.cuni.mff.ufal.translator.extensions.logE
+import cz.cuni.mff.ufal.translator.interactors.analytics.Analytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.TextToSpeechEvent
+import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +21,8 @@ import javax.inject.Inject
  */
 class TextToSpeechWrapper @Inject constructor(
     private val context: Context,
-    private val userDataStore: IUserDataStore
+    private val userDataStore: IUserDataStore,
+    private val analytics: IAnalytics,
 ) : ITextToSpeechWrapper {
 
     private var initError = false
@@ -63,9 +68,9 @@ class TextToSpeechWrapper @Inject constructor(
         }
     }
 
-    override suspend fun speak(language: Language, text: String) {
+    override suspend fun speak(language: Language, text: String, screen: Screen) {
         if (initError) {
-            errors.tryEmit(TextToSpeechError.SpeakError)
+            errors.emit(TextToSpeechError.SpeakError)
             return
         }
 
@@ -87,6 +92,11 @@ class TextToSpeechWrapper @Inject constructor(
                 this.language = language.locale
             }
 
+            analytics.logEvent(TextToSpeechEvent(
+                language = language,
+                text = text,
+                screen = screen
+            ))
             textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
         }
     }
