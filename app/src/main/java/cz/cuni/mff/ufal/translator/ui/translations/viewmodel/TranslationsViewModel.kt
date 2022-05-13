@@ -10,6 +10,8 @@ import android.os.Build
 import android.speech.SpeechRecognizer
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.ContextUtils
@@ -25,6 +27,7 @@ import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
+import cz.cuni.mff.ufal.translator.ui.common.widgets.BuildConfigWrapper
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -185,6 +188,9 @@ class TranslationsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             userDataStore.setFinishedOnboarding()
             userDataStore.saveAgreementDataCollection(agreeWithDataCollection)
+            if (BuildConfigWrapper.isRelease) {
+                Firebase.analytics.setAnalyticsCollectionEnabled(agreeWithDataCollection)
+            }
         }
     }
 

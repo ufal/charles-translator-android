@@ -2,10 +2,13 @@ package cz.cuni.mff.ufal.translator.ui.settings.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper
+import cz.cuni.mff.ufal.translator.ui.common.widgets.BuildConfigWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,6 +54,9 @@ class SettingsViewModel @Inject constructor(
     override fun saveAgreementDataCollection(agree: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             userDataStore.saveAgreementDataCollection(agree)
+            if (BuildConfigWrapper.isRelease) {
+                Firebase.analytics.setAnalyticsCollectionEnabled(agree)
+            }
         }
     }
 
