@@ -11,7 +11,7 @@
     <string name="paste">Vložiť zo schránky</string>
     <string name="insert_text">Napíšte text</string>
     <string name="offline_text">Skontrolujte internetové pripojenie</string>
-    <string name="max_limit_error">Input text exceeds max length (%1$s characters)</string>
+    <string name="max_limit_error">Vstupný text presahuje maximálnu dĺžku (%1$s znakov)</string>
     <string name="dialog_data_processing_title">Spracovanie dát</string>
     <string name="dialog_data_processing_message">Súhlasím s tým, aby Ústav formální a aplikované lingvistiky MFF UK ukladal vstupy a výstupy z prekladača. V prípade súhlasu môžu byť anonymizované texty využité na ďalší vývoj systému.</string>
     <string name="dialog__data_processing_agree">Súhlasím</string>
