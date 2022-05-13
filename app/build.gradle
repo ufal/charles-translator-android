@@ -108,6 +108,8 @@ android {
         }
     }
 
+    namespace 'cz.cuni.mff.ufal.translator'
+
     //https://github.com/raamcosta/compose-destinations
     applicationVariants.all { variant ->
         kotlin.sourceSets {
