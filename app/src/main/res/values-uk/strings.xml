@@ -39,8 +39,8 @@
     <string name="settings_title">Налаштування</string>
     <string name="settings_data_collection_title">Опрацювання даних</string>
     <string name="settings_data_collection_description">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
-    <string name="settings_network_tts_title">Віддавайте перевагу опції синтезу мовлення</string>
-    <string name="settings_network_tts_description">У разі наявності використовуйте кращий синтез мовлення.</string>
+    <string name="settings_network_tts_title">Надавати перевагу опції синтезу мовлення</string>
+    <string name="settings_network_tts_description">Використовувати синтез мовлення у разі наявності.</string>
     <string name="settings_tts_engine_title">Додаток синтезу мовлення</string>
     <string name="settings_organization_name_label">Назва організації (необов\'язково)</string>
     <string name="settings_organization_name_placeholder">Заповніть назву організації, якщо вас про це попросили.</string>
