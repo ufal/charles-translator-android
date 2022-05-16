@@ -35,6 +35,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -76,16 +77,14 @@ class TranslationsViewModel @Inject constructor(
         override fun onLost(network: Network) {
             state.value = TranslationsScreenState.Offline
         }
-
-        override fun onUnavailable() {
-            super.onUnavailable()
-        }
     }
+
+    private val isUkUser get() =  Locale.getDefault().language == "uk"
 
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
-    override val inputLanguage = MutableStateFlow(Language.Czech)
-    override val outputLanguage = MutableStateFlow(Language.Ukrainian)
+    override val inputLanguage = MutableStateFlow(if(isUkUser) Language.Ukrainian else Language.Czech)
+    override val outputLanguage = MutableStateFlow(if(isUkUser) Language.Czech else Language.Ukrainian)
     override val state = MutableStateFlow<TranslationsScreenState>(TranslationsScreenState.Idle)
     override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding.stateIn(
         viewModelScope,
