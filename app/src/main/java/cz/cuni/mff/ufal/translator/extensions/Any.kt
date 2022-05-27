@@ -3,18 +3,23 @@ package cz.cuni.mff.ufal.translator.extensions
 import android.util.Log
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import cz.cuni.mff.ufal.translator.ui.common.widgets.BuildConfigWrapper.isDebug
 
 /**
  * @author Tomas Krabac
  */
 fun Any.logV(message: String) {
-    Log.v(this.javaClass.simpleName, message)
-    Firebase.crashlytics.log("V:$message")
+    if (isDebug) {
+        Log.v(this.javaClass.simpleName, message)
+        Firebase.crashlytics.log("V:$message")
+    }
 }
 
 fun Any.logD(message: String) {
-    Log.d(this.javaClass.simpleName, message)
-    Firebase.crashlytics.log("D:$message")
+    if (isDebug) {
+        Log.d(this.javaClass.simpleName, message)
+        Firebase.crashlytics.log("D:$message")
+    }
 }
 
 fun Any.logE(message: String) {
