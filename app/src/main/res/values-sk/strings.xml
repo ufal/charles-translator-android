@@ -28,7 +28,8 @@
 
 <b>Android aplikácia:</b> Tomáš Krabač<br><br>
 
-V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžete kontaktovať na adrese <a href="/support-mail">%1$s</a>. Chyby môžete tiež hlásiť pomocou issues na <a href="https://github.com/ufal/lindat-translation-android/issues">Githube</a>.]]></string>
+V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžete kontaktovať na adrese <a href="/support-mail">%1$s</a>. Chyby môžete tiež hlásiť pomocou issues na <a href="https://github.com/ufal/lindat-translation-android/issues">Githube</a>.
+  ]]></string>
     <string name="mail_app_not_found">Nebola nájdená mailová aplikácia</string>
     <!--History screen -->
     <string name="history_bottom_all">Všetko</string>

@@ -28,7 +28,8 @@
 
 <b>Розробка Android-додатку:</b> Томаш Крабач<br><br>
 
-Якщо ви маєте будь-які запитання стосовно цього перекладача, будь ласка, контактуйте <a href="/support-mail">%1$s</a>. Ви також можете повідомяти про помилки через<a href="https://github.com/ufal/lindat-translation-android/issues"><a href="https://github.com/ufal/lindat-translation-android/issues"> <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.]]></string>
+Якщо ви маєте будь-які запитання стосовно цього перекладача, будь ласка, контактуйте <a href="/support-mail">%1$s</a>. Ви також можете повідомяти про помилки через<a href="https://github.com/ufal/lindat-translation-android/issues"><a href="https://github.com/ufal/lindat-translation-android/issues"> <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.
+  ]]></string>
     <string name="mail_app_not_found">Додаток електронної пошти не знайдено</string>
     <!--History screen -->
     <string name="history_bottom_all">Всі</string>
