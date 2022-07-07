@@ -19,16 +19,17 @@
     <!--About screen -->
     <string name="about_title">O aplikácií</string>
     <string name="about_text_intro"><![CDATA[Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
-    <string name="about_text"><![CDATA[<b>Development of the translation system:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
+    <string name="about_text"><![CDATA[<b>Vývoj systému pre preklad:</b> <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a>, <a href="https://ufal.mff.cuni.cz/jindrich-libovicky">Jindřich Libovický</a>, <a href="https://ufal.mff.cuni.cz/jindrich-helcl">Jindřich Helcl</a>, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/rudolf-rosa">Rudolf Rosa</a>, <a href="https://ufal.mff.cuni.cz/zdenek-kasner">Zdeněk Kasner</a><br><br>
 
-<b>Data preparation:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://ufal.mff.cuni.cz/jaroslava-hlavacova">Jaroslava Hlaváčová</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a><br><br>
-Many thanks to <a href="https://intercorp.korpus.cz/">korpus.cz</a> for providing us with <b>InterCorp v14</b>, a part of the project Czech National Corpus.<br><br>
+<b>Príprava dát:</b> <a href="https://ufal.mff.cuni.cz/lucie-polakova">Lucie Poláková</a>, <a href="https://ufal.mff.cuni.cz/jaroslava-hlavacova">Jaroslava Hlaváčová</a>, <a href="https://martin.majlis.cz/">Martin Majliš</a>, Denys Bojko, Tomáš Musil, Tereza Chlaňová, Oxana Čmelíková, <a href="https://ufal.mff.cuni.cz/michal-novak">Michal Novák</a>, <a href="https://ufal.mff.cuni.cz/martin-popel">Martin Popel</a><br><br>
+Ďakujeme <a href="https://intercorp.korpus.cz/">korpus.cz</a> za poskytnutie <b>InterCorp v14</b>, ktoré je súčasťou projektu Českého národního korpusu.<br><br>
 
-<b>Back-end development:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> and the LINDAT team<br><br>
+<b>Vývoj backendu:</b> <a href="https://ufal.mff.cuni.cz/ondrej-kosarko">Ondřej Košarko</a> a LINDAT tím<br><br>
 
-<b>Android development:</b> Tomáš Krabač<br><br>
+<b>Android aplikácia:</b> Tomáš Krabač<br><br>
 
-For any questions about this translator, please contact <a href="/support-mail">%1$s</a>. You can also report errors on <a href="https://github.com/ufal/lindat-translation-android/issues">Github</a>.]]></string>
+V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžete kontaktovať na adrese <a href="/support-mail">%1$s</a>. Chyby môžete tiež hlásiť pomocou issues na <a href="https://github.com/ufal/lindat-translation-android/issues">Githube</a>.
+  ]]></string>
     <string name="mail_app_not_found">Nebola nájdená mailová aplikácia</string>
     <!--History screen -->
     <string name="history_bottom_all">Všetko</string>
