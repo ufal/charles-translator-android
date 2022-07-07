@@ -79,7 +79,7 @@ class TranslationsViewModel @Inject constructor(
         }
     }
 
-    private val isUkUser get() =  Locale.getDefault().language == "uk"
+    private val isUkUser get() =  Locale.getDefault().language == "uk" || Locale.getDefault().language == "ru"
 
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
