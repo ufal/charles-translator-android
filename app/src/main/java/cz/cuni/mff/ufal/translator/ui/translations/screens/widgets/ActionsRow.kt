@@ -1,11 +1,11 @@
 package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.launch
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,12 +14,8 @@ import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
-import cz.cuni.mff.ufal.translator.ui.VoiceContract
-import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
-import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
-import kotlinx.coroutines.flow.collect
 
 /**
  * @author Tomas Krabac
@@ -30,15 +26,10 @@ fun ActionsRow(
     mainController: IMainController,
     mainText: String,
 ) {
-    val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
-    val inputLanguage by viewModel.inputLanguage.collectAsState()
     val isTtsErrorDialogVisible = remember { mutableStateOf(false) }
-
-    val voiceLauncher = rememberLauncherForActivityResult(VoiceContract(inputLanguage)) { text ->
-        if (text != null) {
-            viewModel.setInputText(InputTextData(text, TextSource.Voice))
-        }
-    }
+    val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
+    val isListening by viewModel.isListening.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(viewModel) {
         viewModel.textToSpeechErrors.collect {
@@ -63,17 +54,14 @@ fun ActionsRow(
         }
 
         Row(modifier = Modifier.align(Alignment.Center)) {
-            if (isSpeechRecognizerAvailable) {
-                ActionItem(
-                    modifier = Modifier.padding(vertical = 4.dp),
-                    size = 44.dp,
-                    drawableRes = R.drawable.ic_mic,
-                    contentDescriptionRes = R.string.speech_recognizer_cd
-                ) {
-                    viewModel.setInputText(InputTextData("", TextSource.ClearVoice))
-                    voiceLauncher.launch()
-                }
-            }
+            MicrophoneItem(
+                snackbarHostState = snackbarHostState,
+                isSpeechRecognizerAvailable = isSpeechRecognizerAvailable,
+                isListening = isListening,
+
+                startRecognizeAudio = viewModel::startRecognizeAudio,
+                stopRecognizeAudio = viewModel::stopRecognizeAudio,
+            )
         }
 
         Row(modifier = Modifier.align(Alignment.CenterEnd)) {
@@ -97,5 +85,7 @@ fun ActionsRow(
         }
 
         TtsErrorDialog(isTtsErrorDialogVisible, LocalContext.current)
+
+        SnackbarHost(hostState = snackbarHostState)
     }
 }

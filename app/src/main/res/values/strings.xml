@@ -19,6 +19,9 @@
     <string name="dialog__data_processing_agree">Agree</string>
     <string name="dialog__data_processing_disagree">Disagree</string>
 
+    <string name="snackbar_no_audio_record_permisson">Permission to record audio was denied</string>
+    <string name="snackbar_app_settings">Settings</string>
+
     <!--About screen -->
     <string name="about_title">About app</string>
     <string name="about_text_intro">

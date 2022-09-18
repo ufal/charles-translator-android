@@ -23,6 +23,7 @@ import cz.cuni.mff.ufal.translator.interactors.analytics.events.SpeechToTextEven
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.TranslateEvent
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.api.UnsupportedApiException
+import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
@@ -32,9 +33,7 @@ import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.translations.models.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -51,6 +50,7 @@ class TranslationsViewModel @Inject constructor(
     private val userDataStore: IUserDataStore,
     private val textToSpeech: ITextToSpeechWrapper,
     private val analytics: IAnalytics,
+    private val audioTextRecognizer: IAudioTextRecognizer,
 ) : ITranslationsViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
@@ -79,12 +79,12 @@ class TranslationsViewModel @Inject constructor(
         }
     }
 
-    private val isUkUser get() =  Locale.getDefault().language == "uk" || Locale.getDefault().language == "ru"
+    private val isUkUser get() = Locale.getDefault().language == "uk" || Locale.getDefault().language == "ru"
 
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
-    override val inputLanguage = MutableStateFlow(if(isUkUser) Language.Ukrainian else Language.Czech)
-    override val outputLanguage = MutableStateFlow(if(isUkUser) Language.Czech else Language.Ukrainian)
+    override val inputLanguage = MutableStateFlow(if (isUkUser) Language.Ukrainian else Language.Czech)
+    override val outputLanguage = MutableStateFlow(if (isUkUser) Language.Czech else Language.Ukrainian)
     override val state = MutableStateFlow<TranslationsScreenState>(TranslationsScreenState.Idle)
     override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding.stateIn(
         viewModelScope,
@@ -94,6 +94,7 @@ class TranslationsViewModel @Inject constructor(
     override val textToSpeechErrors = textToSpeech.errors
     override val isSpeechRecognizerAvailable: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
+    override val isListening = audioTextRecognizer.isListening
 
     override fun onStart() {
         super.onStart()
@@ -108,6 +109,12 @@ class TranslationsViewModel @Inject constructor(
             state.value = TranslationsScreenState.Offline
         }
         registerNetworkCallback()
+
+        audioTextRecognizer.text.onEach {
+            if (it.isNotBlank()) {
+                inputTextData.value = InputTextData(it, TextSource.Voice)
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun onStop() {
@@ -201,6 +208,15 @@ class TranslationsViewModel @Inject constructor(
                 screen = Screen.Translations,
             )
         }
+    }
+
+    override fun startRecognizeAudio() {
+        setInputText(InputTextData("", TextSource.ClearVoice))
+        audioTextRecognizer.startRecognize(inputLanguage.value)
+    }
+
+    override fun stopRecognizeAudio() {
+        audioTextRecognizer.stopRecognize()
     }
 
     private fun translate() {
