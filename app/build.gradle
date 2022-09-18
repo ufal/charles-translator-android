@@ -139,6 +139,7 @@ dependencies {
     implementation 'io.ktor:ktor-client-logging:1.6.8'
     implementation "com.google.accompanist:accompanist-insets:0.23.0"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
+    implementation "com.google.accompanist:accompanist-permissions:0.26.3-beta"
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"

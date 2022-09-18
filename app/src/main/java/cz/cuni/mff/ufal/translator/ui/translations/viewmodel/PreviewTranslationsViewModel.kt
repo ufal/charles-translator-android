@@ -22,6 +22,7 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override val hasFinishedOnboarding = MutableStateFlow(true)
     override val textToSpeechErrors = emptyFlow<TextToSpeechError>()
     override val isSpeechRecognizerAvailable = true
+    override val isListening = MutableStateFlow(false)
 
     override fun setInputText(data: InputTextData) {}
     override fun swapLanguages() {}
@@ -31,4 +32,6 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override fun retry() {}
     override fun setFinishedOnboarding(agreeWithDataCollection: Boolean) {}
     override fun textToSpeech() {}
+    override fun startRecognizeAudio() {}
+    override fun stopRecognizeAudio() {}
 }

@@ -6,6 +6,8 @@ import cz.cuni.mff.ufal.translator.interactors.analytics.Analytics
 import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
 import cz.cuni.mff.ufal.translator.interactors.api.Api
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
+import cz.cuni.mff.ufal.translator.interactors.asr.AudioTextRecognizer
+import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
 import cz.cuni.mff.ufal.translator.interactors.db.Db
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
@@ -44,11 +46,14 @@ object MainModule {
     fun provideUserDataStore(context: Application): IUserDataStore {
         return UserDataStore(context)
     }
-    
+
     @Provides
     fun provideTextToSpeech(impl: TextToSpeechWrapper): ITextToSpeechWrapper = impl
 
     @Provides
     fun provideAnalytics(impl: Analytics): IAnalytics = impl
+
+    @Provides
+    fun provideAudioTextRecognizer(impl: AudioTextRecognizer): IAudioTextRecognizer = impl
 
 }

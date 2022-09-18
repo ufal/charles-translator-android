@@ -25,6 +25,7 @@ interface ITranslationsViewModel : IBaseViewModel {
     val hasFinishedOnboarding: StateFlow<Boolean>
     val textToSpeechErrors: Flow<TextToSpeechError>
     val isSpeechRecognizerAvailable: Boolean
+    val isListening: StateFlow<Boolean>
 
     fun setInputText(data: InputTextData)
     fun swapLanguages()
@@ -34,5 +35,7 @@ interface ITranslationsViewModel : IBaseViewModel {
     fun retry()
     fun setFinishedOnboarding(agreeWithDataCollection: Boolean)
     fun textToSpeech()
+    fun startRecognizeAudio()
+    fun stopRecognizeAudio()
 
 }
