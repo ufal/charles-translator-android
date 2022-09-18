@@ -51,6 +51,7 @@ class TextToSpeechWrapper @Inject constructor(
                 logD("finish TTS: $utteranceId")
             }
 
+            @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
                 logE("error TTS speak $utteranceId")
                 errors.tryEmit(TextToSpeechError.SpeakError)

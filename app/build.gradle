@@ -19,12 +19,12 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "cz.cuni.mff.ufal.translator"
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode appVersionCode
         versionName appVersionName
 
@@ -100,7 +100,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion '1.2.0'
     }
     packagingOptions {
         resources {
@@ -121,13 +121,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
-    implementation 'androidx.activity:activity-compose:1.5.0'
-    implementation "androidx.navigation:navigation-compose:2.5.0"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation "androidx.navigation:navigation-compose:2.5.2"
     implementation "androidx.browser:browser:1.4.0"
 
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
@@ -151,7 +151,7 @@ dependencies {
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-    implementation "androidx.navigation:navigation-compose:2.5.0"
+    implementation "androidx.navigation:navigation-compose:2.5.2"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
     implementation 'com.github.ireward:compose-html:1.0.2'
