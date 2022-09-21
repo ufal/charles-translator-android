@@ -16,6 +16,8 @@
     <string name="dialog_data_processing_message">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
     <string name="dialog__data_processing_agree">Я надаю згоду</string>
     <string name="dialog__data_processing_disagree">Я не надаю згоду</string>
+    <string name="snackbar_no_audio_record_permisson">Permission to record audio was denied</string>
+    <string name="snackbar_app_settings">Settings</string>
     <!--About screen -->
     <string name="about_title">Про додаток</string>
     <string name="about_text_intro"><![CDATA[Перекладач був розроблений в <a href="https://ufal.mff.cuni.cz/">Інституті формальної та прикладної лінгвістики</a>, фізико-математичного факультету, Карлового університету за підтримки проекту <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
