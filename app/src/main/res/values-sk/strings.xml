@@ -16,6 +16,8 @@
     <string name="dialog_data_processing_message">Súhlasím s tým, aby Ústav formální a aplikované lingvistiky MFF UK ukladal vstupy a výstupy z prekladača. V prípade súhlasu môžu byť anonymizované texty využité na ďalší vývoj systému.</string>
     <string name="dialog__data_processing_agree">Súhlasím</string>
     <string name="dialog__data_processing_disagree">Nesúhlasím</string>
+    <string name="snackbar_no_audio_record_permisson">Permission to record audio was denied</string>
+    <string name="snackbar_app_settings">Settings</string>
     <!--About screen -->
     <string name="about_title">O aplikácií</string>
     <string name="about_text_intro"><![CDATA[Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
