@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.util.Log
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,8 @@ class AudioTextRecognizer @Inject constructor(
     context: Context,
 ) : IAudioTextRecognizer {
 
+    private var recognizedText = ""
+
     private val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
         setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
@@ -26,7 +29,7 @@ class AudioTextRecognizer @Inject constructor(
             }
 
             override fun onBeginningOfSpeech() {
-
+                recognizedText = text.value
             }
 
             override fun onRmsChanged(rmsdB: Float) {
@@ -57,10 +60,10 @@ class AudioTextRecognizer @Inject constructor(
             override fun onPartialResults(partialResults: Bundle) {
                 val data = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.firstOrNull()
 
-                if (data != null && text.value.isBlank()) {
+                if (data != null && recognizedText.isBlank()) {
                     text.value = data
                 } else if (data != null) {
-                    text.value = "${text.value} $data"
+                    text.value = "$recognizedText$data"
                 }
             }
 
@@ -81,7 +84,7 @@ class AudioTextRecognizer @Inject constructor(
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.locale.language)
-            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 100000000);
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 50000)
         }
 
