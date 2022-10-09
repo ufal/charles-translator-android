@@ -53,6 +53,8 @@ class AudioTextRecognizer @Inject constructor(
 
             override fun onError(error: Int) {
                 logE("ASR error ${getErrorMessage(error)}")
+
+                isListening.value = false
             }
 
             override fun onResults(results: Bundle) {
