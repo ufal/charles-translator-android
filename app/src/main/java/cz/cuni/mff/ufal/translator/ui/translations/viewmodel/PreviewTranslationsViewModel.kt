@@ -23,6 +23,7 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override val textToSpeechErrors = emptyFlow<TextToSpeechError>()
     override val isSpeechRecognizerAvailable = true
     override val isListening = MutableStateFlow(false)
+    override val rmsdB = MutableStateFlow(0.0f)
 
     override fun setInputText(data: InputTextData) {}
     override fun swapLanguages() {}

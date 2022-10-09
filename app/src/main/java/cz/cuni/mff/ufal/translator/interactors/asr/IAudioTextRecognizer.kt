@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface IAudioTextRecognizer {
 
+    val rmsdB: StateFlow<Float>
+
     val isListening: StateFlow<Boolean>
 
     val text: StateFlow<String>

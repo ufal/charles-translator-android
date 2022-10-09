@@ -6,19 +6,29 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -33,6 +43,7 @@ fun MicrophoneItem(
     snackbarHostState: SnackbarHostState,
     isSpeechRecognizerAvailable: Boolean,
     isListening: Boolean,
+    rmsdB: Float,
 
     startRecognizeAudio: () -> Unit,
     stopRecognizeAudio: () -> Unit,
@@ -51,31 +62,47 @@ fun MicrophoneItem(
             R.drawable.ic_mic
         }
 
-        ActionItem(
-            modifier = Modifier.padding(vertical = 4.dp),
-            size = 44.dp,
-            drawableRes = icon,
-            contentDescriptionRes = R.string.speech_recognizer_cd
+        Box(
+            modifier = Modifier.padding(4.dp),
+            contentAlignment = Alignment.Center
         ) {
-            val status = audioPermissionState.status
 
-            when {
-                status == PermissionStatus.Granted -> {
-                    if (isListening) {
-                        stopRecognizeAudio()
-                    } else {
-                        startRecognizeAudio()
+            if (isListening) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp + rmsdB.dp)
+                        .clip(CircleShape)
+                        .background(LindatTheme.colors.primary.copy(alpha = 0.4f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                }
+            }
+
+            ActionItem(
+                size = 36.dp,
+                drawableRes = icon,
+                contentDescriptionRes = R.string.speech_recognizer_cd
+            ) {
+                val status = audioPermissionState.status
+
+                when {
+                    status == PermissionStatus.Granted -> {
+                        if (isListening) {
+                            stopRecognizeAudio()
+                        } else {
+                            startRecognizeAudio()
+                        }
                     }
-                }
-                status is PermissionStatus.Denied && !status.shouldShowRationale -> {
-                    audioPermissionState.launchPermissionRequest()
-                }
-                status is PermissionStatus.Denied && status.shouldShowRationale -> {
-                    showNoPermissionSnackBar(
-                        snackbarHostState = snackbarHostState,
-                        scope = coroutineScope,
-                        context = context,
-                    )
+                    status is PermissionStatus.Denied && !status.shouldShowRationale -> {
+                        audioPermissionState.launchPermissionRequest()
+                    }
+                    status is PermissionStatus.Denied && status.shouldShowRationale -> {
+                        showNoPermissionSnackBar(
+                            snackbarHostState = snackbarHostState,
+                            scope = coroutineScope,
+                            context = context,
+                        )
+                    }
                 }
             }
         }

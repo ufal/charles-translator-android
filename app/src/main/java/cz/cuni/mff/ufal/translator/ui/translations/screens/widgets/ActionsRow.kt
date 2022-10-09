@@ -1,21 +1,22 @@
 package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
+import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
+import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
+import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.PreviewTranslationsViewModel
 
 /**
  * @author Tomas Krabac
@@ -29,6 +30,7 @@ fun ActionsRow(
     val isTtsErrorDialogVisible = remember { mutableStateOf(false) }
     val isSpeechRecognizerAvailable = viewModel.isSpeechRecognizerAvailable
     val isListening by viewModel.isListening.collectAsState()
+    val rmsdB by viewModel.rmsdB.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(viewModel) {
@@ -53,11 +55,18 @@ fun ActionsRow(
             }
         }
 
-        Row(modifier = Modifier.align(Alignment.Center)) {
+        Row(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(54.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             MicrophoneItem(
                 snackbarHostState = snackbarHostState,
                 isSpeechRecognizerAvailable = isSpeechRecognizerAvailable,
                 isListening = isListening,
+                rmsdB = rmsdB,
 
                 startRecognizeAudio = viewModel::startRecognizeAudio,
                 stopRecognizeAudio = viewModel::stopRecognizeAudio,
@@ -87,5 +96,17 @@ fun ActionsRow(
         TtsErrorDialog(isTtsErrorDialogVisible, LocalContext.current)
 
         SnackbarHost(hostState = snackbarHostState)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ActionsRowPreview() {
+    LindatThemePreview {
+        ActionsRow(
+            viewModel = PreviewTranslationsViewModel(),
+            mainController = PreviewIMainController(),
+            mainText = "text"
+        )
     }
 }

@@ -26,6 +26,7 @@ interface ITranslationsViewModel : IBaseViewModel {
     val textToSpeechErrors: Flow<TextToSpeechError>
     val isSpeechRecognizerAvailable: Boolean
     val isListening: StateFlow<Boolean>
+    val rmsdB: StateFlow<Float>
 
     fun setInputText(data: InputTextData)
     fun swapLanguages()

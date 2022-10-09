@@ -37,6 +37,7 @@ import kotlinx.coroutines.flow.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
 
 /**
@@ -95,6 +96,16 @@ class TranslationsViewModel @Inject constructor(
     override val isSpeechRecognizerAvailable: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
     override val isListening = audioTextRecognizer.isListening
+
+    var last = 0f
+    override val rmsdB = audioTextRecognizer.rmsdB.filter {
+        (it - last).absoluteValue > 1
+    }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            0.0F,
+        )
 
     override fun onStart() {
         super.onStart()

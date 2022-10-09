@@ -10,6 +10,7 @@ import android.util.Log
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 
@@ -22,6 +23,12 @@ class AudioTextRecognizer @Inject constructor(
 
     private var recognizedText = ""
 
+    override val rmsdB = MutableStateFlow(0.0f)
+
+    override val isListening = MutableStateFlow(false)
+    override val text = MutableStateFlow("")
+
+
     private val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
         setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
@@ -33,7 +40,7 @@ class AudioTextRecognizer @Inject constructor(
             }
 
             override fun onRmsChanged(rmsdB: Float) {
-
+                this@AudioTextRecognizer.rmsdB.value = rmsdB
             }
 
             override fun onBufferReceived(buffer: ByteArray) {
@@ -73,9 +80,6 @@ class AudioTextRecognizer @Inject constructor(
 
         })
     }
-
-    override val isListening = MutableStateFlow(false)
-    override val text = MutableStateFlow("")
 
     override fun startRecognize(language: Language) {
         isListening.value = true
