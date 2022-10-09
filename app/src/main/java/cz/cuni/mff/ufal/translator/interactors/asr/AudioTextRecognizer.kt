@@ -6,10 +6,16 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.util.Log
 import cz.cuni.mff.ufal.translator.extensions.logE
+import cz.cuni.mff.ufal.translator.main.dependency.ApplicationCoroutineScope
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.absoluteValue
 
 
 /**
@@ -22,10 +28,9 @@ class AudioTextRecognizer @Inject constructor(
     private var recognizedText = ""
 
     override val rmsdB = MutableStateFlow(0.0f)
-
     override val isListening = MutableStateFlow(false)
     override val text = MutableStateFlow("")
-
+    override var activeLanguage = MutableStateFlow(Language.Czech)
 
     private val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
         setRecognitionListener(object : RecognitionListener {
@@ -38,7 +43,9 @@ class AudioTextRecognizer @Inject constructor(
             }
 
             override fun onRmsChanged(rmsdB: Float) {
-                this@AudioTextRecognizer.rmsdB.value = rmsdB
+                if (rmsdB - this@AudioTextRecognizer.rmsdB.value.absoluteValue > 1) {
+                    this@AudioTextRecognizer.rmsdB.value = rmsdB
+                }
             }
 
             override fun onBufferReceived(buffer: ByteArray) {
@@ -82,14 +89,19 @@ class AudioTextRecognizer @Inject constructor(
     }
 
     override fun startRecognize(language: Language) {
+        if (isListening.value) {
+            return
+        }
+
+        activeLanguage.value = language
         isListening.value = true
         text.value = ""
 
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.locale.language)
-            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000)
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+           // putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000)
         }
 
         speechRecognizer.startListening(speechRecognizerIntent)
@@ -100,7 +112,6 @@ class AudioTextRecognizer @Inject constructor(
             return
         }
         speechRecognizer.stopListening()
-        isListening.value = false
     }
 
     override fun clear() {

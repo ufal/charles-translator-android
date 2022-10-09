@@ -49,6 +49,8 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="settings_dark_mode_value_system">Podľa systému</string>
     <string name="settings_dark_mode_value_enabled">Povolené</string>
     <string name="settings_dark_mode_value_disabled">Zakázané</string>
+    <!--Conversation screen -->
+    <string name="conversation_title">Conversation</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba pri prevode textu na reč</string>
     <string name="dialog_tts_message_unknown_error">Pri prevode textu na reč nastala neznáma chyba.</string>
@@ -75,4 +77,5 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="clear_cd">vymazať text</string>
     <string name="copy_to_clipboard_cd">kopírovať do schránky</string>
     <string name="speech_recognizer_cd">diktovanie</string>
+    <string name="conversation_cd">conversation mode</string>
 </resources>

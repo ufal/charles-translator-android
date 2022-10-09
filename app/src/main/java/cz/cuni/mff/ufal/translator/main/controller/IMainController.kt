@@ -16,6 +16,8 @@ interface IMainController {
 
     fun navigateSettingsScreen()
 
+    fun navigateConversationScreen()
+
     fun openWebUrl(url: String)
 
     fun sendMail(mail: String)

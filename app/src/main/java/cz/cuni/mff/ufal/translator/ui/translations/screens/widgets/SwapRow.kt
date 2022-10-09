@@ -3,13 +3,13 @@ package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cuni.mff.ufal.translator.R
+import cz.cuni.mff.ufal.translator.ui.common.widgets.ActionItem
 import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language

@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.main
+package cz.cuni.mff.ufal.translator.main.dependency
 
 import android.app.Application
 import android.content.Context
@@ -18,6 +18,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.plus
 import javax.inject.Singleton
 
 /**
@@ -55,5 +59,10 @@ object MainModule {
 
     @Provides
     fun provideAudioTextRecognizer(impl: AudioTextRecognizer): IAudioTextRecognizer = impl
+
+    @Provides
+    @Singleton
+    @ApplicationCoroutineScope
+    fun provideApplicationCoroutineScope(): CoroutineScope = MainScope() + Dispatchers.Main.immediate
 
 }

@@ -66,6 +66,10 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="settings_dark_mode_value_enabled">Enabled</string>
     <string name="settings_dark_mode_value_disabled">Disabled</string>
 
+    <!--Conversation screen -->
+    <string name="conversation_title">Conversation</string>
+    <string name="conversation_empty">For conversation start, press microphone at bottom</string>
+
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Text to speech error</string>
     <string name="dialog_tts_message_unknown_error">An unknown error occured when converting text to speech.</string>
@@ -94,5 +98,6 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="clear_cd">clear text</string>
     <string name="copy_to_clipboard_cd">copy to clipboard</string>
     <string name="speech_recognizer_cd">dictation</string>
+    <string name="conversation_cd">conversation mode</string>
 
 </resources>

@@ -49,6 +49,8 @@
     <string name="settings_dark_mode_value_system">За системними налаштуваннями</string>
     <string name="settings_dark_mode_value_enabled">Увімкнено</string>
     <string name="settings_dark_mode_value_disabled">Вимкнено</string>
+    <!--Conversation screen -->
+    <string name="conversation_title">Conversation</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
     <string name="dialog_tts_message_unknown_error">Під час синтезу мовлення сталася невідома помилка.</string>
@@ -75,4 +77,5 @@
     <string name="clear_cd">видалити текст</string>
     <string name="copy_to_clipboard_cd">копіювати до буферу обміну</string>
     <string name="speech_recognizer_cd">диктування</string>
+    <string name="conversation_cd">conversation mode</string>
 </resources>

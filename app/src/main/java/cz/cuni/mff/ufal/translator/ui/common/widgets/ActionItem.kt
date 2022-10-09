@@ -1,4 +1,4 @@
-package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
+package cz.cuni.mff.ufal.translator.ui.common.widgets
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

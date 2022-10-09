@@ -13,6 +13,8 @@ import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechError
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
+import cz.cuni.mff.ufal.translator.ui.common.widgets.ActionItem
+import cz.cuni.mff.ufal.translator.ui.common.widgets.MicrophoneItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
 import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.ITranslationsViewModel
@@ -52,6 +54,14 @@ fun ActionsRow(
                 contentDescriptionRes = R.string.history_cd
             ) {
                 mainController.navigateHistory()
+            }
+
+            ActionItem(
+                size = 30.dp,
+                drawableRes = R.drawable.ic_conversation,
+                contentDescriptionRes = R.string.conversation_cd
+            ) {
+                mainController.navigateConversationScreen()
             }
         }
 

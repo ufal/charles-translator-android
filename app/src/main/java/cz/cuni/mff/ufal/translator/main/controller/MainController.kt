@@ -12,10 +12,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.ramcosta.composedestinations.navigation.navigateTo
+import com.ramcosta.composedestinations.navigation.navigate
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
+import cz.cuni.mff.ufal.translator.ui.destinations.ConversationScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,15 +33,19 @@ class MainController(
     override val darkModeSetting = MutableStateFlow(DarkModeSetting.System)
 
     override fun navigateHistory() {
-        navController.navigateTo(MainHistoryScreenDestination)
+        navController.navigate(MainHistoryScreenDestination)
     }
 
     override fun navigateAboutScreen() {
-        navController.navigateTo(AboutScreenDestination)
+        navController.navigate(AboutScreenDestination)
     }
 
     override fun navigateSettingsScreen() {
-        navController.navigateTo(SettingsScreenDestination)
+        navController.navigate(SettingsScreenDestination)
+    }
+
+    override fun navigateConversationScreen() {
+        navController.navigate(ConversationScreenDestination)
     }
 
     override fun openWebUrl(url: String) {
