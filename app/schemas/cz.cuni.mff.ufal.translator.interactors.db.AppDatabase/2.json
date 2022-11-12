@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "5cf21651c59604e6427620cd556e95fa",
+    "entities": [
+      {
+        "tableName": "history_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`input_text` TEXT NOT NULL, `output_text` TEXT NOT NULL, `input_language` TEXT NOT NULL, `output_language` TEXT NOT NULL, `is_favourite` INTEGER NOT NULL, `inserted_ms` INTEGER NOT NULL, PRIMARY KEY(`input_text`, `input_language`, `output_language`))",
+        "fields": [
+          {
+            "fieldPath": "inputText",
+            "columnName": "input_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outputText",
+            "columnName": "output_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inputLanguage",
+            "columnName": "input_language",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outputLanguage",
+            "columnName": "output_language",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavourite",
+            "columnName": "is_favourite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "insertedMS",
+            "columnName": "inserted_ms",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "input_text",
+            "input_language",
+            "output_language"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5cf21651c59604e6427620cd556e95fa')"
+    ]
+  }
+}
