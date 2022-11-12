@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.ResultRecipient
 import cz.cuni.mff.ufal.translator.base.BaseScreen
@@ -32,7 +33,8 @@ import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewMod
  * @author Tomas Krabac
  */
 
-@Destination(start = true)
+@Destination
+@RootNavGraph(start = true)
 @Composable
 fun TranslationsScreen(
     viewModel: ITranslationsViewModel = hiltViewModel<TranslationsViewModel>(),
