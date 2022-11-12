@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import android.speech.SpeechRecognizer
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.analytics.ktx.analytics
@@ -30,11 +31,24 @@ import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BuildConfigWrapper
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
-import cz.cuni.mff.ufal.translator.ui.translations.models.*
+import cz.cuni.mff.ufal.translator.ui.translations.models.InputTextData
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
+import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
+import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.absoluteValue
@@ -57,6 +71,7 @@ class TranslationsViewModel @Inject constructor(
     private var apiJob: Job? = null
     private var textCheckerJob: Job? = null
     private var historyTimerJob: Job? = null
+    private var audioTextRecognizerJob: Job? = null
 
     private var lastInputText = ""
 
@@ -120,12 +135,6 @@ class TranslationsViewModel @Inject constructor(
             state.value = TranslationsScreenState.Offline
         }
         registerNetworkCallback()
-
-        audioTextRecognizer.text.onEach {
-            if (it.isNotBlank()) {
-                inputTextData.value = InputTextData(it, TextSource.Voice)
-            }
-        }.launchIn(viewModelScope)
     }
 
     override fun onStop() {
@@ -139,6 +148,9 @@ class TranslationsViewModel @Inject constructor(
 
         textCheckerJob?.cancel()
         textCheckerJob = null
+
+        audioTextRecognizerJob?.cancel()
+        audioTextRecognizerJob = null
 
         textToSpeech.stop()
 
@@ -165,6 +177,10 @@ class TranslationsViewModel @Inject constructor(
             )
         }
 
+        if (data.source != TextSource.Voice) {
+            stopRecognizeAudio()
+        }
+
         inputTextData.value = data
         startSaveTimer()
     }
@@ -182,6 +198,7 @@ class TranslationsViewModel @Inject constructor(
     }
 
     override fun copyToClipBoard(text: String) {
+        stopRecognizeAudio()
         val label = getApplication<Application>().resources.getString(R.string.copy_to_clipboard_label)
         ContextUtils.copyToClipBoard(getApplication(), label, text)
     }
@@ -212,6 +229,7 @@ class TranslationsViewModel @Inject constructor(
     }
 
     override fun textToSpeech() {
+        stopRecognizeAudio()
         viewModelScope.launch {
             textToSpeech.speak(
                 language = outputLanguage.value,
@@ -224,10 +242,18 @@ class TranslationsViewModel @Inject constructor(
     override fun startRecognizeAudio() {
         setInputText(InputTextData("", TextSource.ClearVoice))
         audioTextRecognizer.startRecognize(inputLanguage.value)
+
+        audioTextRecognizerJob = audioTextRecognizer.text.onEach {
+            if (it.isNotBlank()) {
+                setInputText(InputTextData(it, TextSource.Voice))
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun stopRecognizeAudio() {
         audioTextRecognizer.stopRecognize()
+        audioTextRecognizerJob?.cancel()
+        audioTextRecognizerJob = null
     }
 
     private fun translate() {
@@ -274,6 +300,7 @@ class TranslationsViewModel @Inject constructor(
                             secondaryText = transliterateLatinToCyril(it)
                         )
                     }
+
                     Language.Ukrainian -> {
                         OutputTextData(
                             mainText = it,
