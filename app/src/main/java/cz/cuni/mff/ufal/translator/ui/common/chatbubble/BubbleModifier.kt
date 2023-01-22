@@ -1,8 +1,8 @@
 package cz.cuni.mff.ufal.translator.ui.common.chatbubble
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.foundation.gestures.forEachGesture
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -26,7 +26,12 @@ import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.debugInspectorInfo
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.constrainHeight
+import androidx.compose.ui.unit.constrainWidth
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.offset
 import kotlin.math.roundToInt
 
 /**
@@ -95,13 +100,11 @@ fun Modifier.drawBubble(bubbleState: BubbleState) = composed(
             .then(
                 if (bubbleState.clickable) {
                     this.pointerInput(Unit) {
-                        forEachGesture {
-                            awaitPointerEventScope {
-                                val down: PointerInputChange = awaitFirstDown()
-                                pressed = down.pressed
-                                waitForUpOrCancellation()
-                                pressed = false
-                            }
+                        awaitEachGesture {
+                            val down: PointerInputChange = awaitFirstDown()
+                            pressed = down.pressed
+                            waitForUpOrCancellation()
+                            pressed = false
                         }
                     }
                 } else this
@@ -161,7 +164,7 @@ fun Modifier.drawBubbleWithShape(bubbleState: BubbleState) = composed(
 
         var shape by remember {
             mutableStateOf(
-                GenericShape { size: Size, layoutDirection: LayoutDirection ->
+                GenericShape { _: Size, _: LayoutDirection ->
 
                 }
             )
@@ -177,7 +180,7 @@ fun Modifier.drawBubbleWithShape(bubbleState: BubbleState) = composed(
                 val result =
                     measureBubbleResult(bubbleState, measurable, constraints, rectContent, path)
                 if (!shapeUpdated) {
-                    shape = GenericShape { size: Size, layoutDirection: LayoutDirection ->
+                    shape = GenericShape { _: Size, _: LayoutDirection ->
 
                         val left = if (bubbleState.isHorizontalLeftAligned())
                             -bubbleState.arrowWidth.toPx() else 0f
@@ -202,13 +205,11 @@ fun Modifier.drawBubbleWithShape(bubbleState: BubbleState) = composed(
             .then(
                 if (bubbleState.clickable) {
                     this.pointerInput(Unit) {
-                        forEachGesture {
-                            awaitPointerEventScope {
-                                val down: PointerInputChange = awaitFirstDown()
-                                pressed = down.pressed
-                                waitForUpOrCancellation()
-                                pressed = false
-                            }
+                        awaitEachGesture {
+                            val down: PointerInputChange = awaitFirstDown()
+                            pressed = down.pressed
+                            waitForUpOrCancellation()
+                            pressed = false
                         }
                     }
                 } else this

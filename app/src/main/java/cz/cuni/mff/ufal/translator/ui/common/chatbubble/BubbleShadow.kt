@@ -22,7 +22,7 @@ internal fun Modifier.materialShadow(
         value = bubbleState.shadow
     },
     factory = {
-        bubbleState.shadow?.let { shadow: BubbleShadow ->
+        bubbleState.shadow?.let {
 
             val paint: Paint = remember(bubbleState) {
                 Paint()
