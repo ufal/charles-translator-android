@@ -111,16 +111,7 @@ class TranslationsViewModel @Inject constructor(
     override val isSpeechRecognizerAvailable: Boolean
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
     override val isListening = audioTextRecognizer.isListening
-
-    var last = 0f
-    override val rmsdB = audioTextRecognizer.rmsdB.filter {
-        (it - last).absoluteValue > 1
-    }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
-            0.0F,
-        )
+    override val rmsdB = audioTextRecognizer.rmsdB
 
     override fun onStart() {
         super.onStart()

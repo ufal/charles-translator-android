@@ -7,6 +7,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -22,7 +23,9 @@ import kotlinx.coroutines.flow.StateFlow
  */
 @Composable
 fun BaseScreen(screen: Screen, darkModeSetting: StateFlow<DarkModeSetting>, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
-    setFirebaseScreen(screen)
+    if(!LocalInspectionMode.current){
+        setFirebaseScreen(screen)
+    }
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->

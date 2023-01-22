@@ -13,6 +13,7 @@ class PreviewIMainController : IMainController {
     override fun navigateHistory() {}
     override fun navigateAboutScreen() {}
     override fun navigateSettingsScreen() {}
+    override fun navigateConversationScreen() {}
     override fun openWebUrl(url: String) {}
     override fun sendMail(mail: String) {}
     override fun onBackPressed() {}

@@ -9,4 +9,5 @@ enum class Screen(val key: String) {
     About("about"),
     HistoryAll("history_all"),
     HistoryFavourites("history_favourites"),
+    Conversation("conversation"),
 }

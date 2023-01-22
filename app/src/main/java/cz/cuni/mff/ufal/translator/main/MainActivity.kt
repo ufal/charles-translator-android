@@ -16,7 +16,6 @@ import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
 import cz.cuni.mff.ufal.translator.ui.NavGraphs
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject

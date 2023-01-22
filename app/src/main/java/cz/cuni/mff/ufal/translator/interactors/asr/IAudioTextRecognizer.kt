@@ -14,6 +14,8 @@ interface IAudioTextRecognizer {
 
     val text: StateFlow<String>
 
+    val activeLanguage: StateFlow<Language>
+
     fun startRecognize(language: Language)
 
     fun stopRecognize()

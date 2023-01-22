@@ -1,15 +1,10 @@
-package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
+package cz.cuni.mff.ufal.translator.ui.common.widgets
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -23,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import cz.cuni.mff.ufal.translator.R
@@ -36,7 +33,6 @@ import kotlinx.coroutines.launch
 /**
  * @author Tomas Krabac
  */
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MicrophoneItem(
@@ -48,9 +44,17 @@ fun MicrophoneItem(
     startRecognizeAudio: () -> Unit,
     stopRecognizeAudio: () -> Unit,
 ) {
-    val audioPermissionState = rememberPermissionState(
-        permission = Manifest.permission.RECORD_AUDIO
-    )
+    val audioPermissionState = if (LocalInspectionMode.current) {
+        object : PermissionState {
+            override val permission = ""
+            override val status = PermissionStatus.Granted
+            override fun launchPermissionRequest() {}
+        }
+    } else {
+        rememberPermissionState(
+            permission = Manifest.permission.RECORD_AUDIO
+        )
+    }
 
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
