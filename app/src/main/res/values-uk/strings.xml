@@ -50,7 +50,8 @@
     <string name="settings_dark_mode_value_enabled">Увімкнено</string>
     <string name="settings_dark_mode_value_disabled">Вимкнено</string>
     <!--Conversation screen -->
-    <string name="conversation_title">Conversation</string>
+    <string name="conversation_title">Розмови</string>
+    <string name="conversation_empty">Для початку розмови клацніть мікрофон внизу екрана</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
     <string name="dialog_tts_message_unknown_error">Під час синтезу мовлення сталася невідома помилка.</string>

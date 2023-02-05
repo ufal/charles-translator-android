@@ -50,7 +50,8 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="settings_dark_mode_value_enabled">Povolené</string>
     <string name="settings_dark_mode_value_disabled">Zakázané</string>
     <!--Conversation screen -->
-    <string name="conversation_title">Conversation</string>
+    <string name="conversation_title">Konverzácia</string>
+    <string name="conversation_empty">Ak chcete začať konverzáciu, kliknite na mikrofón v dolnej časti obrazovky</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba pri prevode textu na reč</string>
     <string name="dialog_tts_message_unknown_error">Pri prevode textu na reč nastala neznáma chyba.</string>
