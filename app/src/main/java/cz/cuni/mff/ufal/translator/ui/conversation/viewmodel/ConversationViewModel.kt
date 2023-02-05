@@ -12,6 +12,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cuni.mff.ufal.translator.extensions.logE
 import cz.cuni.mff.ufal.translator.interactors.ContextUtils
+import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.ConverstationEvent
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
 import cz.cuni.mff.ufal.translator.ui.conversation.models.ConversationModel
@@ -34,6 +36,7 @@ class ConversationViewModel @Inject constructor(
     context: Application,
     private val audioTextRecognizer: IAudioTextRecognizer,
     private val api: IApi,
+    private val analytics: IAnalytics,
 ) : IConversationViewModel, AndroidViewModel(context) {
 
     private var audioTextRecognizerJob: Job? = null
@@ -61,6 +64,13 @@ class ConversationViewModel @Inject constructor(
     override val rmsdB = audioTextRecognizer.rmsdB
 
     override val activeLanguage = audioTextRecognizer.activeLanguage
+
+    private val secondLanguage get() =
+        when (activeLanguage.value) {
+            Language.Czech -> Language.Ukrainian
+            Language.Ukrainian -> Language.Czech
+        }
+
 
     override val conversation = MutableStateFlow(emptyList<ConversationModel>())
 
@@ -109,8 +119,17 @@ class ConversationViewModel @Inject constructor(
         val lastBubble = conversation.value.lastOrNull()
         val originalConversation = conversation.value
 
-        when {
+        when {//nova bublina
+
             lastBubble == null || isNewBubble -> {
+                analytics.logEvent(
+                    ConverstationEvent(
+                        inputLanguage = activeLanguage,
+                        outputLanguage = secondLanguage,
+                        text = inputText,
+                    )
+                )
+
                 val newBubble = ConversationModel(
                     text = MutableStateFlow(
                         OutputTextData(
@@ -126,7 +145,7 @@ class ConversationViewModel @Inject constructor(
                 isNewBubble = false
             }
 
-            else -> {
+            else -> { //aktualizace bubliny
                 lastBubble.text.value = lastBubble.text.value.copy(mainText = inputText)
                 translate(lastBubble)
                 conversation.value =
@@ -141,11 +160,6 @@ class ConversationViewModel @Inject constructor(
         val inputText = conversationModel.text.value.mainText
         val inputLanguage = conversationModel.language
 
-        val outputLanguage = when (inputLanguage) {
-            Language.Czech -> Language.Ukrainian
-            Language.Ukrainian -> Language.Czech
-        }
-
 
         if (inputText.isBlank()) {
             apiJob?.cancel()
@@ -156,7 +170,7 @@ class ConversationViewModel @Inject constructor(
         apiJob = viewModelScope.launch {
             api.translate(
                 inputLanguage = inputLanguage,
-                outputLanguage = outputLanguage,
+                outputLanguage = secondLanguage,
                 text = inputText.trim(),
                 textSource = TextSource.Voice,
             ).onSuccess { tranlatedText ->

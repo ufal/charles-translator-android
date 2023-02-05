@@ -9,6 +9,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.crashlytics.ktx.setCustomKeys
 import com.google.firebase.ktx.Firebase
 import cz.cuni.mff.ufal.translator.extensions.logD
+import cz.cuni.mff.ufal.translator.interactors.analytics.events.ConverstationEvent
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.SpeechToTextEvent
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.TextToSpeechEvent
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.TranslateEvent
@@ -87,6 +88,18 @@ class Analytics @Inject constructor(
 
         firebaseAnalytics.logEvent("speech_to_text") {
             param("input_language", event.language.code)
+            param("text_lenght", event.text.length.toString())
+            param("user_locale", language)
+        }
+    }
+
+    override fun logEvent(event: ConverstationEvent) {
+        logD("ConverstationEvent: $event")
+
+        firebaseAnalytics.logEvent("conversation") {
+            param("input_language", event.inputLanguage.code)
+            param("output_language", event.outputLanguage.code)
+            param("languages", "${event.inputLanguage.code}@${event.outputLanguage.code}")
             param("text_lenght", event.text.length.toString())
             param("user_locale", language)
         }

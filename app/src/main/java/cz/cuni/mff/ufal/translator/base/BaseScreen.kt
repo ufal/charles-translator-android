@@ -22,8 +22,13 @@ import kotlinx.coroutines.flow.StateFlow
  * @author Tomas Krabac
  */
 @Composable
-fun BaseScreen(screen: Screen, darkModeSetting: StateFlow<DarkModeSetting>, viewModel: IBaseViewModel? = null, content: @Composable () -> Unit) {
-    if(!LocalInspectionMode.current){
+fun BaseScreen(
+    screen: Screen,
+    darkModeSetting: StateFlow<DarkModeSetting>,
+    viewModel: IBaseViewModel? = null,
+    content: @Composable () -> Unit
+) {
+    if (!LocalInspectionMode.current) {
         setFirebaseScreen(screen)
     }
     val lifecycleOwner = LocalLifecycleOwner.current
