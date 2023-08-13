@@ -8,16 +8,20 @@ import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.TextSource
 import io.ktor.client.*
+import io.ktor.client.call.body
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.*
-import io.ktor.client.features.logging.*
+import io.ktor.client.plugins.HttpRedirect
+import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import java.util.*
@@ -81,21 +85,21 @@ class Api @Inject constructor(
 
             try {
                 val response: HttpResponse = client.post(url) {
-                    body = data
+                    setBody(data)
                 }
 
                 when (response.status) {
                     HttpStatusCode.OK -> {
-                        return@withContext Result.success(parseSuccessResponse(response.readText()))
+                        return@withContext Result.success(parseSuccessResponse(response.body()))
                     }
                     else -> {
-                        return@withContext Result.failure(Exception("Bad status - ${response.status} - ${response.readText()}"))
+                        return@withContext Result.failure(Exception("Bad status - ${response.status} - $response"))
                     }
                 }
             } catch (serverEx: ServerResponseException) {
                 return@withContext when (serverEx.response.status) {
                     HttpStatusCode.NotImplemented -> {
-                        Result.failure(parseNotImplementedResponse(serverEx.response.readText()))
+                        Result.failure(parseNotImplementedResponse(serverEx.response.body()))
                     }
                     else -> {
                         Result.failure(serverEx)
