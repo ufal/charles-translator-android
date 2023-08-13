@@ -61,7 +61,8 @@ class Api @Inject constructor(
             checkHttpMethod = false
         }
     }
-    private val baseUrl = "https://translator.cuni.cz/api/v2"
+
+    private val baseUrl = "https://lindat.cz/services/translation/api/v2"
 
     override suspend fun translate(
         inputLanguage: Language,

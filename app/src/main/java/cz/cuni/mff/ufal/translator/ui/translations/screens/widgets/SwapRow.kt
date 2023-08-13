@@ -1,6 +1,7 @@
 package cz.cuni.mff.ufal.translator.ui.translations.screens.widgets
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -10,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.ui.common.widgets.ActionItem
-import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
+import cz.cuni.mff.ufal.translator.ui.common.widgets.LanguageMenu
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
@@ -20,9 +21,13 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 @Composable
 fun SwapRow(
     inputLanguage: Language,
+    inputLanguages: List<Language>,
     outputLanguage: Language,
+    outputLanguages: List<Language>,
 
     swapLanguages: () -> Unit,
+    onInputLanguageSelect: (language: Language) -> Unit,
+    onOutputLanguageSelect: (language: Language) -> Unit,
     onAboutAppClicked: () -> Unit,
     onSettingsClicked: () -> Unit,
 ) {
@@ -34,11 +39,21 @@ fun SwapRow(
             verticalAlignment = Alignment.CenterVertically,
 
             ) {
-            FlagLabelItem(modifier = Modifier.weight(1f), language = inputLanguage)
+            LanguageMenu(
+                modifier = Modifier.weight(1f),
+                selectedLanguage = inputLanguage,
+                languages = inputLanguages,
+                onLanguageSelect = onInputLanguageSelect,
+            )
 
             SwapItem(modifier = Modifier, onClick = swapLanguages)
 
-            FlagLabelItem(modifier = Modifier.weight(1f), language = outputLanguage)
+            LanguageMenu(
+                modifier = Modifier.weight(1f),
+                selectedLanguage = outputLanguage,
+                languages = outputLanguages,
+                onLanguageSelect = onOutputLanguageSelect,
+            )
         }
 
         Row {

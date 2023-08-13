@@ -20,6 +20,8 @@ interface ITranslationsViewModel : IBaseViewModel {
 
     val inputLanguage: StateFlow<Language>
     val outputLanguage: StateFlow<Language>
+    val inputLanguages: StateFlow<List<Language>>
+    val outputLanguages: StateFlow<List<Language>>
 
     val state: StateFlow<TranslationsScreenState>
     val hasFinishedOnboarding: StateFlow<Boolean>
@@ -38,5 +40,7 @@ interface ITranslationsViewModel : IBaseViewModel {
     fun textToSpeech()
     fun startRecognizeAudio()
     fun stopRecognizeAudio()
+    fun setInputLanguage(language: Language)
+    fun setOutputLanguage(language: Language)
 
 }

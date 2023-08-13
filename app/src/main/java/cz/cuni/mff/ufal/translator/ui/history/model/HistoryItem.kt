@@ -24,10 +24,14 @@ data class HistoryItem(
 
     val secondaryText: String
         get() {
-            return if (outputLanguage == Language.Czech) {
-                transliterateLatinToCyril(outputText)
-            } else {
-                transliterateCyrilToLatin(outputText)
+            return when (outputLanguage) {
+                Language.Czech -> {
+                    transliterateLatinToCyril(outputText)
+                }
+                Language.Ukrainian -> {
+                    transliterateCyrilToLatin(outputText)
+                }
+                else -> ""
             }
         }
 }

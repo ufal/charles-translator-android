@@ -1,5 +1,6 @@
 package cz.cuni.mff.ufal.translator.ui.conversation.viewmodel
 
+import cz.cuni.mff.ufal.translator.ui.conversation.models.BubblePosition
 import cz.cuni.mff.ufal.translator.ui.conversation.models.ConversationModel
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /**
  * @author Tomas Krabac
  */
-class PreviewConversationViewModel() : IConversationViewModel {
+class PreviewConversationViewModel : IConversationViewModel {
 
     override val isSpeechRecognizerAvailable = true
 
@@ -18,6 +19,9 @@ class PreviewConversationViewModel() : IConversationViewModel {
 
     override val rmsdB = MutableStateFlow(1F)
 
+    override val leftLanguage = Language.Czech
+    override val rightLanguage = MutableStateFlow(Language.Ukrainian)
+    override val rightLanguages = listOf(Language.Ukrainian)
     override val activeLanguage = MutableStateFlow(Language.Ukrainian)
 
     override val conversation = MutableStateFlow(
@@ -29,7 +33,8 @@ class PreviewConversationViewModel() : IConversationViewModel {
                         "Hello"
                     )
                 ),
-                language = Language.Czech
+                language = Language.Czech,
+                position = BubblePosition.Left,
             ),
             ConversationModel(
                 text = MutableStateFlow(
@@ -38,7 +43,8 @@ class PreviewConversationViewModel() : IConversationViewModel {
                         "How are you?"
                     )
                 ),
-                language = Language.Czech
+                language = Language.Czech,
+                position = BubblePosition.Left,
             ),
             ConversationModel(
                 text = MutableStateFlow(
@@ -47,7 +53,8 @@ class PreviewConversationViewModel() : IConversationViewModel {
                         "Mám se dobře"
                     )
                 ),
-                language = Language.Ukrainian
+                language = Language.English,
+                position = BubblePosition.Right,
             ),
             ConversationModel(
                 text = MutableStateFlow(
@@ -56,11 +63,13 @@ class PreviewConversationViewModel() : IConversationViewModel {
                         "Mám se dobře"
                     )
                 ),
-                language = Language.Ukrainian
+                language = Language.English,
+                position = BubblePosition.Right,
             ),
         )
     )
 
+    override fun setRightLanguage(language: Language) {}
     override fun startRecognizeAudio(language: Language) {}
     override fun stopRecognizeAudio() {}
 

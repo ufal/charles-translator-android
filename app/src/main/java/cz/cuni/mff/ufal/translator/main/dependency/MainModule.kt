@@ -10,6 +10,8 @@ import cz.cuni.mff.ufal.translator.interactors.asr.AudioTextRecognizer
 import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
 import cz.cuni.mff.ufal.translator.interactors.db.Db
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.languages.ILanguagesManager
+import cz.cuni.mff.ufal.translator.interactors.languages.LanguagesManager
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.preferences.UserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
@@ -64,5 +66,9 @@ object MainModule {
     @Singleton
     @ApplicationCoroutineScope
     fun provideApplicationCoroutineScope(): CoroutineScope = MainScope() + Dispatchers.Main.immediate
+
+    @Singleton
+    @Provides
+    fun provideLanguagesManager(impl: LanguagesManager): ILanguagesManager = impl
 
 }

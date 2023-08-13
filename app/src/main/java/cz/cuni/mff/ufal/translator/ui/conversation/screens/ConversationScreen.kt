@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,6 +30,7 @@ import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BaseToolbar
+import cz.cuni.mff.ufal.translator.ui.conversation.models.BubblePosition
 import cz.cuni.mff.ufal.translator.ui.conversation.models.ConversationModel
 import cz.cuni.mff.ufal.translator.ui.conversation.screens.widgets.ActionsRow
 import cz.cuni.mff.ufal.translator.ui.conversation.screens.widgets.LeftBubble
@@ -39,7 +39,6 @@ import cz.cuni.mff.ufal.translator.ui.conversation.viewmodel.ConversationViewMod
 import cz.cuni.mff.ufal.translator.ui.conversation.viewmodel.IConversationViewModel
 import cz.cuni.mff.ufal.translator.ui.conversation.viewmodel.PreviewConversationViewModel
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
-import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 /**
  * @author Tomas Krabac
@@ -69,6 +68,9 @@ private fun Content(viewModel: IConversationViewModel, mainController: IMainCont
     val isOffline by viewModel.isOffline.collectAsState()
     val rmsdB by viewModel.rmsdB.collectAsState()
     val activeLanguage by viewModel.activeLanguage.collectAsState()
+    val leftLanguage = viewModel.leftLanguage
+    val rightLanguage by viewModel.rightLanguage.collectAsState()
+    val rightLanguages = viewModel.rightLanguages
     val conversation by viewModel.conversation.collectAsState()
     val scrollState = rememberScrollState()
 
@@ -111,9 +113,13 @@ private fun Content(viewModel: IConversationViewModel, mainController: IMainCont
             isListening = isListening,
             rmsdB = rmsdB,
             activeLanguage = activeLanguage,
+            leftLanguage = leftLanguage,
+            rightLanguage = rightLanguage,
+            rightLanguages = rightLanguages,
 
             startRecognizeAudio = viewModel::startRecognizeAudio,
             stopRecognizeAudio = viewModel::stopRecognizeAudio,
+            onLanguageSelect = viewModel::setRightLanguage,
         )
     }
 }
@@ -124,8 +130,8 @@ private fun Conversations(conversationData: List<ConversationModel>) {
         conversationData.forEach { model ->
             val outputTextData by model.text.collectAsState()
 
-            when (model.language) {
-                Language.Czech ->
+            when (model.position) {
+                BubblePosition.Left ->
                     LeftBubble(
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -133,7 +139,7 @@ private fun Conversations(conversationData: List<ConversationModel>) {
                         data = outputTextData
                     )
 
-                Language.Ukrainian ->
+                BubblePosition.Right ->
                     RightBubble(
                         modifier = Modifier
                             .align(Alignment.End)

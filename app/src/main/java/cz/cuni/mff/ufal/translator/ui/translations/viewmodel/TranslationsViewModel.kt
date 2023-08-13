@@ -27,6 +27,7 @@ import cz.cuni.mff.ufal.translator.interactors.api.UnsupportedApiException
 import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.interactors.db.IDb
+import cz.cuni.mff.ufal.translator.interactors.languages.ILanguagesManager
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.interactors.tts.ITextToSpeechWrapper
 import cz.cuni.mff.ufal.translator.ui.common.widgets.BuildConfigWrapper
@@ -42,16 +43,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.math.absoluteValue
 
 
 /**
@@ -66,6 +65,7 @@ class TranslationsViewModel @Inject constructor(
     private val textToSpeech: ITextToSpeechWrapper,
     private val analytics: IAnalytics,
     private val audioTextRecognizer: IAudioTextRecognizer,
+    private val languagesManager: ILanguagesManager,
 ) : ITranslationsViewModel, AndroidViewModel(context) {
 
     private var apiJob: Job? = null
@@ -95,12 +95,22 @@ class TranslationsViewModel @Inject constructor(
         }
     }
 
-    private val isUkUser get() = Locale.getDefault().language == "uk" || Locale.getDefault().language == "ru"
-
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
-    override val inputLanguage = MutableStateFlow(if (isUkUser) Language.Ukrainian else Language.Czech)
-    override val outputLanguage = MutableStateFlow(if (isUkUser) Language.Czech else Language.Ukrainian)
+
+    override val inputLanguage = MutableStateFlow(languagesManager.defaultInputLanguage)
+    override val outputLanguage = MutableStateFlow(languagesManager.defaultOutputLanguage)
+
+    override val inputLanguages = MutableStateFlow(languagesManager.supportedLanguages)
+
+    override val outputLanguages = inputLanguage.map {
+        languagesManager.getSupportedTranslations(it)
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        languagesManager.getSupportedTranslations(inputLanguage.value)
+    )
+
     override val state = MutableStateFlow<TranslationsScreenState>(TranslationsScreenState.Idle)
     override val hasFinishedOnboarding = userDataStore.hasFinishedOnboarding.stateIn(
         viewModelScope,
@@ -122,7 +132,7 @@ class TranslationsViewModel @Inject constructor(
 
         startTextCheckerTimer()
 
-        if (!isNetworkConnected(getApplication<Application>())) {
+        if (!isNetworkConnected(getApplication())) {
             state.value = TranslationsScreenState.Offline
         }
         registerNetworkCallback()
@@ -247,6 +257,20 @@ class TranslationsViewModel @Inject constructor(
         audioTextRecognizerJob = null
     }
 
+    override fun setInputLanguage(language: Language) {
+        inputLanguage.value = language
+        val outputLanguages = languagesManager.getSupportedTranslations(language)
+        if (!outputLanguages.contains(outputLanguage.value)) {
+            outputLanguage.value = outputLanguages.first()
+        }
+        translate()
+    }
+
+    override fun setOutputLanguage(language: Language) {
+        outputLanguage.value = language
+        translate()
+    }
+
     private fun translate() {
         if (state.value == TranslationsScreenState.Offline) {
             return
@@ -298,6 +322,12 @@ class TranslationsViewModel @Inject constructor(
                             secondaryText = transliterateCyrilToLatin(it)
                         )
                     }
+
+                    Language.English, Language.Polish, Language.French, Language.Russian -> {
+                        OutputTextData(
+                            mainText = it,
+                        )
+                    }
                 }
                 state.value = TranslationsScreenState.Success
             }.onFailure {
@@ -326,6 +356,7 @@ class TranslationsViewModel @Inject constructor(
             while (true) {
                 delay(MIN_INTERVAL_API_MS)
                 if (lastInputText != inputTextData.value.text) {
+                    Log.d("logtom", "translate")
                     translate()
                 }
             }

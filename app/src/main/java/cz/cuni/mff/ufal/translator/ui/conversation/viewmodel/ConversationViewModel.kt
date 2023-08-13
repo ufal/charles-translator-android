@@ -16,6 +16,8 @@ import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
 import cz.cuni.mff.ufal.translator.interactors.analytics.events.ConverstationEvent
 import cz.cuni.mff.ufal.translator.interactors.api.IApi
 import cz.cuni.mff.ufal.translator.interactors.asr.IAudioTextRecognizer
+import cz.cuni.mff.ufal.translator.interactors.languages.ILanguagesManager
+import cz.cuni.mff.ufal.translator.ui.conversation.models.BubblePosition
 import cz.cuni.mff.ufal.translator.ui.conversation.models.ConversationModel
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
@@ -37,6 +39,7 @@ class ConversationViewModel @Inject constructor(
     private val audioTextRecognizer: IAudioTextRecognizer,
     private val api: IApi,
     private val analytics: IAnalytics,
+    languagesManager: ILanguagesManager,
 ) : IConversationViewModel, AndroidViewModel(context) {
 
     private var audioTextRecognizerJob: Job? = null
@@ -60,19 +63,28 @@ class ConversationViewModel @Inject constructor(
         get() = SpeechRecognizer.isRecognitionAvailable(getApplication())
 
     override val isListening = audioTextRecognizer.isListening
-    override val isOffline = MutableStateFlow(!ContextUtils.isNetworkConnected(getApplication<Application>()))
+    override val isOffline = MutableStateFlow(!ContextUtils.isNetworkConnected(getApplication()))
     override val rmsdB = audioTextRecognizer.rmsdB
+
+    override val leftLanguage = Language.Czech
+    override val rightLanguage = MutableStateFlow(languagesManager.supportedConversationLanguages.first())
+
+    override val rightLanguages = languagesManager.supportedConversationLanguages
 
     override val activeLanguage = audioTextRecognizer.activeLanguage
 
-    private val secondLanguage get() =
-        when (activeLanguage.value) {
-            Language.Czech -> Language.Ukrainian
-            Language.Ukrainian -> Language.Czech
+    private val secondLanguage
+        get() = if (activeLanguage.value == leftLanguage) {
+            rightLanguage.value
+        } else {
+            leftLanguage
         }
 
-
     override val conversation = MutableStateFlow(emptyList<ConversationModel>())
+
+    override fun setRightLanguage(language: Language) {
+        rightLanguage.value = language
+    }
 
     override fun onStart() {
         super.onStart()
@@ -137,7 +149,8 @@ class ConversationViewModel @Inject constructor(
                             secondaryText = "",
                         )
                     ),
-                    language = activeLanguage
+                    language = activeLanguage,
+                    position = if (activeLanguage == leftLanguage) BubblePosition.Left else BubblePosition.Right,
                 )
                 translate(newBubble)
 

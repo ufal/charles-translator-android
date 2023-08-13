@@ -12,9 +12,12 @@ class Converters {
     fun toLanguage(value: String) = when (value) {
         Language.Czech.code -> Language.Czech
         Language.Ukrainian.code -> Language.Ukrainian
+        Language.English.code -> Language.English
+        Language.French.code -> Language.French
+        Language.Polish.code -> Language.Polish
+        Language.Russian.code -> Language.Russian
         else -> error("unsupported enum $value")
     }
-
 
     @TypeConverter
     fun fromLanguage(value: Language) = value.code

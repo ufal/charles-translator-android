@@ -74,7 +74,9 @@ fun Content(
     val inputTextData by viewModel.inputTextData.collectAsState()
     val outputTextData by viewModel.outputTextData.collectAsState()
     val inputLanguage by viewModel.inputLanguage.collectAsState()
+    val inputLanguages by viewModel.inputLanguages.collectAsState()
     val outputLanguage by viewModel.outputLanguage.collectAsState()
+    val outputLanguages by viewModel.outputLanguages.collectAsState()
     val state by viewModel.state.collectAsState()
     val hasFinishedOnboarding by viewModel.hasFinishedOnboarding.collectAsState()
 
@@ -88,9 +90,13 @@ fun Content(
 
         SwapRow(
             inputLanguage = inputLanguage,
+            inputLanguages = inputLanguages,
             outputLanguage = outputLanguage,
+            outputLanguages = outputLanguages,
 
             swapLanguages = viewModel::swapLanguages,
+            onInputLanguageSelect = viewModel::setInputLanguage,
+            onOutputLanguageSelect = viewModel::setOutputLanguage,
             onAboutAppClicked = mainController::navigateAboutScreen,
             onSettingsClicked = mainController::navigateSettingsScreen,
         )
