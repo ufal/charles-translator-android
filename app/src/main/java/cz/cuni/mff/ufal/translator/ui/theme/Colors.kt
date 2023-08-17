@@ -5,13 +5,14 @@ import androidx.compose.ui.graphics.Color
 /**
  * @author Tomas Krabac
  */
+
 val LightColorPalette = LindatColors(
     isLight = true,
-    primary = Color(0xFF2196F3),
-    primaryVariant = Color(0xFF2196F3),
+    primary = Color(0xFFD22D40),
+    primaryVariant = Color(0xFFD22D40),
     onPrimary = Color(0xFFFFFFFF),
-    secondary = Color(0xFF21b8f3),
-    secondaryVariant = Color(0xFF21b8f3),
+    secondary = Color(0xFF941C3F),
+    secondaryVariant = Color(0xFF941C3F),
     onSecondary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF121212),
@@ -21,22 +22,22 @@ val LightColorPalette = LindatColors(
     onError = Color(0xFFE4F2FD),
     uncheckedThumb = Color(0xFFECECEC),
     uncheckedTrack = Color(0xFFBDBDBD),
-    toolbarBackground = Color(0xFF2196F3),
-    statusBar = Color(0xFF2196F3),
+    toolbarBackground = Color(0xFFD22D40),
+    statusBar = Color(0xFFD22D40),
     dialogBackgound = Color(0xFFFFFFFF),
     historyCardBackground = Color(0xFFFFFFFF),
     historyActionRow = Color(0xFFE4F2FD),
-    selected = Color(0xFF2196F3),
-    unselected = Color(0x772196F3),
+    selected = Color(0xFFD22D40),
+    unselected = Color(0x77D22D40),
 )
 
 val DarkColorPalette = LindatColors(
     isLight = false,
-    primary = Color(0xFF2196F3),
-    primaryVariant = Color(0xFF2196F3),
+    primary = Color(0xFFD22D40),
+    primaryVariant = Color(0xFFD22D40),
     onPrimary = Color(0xFFFFFFFF),
-    secondary = Color(0xFF21b8f3),
-    secondaryVariant = Color(0xFF21b8f3),
+    secondary = Color(0xFF941C3F),
+    secondaryVariant = Color(0xFF941C3F),
     onSecondary = Color(0xFFFFFFFF),
     surface = Color(0xFF000000),
     onSurface = Color(0xFFFFFFFF),
@@ -51,6 +52,6 @@ val DarkColorPalette = LindatColors(
     dialogBackgound = Color(0xFF424242),
     historyCardBackground = Color(0xFF424242),
     historyActionRow = Color(0xFF222222),
-    selected = Color(0xFF2196F3),
-    unselected = Color(0xAA2196F3),
+    selected = Color(0xFFD22D40),
+    unselected = Color(0x77D22D40),
 )
