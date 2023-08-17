@@ -4,6 +4,10 @@
     <string name="history_title">História prekladov</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinčina</string>
+    <string name="en_label">English</string>
+    <string name="fr_label">French</string>
+    <string name="pl_label">Polish</string>
+    <string name="ru_label">Russian</string>
     <string name="copy_to_clipboard_label">Preklad</string>
     <string name="toast_copied_to_clipboard">Preklad bol vložený do schránky</string>
     <string name="api_error">Preklad zlyhal, skúste to prosím znovu</string>
@@ -51,6 +55,9 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="settings_dark_mode_value_system">Podľa systému</string>
     <string name="settings_dark_mode_value_enabled">Povolené</string>
     <string name="settings_dark_mode_value_disabled">Zakázané</string>
+    <!--Conversation screen -->
+    <string name="conversation_title">Konverzácia</string>
+    <string name="conversation_empty">Ak chcete začať konverzáciu, kliknite na mikrofón v dolnej časti obrazovky</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba pri prevode textu na reč</string>
     <string name="dialog_tts_message_unknown_error">Pri prevode textu na reč nastala neznáma chyba.</string>
@@ -73,8 +80,13 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="delete_cd">zmazať z histórie</string>
     <string name="czech_flag_cd">česká vlajka</string>
     <string name="ukraine_flag_cd">ukrajinská vlajka</string>
+    <string name="english_flag_cd">english flag</string>
+    <string name="french_flag_cd">french flag</string>
+    <string name="polish_flag_cd">polish flag</string>
+    <string name="russian_flag_cd">russian flag</string>
     <string name="swap_cd">prehodiť jazyky</string>
     <string name="clear_cd">vymazať text</string>
     <string name="copy_to_clipboard_cd">kopírovať do schránky</string>
     <string name="speech_recognizer_cd">diktovanie</string>
+    <string name="conversation_cd">conversation mode</string>
 </resources>
