@@ -4,6 +4,10 @@
     <string name="history_title">Історія перекладів</string>
     <string name="cz_label">Чеська</string>
     <string name="uk_label">Українська</string>
+    <string name="en_label">English</string>
+    <string name="fr_label">French</string>
+    <string name="pl_label">Polish</string>
+    <string name="ru_label">Russian</string>
     <string name="copy_to_clipboard_label">Переклад</string>
     <string name="toast_copied_to_clipboard">Переклад було скопійовано до буферу обміну</string>
     <string name="api_error">Не вдалось виконати переклад, будь ласка, спробуйте ще</string>
@@ -51,6 +55,9 @@
     <string name="settings_dark_mode_value_system">За системними налаштуваннями</string>
     <string name="settings_dark_mode_value_enabled">Увімкнено</string>
     <string name="settings_dark_mode_value_disabled">Вимкнено</string>
+    <!--Conversation screen -->
+    <string name="conversation_title">Розмови</string>
+    <string name="conversation_empty">Для початку розмови клацніть мікрофон внизу екрана</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Помилка перетворення тексту на мовлення</string>
     <string name="dialog_tts_message_unknown_error">Під час синтезу мовлення сталася невідома помилка.</string>
@@ -73,8 +80,13 @@
     <string name="delete_cd">видалити з історії</string>
     <string name="czech_flag_cd">прапор Чехії</string>
     <string name="ukraine_flag_cd">прапор України</string>
+    <string name="english_flag_cd">english flag</string>
+    <string name="french_flag_cd">french flag</string>
+    <string name="polish_flag_cd">polish flag</string>
+    <string name="russian_flag_cd">russian flag</string>
     <string name="swap_cd">поміняти місцями мови</string>
     <string name="clear_cd">видалити текст</string>
     <string name="copy_to_clipboard_cd">копіювати до буферу обміну</string>
     <string name="speech_recognizer_cd">диктування</string>
+    <string name="conversation_cd">conversation mode</string>
 </resources>
