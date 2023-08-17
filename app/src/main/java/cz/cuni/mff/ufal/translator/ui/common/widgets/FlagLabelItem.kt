@@ -22,15 +22,6 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.Language
  */
 @Composable
 fun FlagLabelItem(modifier: Modifier = Modifier, language: Language) {
-    val labelRes = when (language) {
-        Language.Czech -> R.string.cz_label
-        Language.Ukrainian -> R.string.uk_label
-        Language.English -> R.string.en_label
-        Language.French -> R.string.fr_label
-        Language.Polish -> R.string.pl_label
-        Language.Russian -> R.string.ru_label
-    }
-
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -41,7 +32,7 @@ fun FlagLabelItem(modifier: Modifier = Modifier, language: Language) {
         Spacer(modifier = Modifier.width(4.dp))
 
         Text(
-            text = stringResource(id = labelRes),
+            text = stringResource(id = language.labelRes),
             color = LindatTheme.colors.onSurface
         )
     }
