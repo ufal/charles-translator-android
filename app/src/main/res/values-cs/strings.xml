@@ -4,6 +4,10 @@
     <string name="history_title">Historie překladů</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinština</string>
+    <string name="en_label">English</string>
+    <string name="fr_label">French</string>
+    <string name="pl_label">Polish</string>
+    <string name="ru_label">Russian</string>
     <string name="copy_to_clipboard_label">Překlad</string>
     <string name="toast_copied_to_clipboard">Překlad byl vložen do schránky</string>
     <string name="api_error">Překlad selhal, zkuste to prosím znovu</string>
@@ -50,6 +54,9 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="settings_dark_mode_value_system">Podle systému</string>
     <string name="settings_dark_mode_value_enabled">Povoleno</string>
     <string name="settings_dark_mode_value_disabled">Zakázáno</string>
+    <!--Conversation screen -->
+    <string name="conversation_title">Konverzace</string>
+    <string name="conversation_empty">Pro začátek konverzace klikněte na mikrofon v dolní části obrazovky</string>
     <!--Missing TTS dialog -->
     <string name="dialog_tts_title">Chyba při převodu textu na řeč</string>
     <string name="dialog_tts_message_unknown_error">Při převodu textu na řeč došlo k neznámé chybě.</string>
@@ -72,8 +79,13 @@ Dotazy ohledně tohoto překladače posílejte prosím na adresu <a href="/suppo
     <string name="delete_cd">smazat z historie</string>
     <string name="czech_flag_cd">česká vlajka</string>
     <string name="ukraine_flag_cd">ukrajinská vlajka</string>
+    <string name="english_flag_cd">english flag</string>
+    <string name="french_flag_cd">french flag</string>
+    <string name="polish_flag_cd">polish flag</string>
+    <string name="russian_flag_cd">russian flag</string>
     <string name="swap_cd">prohodit jazyky</string>
     <string name="clear_cd">vymazat text</string>
     <string name="copy_to_clipboard_cd">kopírovat do schránky</string>
     <string name="speech_recognizer_cd">diktování</string>
+    <string name="conversation_cd">mód konverzace</string>
 </resources>
