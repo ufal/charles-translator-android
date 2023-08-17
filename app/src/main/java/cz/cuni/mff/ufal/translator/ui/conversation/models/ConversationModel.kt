@@ -11,5 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 data class ConversationModel(
     val text: MutableStateFlow<OutputTextData>,
     val language: Language,
+    val position: BubblePosition,
 ) {
 }

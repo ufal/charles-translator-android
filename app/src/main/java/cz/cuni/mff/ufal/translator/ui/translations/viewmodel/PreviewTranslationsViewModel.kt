@@ -18,6 +18,8 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override val outputTextData = MutableStateFlow(OutputTextData("hlavni text", "druhy text"))
     override val inputLanguage = MutableStateFlow(Language.Czech)
     override val outputLanguage = MutableStateFlow(Language.Ukrainian)
+    override val inputLanguages = MutableStateFlow(listOf(Language.Czech))
+    override val outputLanguages = MutableStateFlow(listOf(Language.Ukrainian))
     override val state = MutableStateFlow(TranslationsScreenState.Success)
     override val hasFinishedOnboarding = MutableStateFlow(true)
     override val textToSpeechErrors = emptyFlow<TextToSpeechError>()
@@ -35,4 +37,6 @@ class PreviewTranslationsViewModel : ITranslationsViewModel {
     override fun textToSpeech() {}
     override fun startRecognizeAudio() {}
     override fun stopRecognizeAudio() {}
+    override fun setInputLanguage(language: Language) {}
+    override fun setOutputLanguage(language: Language) {}
 }

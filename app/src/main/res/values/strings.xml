@@ -3,6 +3,10 @@
     <string name="history_title">Translation history</string>
     <string name="cz_label">Czech</string>
     <string name="uk_label">Ukrainian</string>
+    <string name="en_label">English</string>
+    <string name="fr_label">French</string>
+    <string name="pl_label">Polish</string>
+    <string name="ru_label">Russian</string>
 
     <string name="copy_to_clipboard_label">Translation</string>
     <string name="toast_copied_to_clipboard">Translation has been copied to the clipboard</string>
@@ -94,6 +98,10 @@ For any questions about this translator, please contact <a href="/support-mail">
     <string name="delete_cd">remove from history</string>
     <string name="czech_flag_cd">czech flag</string>
     <string name="ukraine_flag_cd">ukrainian flag</string>
+    <string name="english_flag_cd">english flag</string>
+    <string name="french_flag_cd">french flag</string>
+    <string name="polish_flag_cd">polish flag</string>
+    <string name="russian_flag_cd">russian flag</string>
     <string name="swap_cd">swap languages</string>
     <string name="clear_cd">clear text</string>
     <string name="copy_to_clipboard_cd">copy to clipboard</string>

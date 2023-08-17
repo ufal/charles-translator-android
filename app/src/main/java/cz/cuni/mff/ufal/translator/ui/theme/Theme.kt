@@ -3,7 +3,7 @@ package cz.cuni.mff.ufal.translator.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.lightColors
+import androidx.compose.material.Surface
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -27,7 +27,7 @@ private object MainRippleTheme : RippleTheme {
 @Composable
 fun LindatTheme(darkModeSetting: DarkModeSetting, content: @Composable () -> Unit) {
 
-    val darkMode = when(darkModeSetting){
+    val darkMode = when (darkModeSetting) {
         DarkModeSetting.System -> isSystemInDarkTheme()
         DarkModeSetting.Enabled -> true
         DarkModeSetting.Disabled -> false
@@ -54,7 +54,11 @@ fun LindatTheme(darkModeSetting: DarkModeSetting, content: @Composable () -> Uni
 
 @Composable
 fun LindatThemePreview(content: @Composable () -> Unit) {
-    LindatTheme(DarkModeSetting.System, content)
+    LindatTheme(DarkModeSetting.System) {
+        Surface(color = LindatTheme.colors.background) {
+            content()
+        }
+    }
 }
 
 object LindatTheme {
