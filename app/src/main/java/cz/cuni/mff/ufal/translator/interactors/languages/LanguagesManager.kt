@@ -1,15 +1,22 @@
 package cz.cuni.mff.ufal.translator.interactors.languages
 
+import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class LanguagesManager @Inject constructor(
-
+userDataStore: IUserDataStore,
 ) : ILanguagesManager {
 
-    override val defaultInputLanguage = Language.Czech
+    override val lastInputLanguage = runBlocking {
+        userDataStore.lastInputLanguage.firstOrNull() ?: DEFAULT_INPUT_LANGUAGE
+    }
 
-    override val defaultOutputLanguage = Language.Ukrainian
+    override val lastOutputLanguage = runBlocking {
+        userDataStore.lastOutputLanguage.firstOrNull() ?: DEFAULT_OUTPUT_LANGUAGE
+    }
 
     override val supportedLanguages: List<Language>
         get() = listOf(
@@ -61,6 +68,24 @@ class LanguagesManager @Inject constructor(
             Language.Russian -> listOf(
                 Language.Czech,
             )
+        }
+    }
+
+    companion object {
+
+        val DEFAULT_INPUT_LANGUAGE = Language.Czech
+        val DEFAULT_OUTPUT_LANGUAGE = Language.Ukrainian
+
+        fun getLanguage(code: String): Language? {
+            return when (code) {
+                Language.Czech.code -> Language.Czech
+                Language.Ukrainian.code -> Language.Ukrainian
+                Language.English.code -> Language.English
+                Language.French.code -> Language.French
+                Language.Polish.code -> Language.Polish
+                Language.Russian.code -> Language.Russian
+                else -> null
+            }
         }
     }
 }

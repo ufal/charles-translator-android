@@ -4,9 +4,9 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 
 interface ILanguagesManager {
 
-    val defaultInputLanguage: Language
+    val lastInputLanguage: Language
 
-    val defaultOutputLanguage: Language
+    val lastOutputLanguage: Language
 
     val supportedLanguages: List<Language>
 

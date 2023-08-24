@@ -1,6 +1,7 @@
 package cz.cuni.mff.ufal.translator.interactors.preferences
 
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -31,4 +32,12 @@ interface IUserDataStore {
     val darkModeSetting: Flow<DarkModeSetting>
 
     suspend fun saveDarkModeSetting(darkModeSetting: DarkModeSetting)
+
+    val lastInputLanguage: Flow<Language>
+
+    val lastOutputLanguage: Flow<Language>
+
+    suspend fun setLastInputLanguage(language: Language)
+
+    suspend fun setLastOutputLanguage(language: Language)
 }

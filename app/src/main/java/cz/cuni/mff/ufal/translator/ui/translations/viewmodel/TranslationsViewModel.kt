@@ -98,8 +98,8 @@ class TranslationsViewModel @Inject constructor(
     override val inputTextData = MutableStateFlow(InputTextData())
     override val outputTextData = MutableStateFlow(OutputTextData())
 
-    override val inputLanguage = MutableStateFlow(languagesManager.defaultInputLanguage)
-    override val outputLanguage = MutableStateFlow(languagesManager.defaultOutputLanguage)
+    override val inputLanguage = MutableStateFlow(languagesManager.lastInputLanguage)
+    override val outputLanguage = MutableStateFlow(languagesManager.lastOutputLanguage)
 
     override val inputLanguages = MutableStateFlow(languagesManager.supportedLanguages)
 
@@ -195,6 +195,11 @@ class TranslationsViewModel @Inject constructor(
         inputTextData.value = InputTextData(text = outputTextData.value.mainText, TextSource.SwapLanguages)
         outputTextData.value = OutputTextData(mainText = newMainText, secondaryText = "")
 
+        viewModelScope.launch {
+            userDataStore.setLastInputLanguage(inputLanguage.value)
+            userDataStore.setLastOutputLanguage(outputLanguage.value)
+        }
+
         translate()
     }
 
@@ -264,9 +269,18 @@ class TranslationsViewModel @Inject constructor(
             outputLanguage.value = outputLanguages.first()
         }
         translate()
+
+        viewModelScope.launch {
+            userDataStore.setLastInputLanguage(inputLanguage.value)
+            userDataStore.setLastOutputLanguage(outputLanguage.value)
+        }
     }
 
     override fun setOutputLanguage(language: Language) {
+        viewModelScope.launch {
+            userDataStore.setLastOutputLanguage(language)
+        }
+
         outputLanguage.value = language
         translate()
     }

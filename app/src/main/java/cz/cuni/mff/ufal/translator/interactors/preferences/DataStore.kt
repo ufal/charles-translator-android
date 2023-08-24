@@ -7,8 +7,12 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import cz.cuni.mff.ufal.translator.interactors.languages.LanguagesManager
+import cz.cuni.mff.ufal.translator.interactors.languages.LanguagesManager.Companion.DEFAULT_INPUT_LANGUAGE
+import cz.cuni.mff.ufal.translator.interactors.languages.LanguagesManager.Companion.DEFAULT_OUTPUT_LANGUAGE
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
 import cz.cuni.mff.ufal.translator.interactors.tts.TextToSpeechWrapper.Companion.DEFAULT_TTS_ENGINE
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import kotlinx.coroutines.flow.map
 
 /**
@@ -26,6 +30,8 @@ class UserDataStore(private val context: Context) : IUserDataStore {
         val TTS_ENGINE = stringPreferencesKey("TTS_ENGINE")
         val ORGANIZATION_NAME = stringPreferencesKey("ORGANIZATION_NAME")
         val DARK_MODE_SETTINGS = stringPreferencesKey("DARK_MODE_SETTINGS")
+        val LAST_INPUT_LANGUAGE = stringPreferencesKey("LAST_INPUT_LANGUAGE")
+        val LAST_OUTPUT_LANGUAGE = stringPreferencesKey("LAST_OUTPUT_LANGUAGE")
     }
 
     override suspend fun setFinishedOnboarding() {
@@ -90,6 +96,26 @@ class UserDataStore(private val context: Context) : IUserDataStore {
     override suspend fun saveDarkModeSetting(darkModeSetting: DarkModeSetting) {
         context.userDataStore.edit {
             it[DARK_MODE_SETTINGS] = darkModeSetting.key
+        }
+    }
+
+    override val lastInputLanguage = context.userDataStore.data.map {
+        LanguagesManager.getLanguage(it[LAST_INPUT_LANGUAGE] ?: DEFAULT_INPUT_LANGUAGE.code) ?: DEFAULT_INPUT_LANGUAGE
+    }
+
+    override val lastOutputLanguage = context.userDataStore.data.map {
+        LanguagesManager.getLanguage(it[LAST_OUTPUT_LANGUAGE] ?: DEFAULT_OUTPUT_LANGUAGE.code) ?: DEFAULT_OUTPUT_LANGUAGE
+    }
+
+    override suspend fun setLastInputLanguage(language: Language) {
+        context.userDataStore.edit {
+            it[LAST_INPUT_LANGUAGE] = language.code
+        }
+    }
+
+    override suspend fun setLastOutputLanguage(language: Language) {
+        context.userDataStore.edit {
+            it[LAST_OUTPUT_LANGUAGE] = language.code
         }
     }
 }
