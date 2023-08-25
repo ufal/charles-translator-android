@@ -322,22 +322,22 @@ class TranslationsViewModel @Inject constructor(
                 text = inputTextData.value.text.trim(),
                 textSource = inputTextData.value.source,
             ).onSuccess {
-                outputTextData.value = when (outputLanguage.value) {
-                    Language.Czech -> {
+                outputTextData.value = when {
+                    inputLanguage.value == Language.Ukrainian && outputLanguage.value == Language.Czech -> {
                         OutputTextData(
                             mainText = it,
                             secondaryText = transliterateLatinToCyril(it)
                         )
                     }
 
-                    Language.Ukrainian -> {
+                    inputLanguage.value == Language.Czech && outputLanguage.value == Language.Ukrainian -> {
                         OutputTextData(
                             mainText = it,
                             secondaryText = transliterateCyrilToLatin(it)
                         )
                     }
 
-                    Language.English, Language.Polish, Language.French, Language.Russian -> {
+                    else -> {
                         OutputTextData(
                             mainText = it,
                         )
