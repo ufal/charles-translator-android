@@ -54,6 +54,7 @@ fun SettingSwitchItem(
 
             Switch(
                 colors = SwitchDefaults.colors(
+                    checkedThumbColor = LindatTheme.colors.checkedThumbColor,
                     uncheckedThumbColor = LindatTheme.colors.uncheckedThumb,
                     uncheckedTrackColor = LindatTheme.colors.uncheckedTrack,
                     uncheckedTrackAlpha = 1f

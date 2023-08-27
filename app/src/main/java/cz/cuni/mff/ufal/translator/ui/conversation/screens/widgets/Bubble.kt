@@ -1,13 +1,23 @@
 package cz.cuni.mff.ufal.translator.ui.conversation.screens.widgets
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cz.cuni.mff.ufal.translator.ui.common.chatbubble.*
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.ArrowAlignment
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.BubbleShadow
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.BubbleState
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.Padding
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.drawBubble
+import cz.cuni.mff.ufal.translator.ui.common.chatbubble.rememberBubbleState
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
@@ -35,6 +45,7 @@ fun LeftBubble(
         modifier = modifier,
         bubbleState = bubbleState,
         data = data,
+        textColor = LindatTheme.colors.onPrimary,
     )
 }
 
@@ -57,6 +68,7 @@ fun RightBubble(
         modifier = modifier,
         bubbleState = bubbleState,
         data = data,
+        textColor = LindatTheme.colors.onSecondary,
     )
 }
 
@@ -65,6 +77,7 @@ private fun OutpuDataItem(
     modifier: Modifier,
     bubbleState: BubbleState,
     data: OutputTextData,
+    textColor: Color,
 ) {
     Column(
         modifier = modifier
@@ -76,12 +89,14 @@ private fun OutpuDataItem(
             modifier = Modifier,
             fontWeight = FontWeight.Bold,
             text = data.mainText,
+            textColor = textColor,
         )
 
         OutputText(
             modifier = Modifier,
             fontWeight = FontWeight.Normal,
             text = data.secondaryText,
+            textColor = textColor,
         )
     }
 }
@@ -103,7 +118,7 @@ private fun ActionsRow() {
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             RightBubble(
                 modifier = Modifier.align(Alignment.End),
                 OutputTextData(

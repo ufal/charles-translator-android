@@ -87,6 +87,9 @@ fun RadioButtonItem(text: String, selectedValue: String, onClickListener: (Strin
     ) {
         RadioButton(
             selected = (text == selectedValue),
+            colors = RadioButtonDefaults.colors(
+                selectedColor = LindatTheme.colors.selected
+            ),
             onClick = {
                 onClickListener(text)
             }

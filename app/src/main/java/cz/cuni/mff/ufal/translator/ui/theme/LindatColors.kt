@@ -22,6 +22,7 @@ class LindatColors(
     onBackground: Color,
     error: Color,
     onError: Color,
+    checkedThumbColor: Color,
     uncheckedThumb: Color,
     uncheckedTrack: Color,
     toolbarBackground: Color,
@@ -57,6 +58,8 @@ class LindatColors(
     var error by mutableStateOf(error, structuralEqualityPolicy())
         internal set
     var onError by mutableStateOf(onError, structuralEqualityPolicy())
+        internal set
+    var checkedThumbColor by mutableStateOf(checkedThumbColor, structuralEqualityPolicy())
         internal set
     var uncheckedThumb by mutableStateOf(uncheckedThumb, structuralEqualityPolicy())
         internal set

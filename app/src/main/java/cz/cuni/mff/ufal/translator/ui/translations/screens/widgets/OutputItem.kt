@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
@@ -20,7 +21,10 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
  * @author Tomas Krabac
  */
 @Composable
-fun OutputItem(modifier: Modifier, data: OutputTextData) {
+fun OutputItem(
+    modifier: Modifier,
+    data: OutputTextData,
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -34,12 +38,14 @@ fun OutputItem(modifier: Modifier, data: OutputTextData) {
             modifier = Modifier,
             fontWeight = FontWeight.Bold,
             text = data.mainText,
+            textColor = LindatTheme.colors.onBackground,
         )
 
         OutputText(
             modifier = Modifier,
             fontWeight = FontWeight.Normal,
             text = data.secondaryText,
+            textColor = LindatTheme.colors.onBackground,
         )
     }
 }
