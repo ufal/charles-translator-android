@@ -4,10 +4,10 @@
     <string name="history_title">Історія перекладів</string>
     <string name="cz_label">Чеська</string>
     <string name="uk_label">Українська</string>
-    <string name="en_label">English</string>
-    <string name="fr_label">French</string>
-    <string name="pl_label">Polish</string>
-    <string name="ru_label">Russian</string>
+    <string name="en_label">Англійська</string>
+    <string name="fr_label">Французька</string>
+    <string name="pl_label">Польська</string>
+    <string name="ru_label">Російська</string>
     <string name="copy_to_clipboard_label">Переклад</string>
     <string name="toast_copied_to_clipboard">Переклад було скопійовано до буферу обміну</string>
     <string name="api_error">Не вдалось виконати переклад, будь ласка, спробуйте ще</string>
@@ -20,8 +20,8 @@
     <string name="dialog_data_processing_message">Я надаю Інституту формальної і прикладної лінгвістики, Фізико-математичного факультету Карлового університету в Празі (UFAL MFF UK) згоду на зберігання і опрацювання наданих мною текстів і отриманих перекладів. Тексти будуть анонімізовані і можуть бути використані для подальшого удосконалення системи.</string>
     <string name="dialog__data_processing_agree">Я надаю згоду</string>
     <string name="dialog__data_processing_disagree">Я не надаю згоду</string>
-    <string name="snackbar_no_audio_record_permisson">Permission to record audio was denied</string>
-    <string name="snackbar_app_settings">Settings</string>
+    <string name="snackbar_no_audio_record_permisson">У доступі до запису звуку відмовлено</string>
+    <string name="snackbar_app_settings">Налаштування</string>
     <!--About screen -->
     <string name="about_title">Про додаток</string>
     <string name="about_text_intro"><![CDATA[Перекладач був розроблений в <a href="https://ufal.mff.cuni.cz/">Інституті формальної та прикладної лінгвістики</a>, фізико-математичного факультету, Карлового університету за підтримки проекту <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
@@ -80,13 +80,13 @@
     <string name="delete_cd">видалити з історії</string>
     <string name="czech_flag_cd">прапор Чехії</string>
     <string name="ukraine_flag_cd">прапор України</string>
-    <string name="english_flag_cd">english flag</string>
-    <string name="french_flag_cd">french flag</string>
-    <string name="polish_flag_cd">polish flag</string>
-    <string name="russian_flag_cd">russian flag</string>
+    <string name="english_flag_cd">прапор Англії</string>
+    <string name="french_flag_cd">прапор Франції</string>
+    <string name="polish_flag_cd">прапор Польщі</string>
+    <string name="russian_flag_cd">прапор Росії</string>
     <string name="swap_cd">поміняти місцями мови</string>
     <string name="clear_cd">видалити текст</string>
     <string name="copy_to_clipboard_cd">копіювати до буферу обміну</string>
     <string name="speech_recognizer_cd">диктування</string>
-    <string name="conversation_cd">conversation mode</string>
+    <string name="conversation_cd">режим розмови</string>
 </resources>
