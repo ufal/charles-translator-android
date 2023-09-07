@@ -4,10 +4,10 @@
     <string name="history_title">História prekladov</string>
     <string name="cz_label">Čeština</string>
     <string name="uk_label">Ukrajinčina</string>
-    <string name="en_label">English</string>
-    <string name="fr_label">French</string>
-    <string name="pl_label">Polish</string>
-    <string name="ru_label">Russian</string>
+    <string name="en_label">Angličtina</string>
+    <string name="fr_label">Francúzština</string>
+    <string name="pl_label">Poľština</string>
+    <string name="ru_label">Ruština</string>
     <string name="copy_to_clipboard_label">Preklad</string>
     <string name="toast_copied_to_clipboard">Preklad bol vložený do schránky</string>
     <string name="api_error">Preklad zlyhal, skúste to prosím znovu</string>
@@ -20,8 +20,8 @@
     <string name="dialog_data_processing_message">Súhlasím s tým, aby Ústav formální a aplikované lingvistiky MFF UK ukladal vstupy a výstupy z prekladača. V prípade súhlasu môžu byť anonymizované texty využité na ďalší vývoj systému.</string>
     <string name="dialog__data_processing_agree">Súhlasím</string>
     <string name="dialog__data_processing_disagree">Nesúhlasím</string>
-    <string name="snackbar_no_audio_record_permisson">Permission to record audio was denied</string>
-    <string name="snackbar_app_settings">Settings</string>
+    <string name="snackbar_no_audio_record_permisson">Oprávnenie na nahrávanie audia bolo zamietnuté</string>
+    <string name="snackbar_app_settings">Nastavenia</string>
     <!--About screen -->
     <string name="about_title">O aplikácií</string>
     <string name="about_text_intro"><![CDATA[Prekladač bol vyvinutý v <a href="https://ufal.mff.cuni.cz/">Ústave formální a aplikované lingvistiky</a>, Matematicko-fyzikální fakulty, Univerzity Karlovy za podpory projektu <a href="https://lindat.mff.cuni.cz/">LINDAT/CLARIAH-CZ</a>.]]></string>
@@ -80,13 +80,13 @@ V prípade akýchkoľvek otázok týkajúcich sa tohoto prekladača nás môžet
     <string name="delete_cd">zmazať z histórie</string>
     <string name="czech_flag_cd">česká vlajka</string>
     <string name="ukraine_flag_cd">ukrajinská vlajka</string>
-    <string name="english_flag_cd">english flag</string>
-    <string name="french_flag_cd">french flag</string>
-    <string name="polish_flag_cd">polish flag</string>
-    <string name="russian_flag_cd">russian flag</string>
+    <string name="english_flag_cd">anglická vlajka</string>
+    <string name="french_flag_cd">francúzska vlajka</string>
+    <string name="polish_flag_cd">poľská vlajka</string>
+    <string name="russian_flag_cd">ruská vlajka</string>
     <string name="swap_cd">prehodiť jazyky</string>
     <string name="clear_cd">vymazať text</string>
     <string name="copy_to_clipboard_cd">kopírovať do schránky</string>
     <string name="speech_recognizer_cd">diktovanie</string>
-    <string name="conversation_cd">conversation mode</string>
+    <string name="conversation_cd">mód konverzácie</string>
 </resources>
