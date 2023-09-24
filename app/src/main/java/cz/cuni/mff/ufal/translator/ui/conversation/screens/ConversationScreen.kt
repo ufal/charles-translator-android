@@ -126,6 +126,7 @@ private fun Content(viewModel: IConversationViewModel, mainController: IMainCont
 
 @Composable
 private fun Conversations(conversationData: List<ConversationModel>) {
+    val showLanguage = conversationData.groupingBy { it.language }.eachCount().size > 2
     Column(modifier = Modifier.fillMaxWidth()) {
         conversationData.forEach { model ->
             val outputTextData by model.text.collectAsState()
@@ -136,7 +137,9 @@ private fun Conversations(conversationData: List<ConversationModel>) {
                         modifier = Modifier
                             .align(Alignment.Start)
                             .padding(end = 36.dp),
-                        data = outputTextData
+                        data = outputTextData,
+                        model.language,
+                        showLanguage,
                     )
 
                 BubblePosition.Right ->
@@ -144,7 +147,9 @@ private fun Conversations(conversationData: List<ConversationModel>) {
                         modifier = Modifier
                             .align(Alignment.End)
                             .padding(start = 36.dp),
-                        data = outputTextData
+                        data = outputTextData,
+                        model.language,
+                        showLanguage
                     )
             }
 

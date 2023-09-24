@@ -18,8 +18,10 @@ import cz.cuni.mff.ufal.translator.ui.common.chatbubble.BubbleState
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.Padding
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.drawBubble
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.rememberBubbleState
+import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
+import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.models.OutputTextData
 import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.OutputText
 
@@ -30,6 +32,8 @@ import cz.cuni.mff.ufal.translator.ui.translations.screens.widgets.OutputText
 fun LeftBubble(
     modifier: Modifier,
     data: OutputTextData,
+    language: Language,
+    showLanguage: Boolean,
 ) {
     val bubbleState = rememberBubbleState(
         backgroundColor = LindatTheme.colors.primary,
@@ -45,7 +49,8 @@ fun LeftBubble(
         modifier = modifier,
         bubbleState = bubbleState,
         data = data,
-        textColor = LindatTheme.colors.onPrimary,
+        language = language,
+        showLanguage = showLanguage,
     )
 }
 
@@ -53,9 +58,11 @@ fun LeftBubble(
 fun RightBubble(
     modifier: Modifier,
     data: OutputTextData,
+    language: Language,
+    showLanguage: Boolean,
 ) {
     val bubbleState = rememberBubbleState(
-        backgroundColor = LindatTheme.colors.secondary,
+        backgroundColor = LindatTheme.colors.primary,
         alignment = ArrowAlignment.RightTop,
         cornerRadius = 12.dp,
         shadow = BubbleShadow(
@@ -68,7 +75,8 @@ fun RightBubble(
         modifier = modifier,
         bubbleState = bubbleState,
         data = data,
-        textColor = LindatTheme.colors.onSecondary,
+        language = language,
+        showLanguage = showLanguage,
     )
 }
 
@@ -77,13 +85,21 @@ private fun OutpuDataItem(
     modifier: Modifier,
     bubbleState: BubbleState,
     data: OutputTextData,
-    textColor: Color,
+    language: Language,
+    showLanguage: Boolean,
 ) {
     Column(
         modifier = modifier
             .drawBubble(bubbleState)
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
+        val textColor = LindatTheme.colors.onPrimary
+        if(showLanguage){
+            FlagLabelItem(
+                language = language,
+                textColor = textColor,
+            )
+        }
 
         OutputText(
             modifier = Modifier,
@@ -114,7 +130,9 @@ private fun ActionsRow() {
                 OutputTextData(
                     mainText = "main text",
                     secondaryText = "secondary text"
-                )
+                ),
+                language = Language.Czech,
+                showLanguage = true,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -124,7 +142,9 @@ private fun ActionsRow() {
                 OutputTextData(
                     mainText = "main text",
                     secondaryText = "secondary text"
-                )
+                ),
+                language = Language.English,
+                showLanguage = true,
             )
         }
 

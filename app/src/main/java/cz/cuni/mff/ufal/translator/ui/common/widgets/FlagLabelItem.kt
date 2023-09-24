@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,11 @@ import cz.cuni.mff.ufal.translator.ui.translations.models.Language
  * @author Tomas Krabac
  */
 @Composable
-fun FlagLabelItem(modifier: Modifier = Modifier, language: Language) {
+fun FlagLabelItem(
+    modifier: Modifier = Modifier,
+    language: Language,
+    textColor: Color = LindatTheme.colors.onSurface,
+) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -33,7 +38,7 @@ fun FlagLabelItem(modifier: Modifier = Modifier, language: Language) {
 
         Text(
             text = stringResource(id = language.labelRes),
-            color = LindatTheme.colors.onSurface
+            color = textColor
         )
     }
 
