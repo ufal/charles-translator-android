@@ -32,6 +32,7 @@ fun UnsupportedApiDialog(context: Context, data: NotImplementedData) {
             Text(message)
         },
         confirmButton = {
+            if(data.title.isBlank() &&  data.message.isBlank())
             TextButton(
                 onClick = {
                     ContextUtils.openGooglePlay(context, LINDAT_TRANSLATOR_PACKAGE)

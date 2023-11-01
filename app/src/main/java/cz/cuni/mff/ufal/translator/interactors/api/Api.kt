@@ -49,6 +49,8 @@ class Api @Inject constructor(
             }
         }
 
+        expectSuccess = true
+
         defaultRequest {
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.FormUrlEncoded)
