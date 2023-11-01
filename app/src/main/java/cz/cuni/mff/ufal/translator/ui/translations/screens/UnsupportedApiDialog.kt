@@ -32,15 +32,17 @@ fun UnsupportedApiDialog(context: Context, data: NotImplementedData) {
             Text(message)
         },
         confirmButton = {
-            if(data.title.isBlank() &&  data.message.isBlank())
-            TextButton(
-                onClick = {
-                    ContextUtils.openGooglePlay(context, LINDAT_TRANSLATOR_PACKAGE)
+            if (data.title.isBlank() && data.message.isBlank()) {
+                TextButton(
+                    onClick = {
+                        ContextUtils.openGooglePlay(context, LINDAT_TRANSLATOR_PACKAGE)
 
 
-                }) {
-                Text(stringResource(id = R.string.dialog_unsupported_api_download))
+                    }) {
+                    Text(stringResource(id = R.string.dialog_unsupported_api_download))
+                }
             }
+
         },
     )
 }
