@@ -36,7 +36,7 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
  * @author Tomas Krabac
  */
 
-private const val SUPPORT_MAIL = "u4u@ufal.mff.cuni.cz"
+private const val SUPPORT_MAIL = "translator@ufal.mff.cuni.cz"
 
 @Destination()
 @Composable
@@ -98,16 +98,6 @@ private fun AppVersionItem() {
         textAlign = TextAlign.Center,
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-private fun IntroTextItem() {
-    HtmlText(
-        style = TextStyle(
-            color = LindatTheme.colors.onSurface,
-        ),
-        text = stringResource(id = R.string.about_text_intro),
     )
 }
 
