@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,7 +17,7 @@ import cz.cuni.mff.ufal.translator.ui.common.chatbubble.BubbleState
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.Padding
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.drawBubble
 import cz.cuni.mff.ufal.translator.ui.common.chatbubble.rememberBubbleState
-import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
+import cz.cuni.mff.ufal.translator.ui.common.widgets.LanguageItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
@@ -95,7 +94,7 @@ private fun OutpuDataItem(
     ) {
         val textColor = LindatTheme.colors.onPrimary
         if(showLanguage){
-            FlagLabelItem(
+            LanguageItem(
                 language = language,
                 textColor = textColor,
             )

@@ -51,7 +51,7 @@ fun LanguageMenu(
             verticalAlignment = Alignment.CenterVertically,
         ) {
 
-            FlagLabelItem(
+            LanguageItem(
                 language = selectedLanguage,
             )
 

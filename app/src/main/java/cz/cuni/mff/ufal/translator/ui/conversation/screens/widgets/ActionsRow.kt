@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cz.cuni.mff.ufal.translator.ui.common.widgets.FlagLabelItem
+import cz.cuni.mff.ufal.translator.ui.common.widgets.LanguageItem
 import cz.cuni.mff.ufal.translator.ui.common.widgets.LanguageMenu
 import cz.cuni.mff.ufal.translator.ui.common.widgets.MicrophoneItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
@@ -95,7 +95,7 @@ private fun MicrophoneRow(
             stopRecognizeAudio = stopRecognizeAudio,
         )
 
-        FlagLabelItem(
+        LanguageItem(
             language = language,
         )
     }

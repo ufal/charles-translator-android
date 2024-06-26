@@ -1,10 +1,21 @@
 package cz.cuni.mff.ufal.translator.ui.history.screens.widgets
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +36,6 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.Language
 import cz.cuni.mff.ufal.translator.ui.translations.screens.TtsErrorDialog
-import kotlinx.coroutines.flow.collect
 
 /**
  * @author Tomas Krabac
@@ -85,17 +95,44 @@ private fun HistoryCard(
     ) {
         Column {
 
-            Box {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Spacer(modifier = Modifier.width(16.dp))
 
-                DeleteItem(modifier = Modifier.align(Alignment.TopEnd)) {
+                Text(
+                    text = stringResource(id = item.inputLanguage.labelRes),
+                    color = LindatTheme.colors.onSurface,
+                )
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = null,
+                    tint = LindatTheme.colors.onSurface,
+                )
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Text(
+                    text = stringResource(id = item.outputLanguage.labelRes),
+                    color = LindatTheme.colors.onSurface,
+                )
+
+                Spacer(modifier = Modifier.weight(1F))
+
+                DeleteItem {
                     onDeleteClicked()
                 }
-
-                TextContent(
-                    modifier = Modifier.align(Alignment.TopStart),
-                    item = item,
-                )
             }
+
+            Divider()
+
+            TextContent(
+                item = item,
+            )
 
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -111,7 +148,7 @@ private fun HistoryCard(
 }
 
 @Composable
-private fun DeleteItem(modifier: Modifier, onClick: () -> Unit) {
+private fun DeleteItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
     IconButton(
         modifier = modifier,
