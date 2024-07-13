@@ -24,7 +24,7 @@ android {
     defaultConfig {
         applicationId "cz.cuni.mff.ufal.translator"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode appVersionCode
         versionName appVersionName
 
