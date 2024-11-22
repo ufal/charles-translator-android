@@ -5,15 +5,17 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.*
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.navigation.dependency
 import cz.cuni.mff.ufal.translator.extensions.isTablet
 import cz.cuni.mff.ufal.translator.interactors.analytics.IAnalytics
 import cz.cuni.mff.ufal.translator.interactors.preferences.IUserDataStore
+import cz.cuni.mff.ufal.translator.main.controller.AppNavHost
 import cz.cuni.mff.ufal.translator.main.controller.rememberMainController
-import cz.cuni.mff.ufal.translator.ui.NavGraphs
 import cz.cuni.mff.ufal.translator.ui.theme.LindatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -44,12 +46,12 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(runBlocking { dataStore.darkModeSetting.first() })
             }
 
-            val controller = rememberMainController()
+            val mainController = rememberMainController()
 
             LaunchedEffect(Unit) {
                 dataStore.darkModeSetting.collect {
                     isDarkMode = it
-                    controller.setDarkModeSettings(it)
+                    mainController.setDarkModeSettings(it)
                 }
             }
 
@@ -58,15 +60,9 @@ class MainActivity : ComponentActivity() {
                 systemUiController.setSystemBarsColor(
                     color = LindatTheme.colors.statusBar
                 )
-            }
 
-            DestinationsNavHost(
-                navGraph = NavGraphs.root,
-                navController = controller.navController,
-                dependenciesContainerBuilder = {
-                    dependency(controller)
-                }
-            )
+                AppNavHost(mainController = mainController)
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -18,4 +19,5 @@ class PreviewIMainController : IMainController {
     override fun sendMail(mail: String) {}
     override fun onBackPressed() {}
     override fun setDarkModeSettings(darkModeSetting: DarkModeSetting) {}
+    override fun setHistoryItem(item: HistoryItem) {}
 }

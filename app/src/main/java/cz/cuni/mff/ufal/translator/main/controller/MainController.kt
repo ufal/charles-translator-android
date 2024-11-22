@@ -12,15 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.ramcosta.composedestinations.navigation.navigate
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
-import cz.cuni.mff.ufal.translator.ui.destinations.AboutScreenDestination
-import cz.cuni.mff.ufal.translator.ui.destinations.ConversationScreenDestination
-import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
-import cz.cuni.mff.ufal.translator.ui.destinations.SettingsScreenDestination
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.coroutines.flow.MutableStateFlow
-
 
 /**
  * @author Tomas Krabac
@@ -33,19 +28,19 @@ class MainController(
     override val darkModeSetting = MutableStateFlow(DarkModeSetting.System)
 
     override fun navigateHistory() {
-        navController.navigate(MainHistoryScreenDestination)
+        navController.navigate(AppNavItem.History.screenRoute)
     }
 
     override fun navigateAboutScreen() {
-        navController.navigate(AboutScreenDestination)
+        navController.navigate(AppNavItem.About.screenRoute)
     }
 
     override fun navigateSettingsScreen() {
-        navController.navigate(SettingsScreenDestination)
+        navController.navigate(AppNavItem.Settings.screenRoute)
     }
 
     override fun navigateConversationScreen() {
-        navController.navigate(ConversationScreenDestination)
+        navController.navigate(AppNavItem.Conversation.screenRoute)
     }
 
     override fun openWebUrl(url: String) {
@@ -73,13 +68,20 @@ class MainController(
     override fun setDarkModeSettings(darkModeSetting: DarkModeSetting) {
         this.darkModeSetting.value = darkModeSetting
     }
+
+    override fun setHistoryItem(item: HistoryItem) {
+        navController.popBackStack()
+        navController.currentBackStackEntry
+            ?.savedStateHandle
+            ?.set("history_item", item)
+    }
 }
 
 @Composable
 fun rememberMainController(): MainController {
     val navController = rememberNavController()
     val context = LocalContext.current
-    return remember() {
+    return remember {
         MainController(
             navController = navController,
             context = context,

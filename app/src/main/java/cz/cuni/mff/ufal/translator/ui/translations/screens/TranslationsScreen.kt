@@ -13,15 +13,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.result.NavResult
-import com.ramcosta.composedestinations.result.ResultRecipient
 import cz.cuni.mff.ufal.translator.base.BaseScreen
 import cz.cuni.mff.ufal.translator.interactors.crashlytics.Screen
 import cz.cuni.mff.ufal.translator.main.controller.IMainController
 import cz.cuni.mff.ufal.translator.main.controller.PreviewIMainController
-import cz.cuni.mff.ufal.translator.ui.destinations.MainHistoryScreenDestination
 import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 import cz.cuni.mff.ufal.translator.ui.translations.models.TranslationsScreenState
@@ -40,18 +35,14 @@ import cz.cuni.mff.ufal.translator.ui.translations.viewmodel.TranslationsViewMod
  * @author Tomas Krabac
  */
 
-@Destination
-@RootNavGraph(start = true)
 @Composable
 fun TranslationsScreen(
     viewModel: ITranslationsViewModel = hiltViewModel<TranslationsViewModel>(),
     mainController: IMainController,
-    resultRecipient: ResultRecipient<MainHistoryScreenDestination, HistoryItem>
+    historyItem: HistoryItem?
 ) {
-    resultRecipient.onNavResult { result ->
-        if (result is NavResult.Value) {
-            viewModel.setFromHistoryItem(result.value)
-        }
+    if (historyItem != null) {
+        viewModel.setFromHistoryItem(historyItem)
     }
 
     BaseScreen(

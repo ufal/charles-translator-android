@@ -32,7 +32,6 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 fun HistoryFavouritesScreen(
     viewModel: IHistoryViewModel,
     mainController: IMainController,
-    onRowClicked: (item: HistoryItem) -> Unit,
 ) {
     BaseScreen(
         screen = Screen.HistoryFavourites,
@@ -42,7 +41,7 @@ fun HistoryFavouritesScreen(
         Content(
             viewModel = viewModel,
             onBackPressed = mainController::onBackPressed,
-            onRowClicked = onRowClicked,
+            onRowClicked = mainController::setHistoryItem,
         )
     }
 }
@@ -100,7 +99,6 @@ private fun HistoryFavouritesScreenPreview() {
         HistoryFavouritesScreen(
             viewModel = PreviewHistoryViewModel(),
             mainController = PreviewIMainController(),
-            onRowClicked = {},
         )
     }
 }
