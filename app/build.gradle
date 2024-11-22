@@ -115,15 +115,6 @@ android {
     }
 
     namespace 'cz.cuni.mff.ufal.translator'
-
-    //https://github.com/raamcosta/compose-destinations
-    applicationVariants.all {
-        sourceSets {
-            getByName(name) {
-                kotlin.srcDir("build/generated/ksp/$name/kotlin")
-            }
-        }
-    }
 }
 
 dependencies {
