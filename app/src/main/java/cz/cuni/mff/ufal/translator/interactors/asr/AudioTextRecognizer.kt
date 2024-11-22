@@ -99,7 +99,7 @@ class AudioTextRecognizer @Inject constructor(
 
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.locale.language)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.bcp47Code)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
            // putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000)
         }

@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ireward.htmlcompose.HtmlText
-import com.ramcosta.composedestinations.annotation.Destination
 import cz.cuni.mff.ufal.translator.BuildConfig
 import cz.cuni.mff.ufal.translator.R
 import cz.cuni.mff.ufal.translator.base.BaseScreen
@@ -38,7 +37,6 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 
 private const val SUPPORT_MAIL = "translator@ufal.mff.cuni.cz"
 
-@Destination()
 @Composable
 fun AboutScreen(mainController: IMainController) {
     BaseScreen(screen = Screen.About, darkModeSetting = mainController.darkModeSetting) {

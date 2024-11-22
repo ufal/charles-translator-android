@@ -1,6 +1,7 @@
 package cz.cuni.mff.ufal.translator.main.controller
 
 import cz.cuni.mff.ufal.translator.interactors.preferences.data.DarkModeSetting
+import cz.cuni.mff.ufal.translator.ui.history.model.HistoryItem
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -25,4 +26,6 @@ interface IMainController {
     fun onBackPressed()
 
     fun setDarkModeSettings(darkModeSetting: DarkModeSetting)
+
+    fun setHistoryItem(item: HistoryItem)
 }

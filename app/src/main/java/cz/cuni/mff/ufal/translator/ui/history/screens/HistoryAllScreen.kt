@@ -32,7 +32,6 @@ import cz.cuni.mff.ufal.translator.ui.theme.LindatThemePreview
 fun HistoryAllScreen(
     viewModel: IHistoryViewModel,
     mainController: IMainController,
-    onRowClicked: (item: HistoryItem) -> Unit,
 ) {
     BaseScreen(
         screen = Screen.HistoryAll,
@@ -41,7 +40,7 @@ fun HistoryAllScreen(
         Content(
             viewModel = viewModel,
             onBackPressed = mainController::onBackPressed,
-            onRowClicked = onRowClicked,
+            onRowClicked = mainController::setHistoryItem,
         )
     }
 }
@@ -98,7 +97,6 @@ private fun HistoryScreenPreview() {
         HistoryAllScreen(
             viewModel = PreviewHistoryViewModel(),
             mainController = PreviewIMainController(),
-            onRowClicked = {},
         )
     }
 }

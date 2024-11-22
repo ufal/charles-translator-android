@@ -1,47 +1,51 @@
 package cz.cuni.mff.ufal.translator.ui.translations.models
 
-import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import cz.cuni.mff.ufal.translator.R
-import java.util.*
+import java.util.Locale
 
 /**
  * @author Tomas Krabac
  */
 enum class Language(
     val code: String,
-    val locale: Locale,
+    val bcp47Code: String,
     @StringRes
     val labelRes: Int,
 ) {
     Czech(
         code = "cs",
-        locale = Locale("cs_CZ"),
+        bcp47Code = "cs-CZ",
         labelRes = R.string.cz_label,
     ),
     Ukrainian(
         code = "uk",
-        locale = Locale("uk_UA"),
+        bcp47Code = "uk-UA",
         labelRes = R.string.uk_label,
     ),
     English(
         code = "en",
-        locale = Locale("en-us"),
+        bcp47Code = "en-US",
         labelRes = R.string.en_label,
     ),
     French(
         code = "fr",
-        locale = Locale("fr-fr"),
+        bcp47Code = "fr-FR",
         labelRes = R.string.fr_label,
     ),
     Polish(
         code = "pl",
-        locale = Locale("pl"),
+        bcp47Code = "pl-PL",
         labelRes = R.string.pl_label,
     ),
     Russian(
         code = "ru",
-        locale = Locale("ru"),
+        bcp47Code = "ru-RU",
         labelRes = R.string.ru_label,
-    ),
+    );
+
+    val locale = Locale(
+        /* language = */ bcp47Code.substringBefore("-"),
+        /* country = */ bcp47Code.substringAfter("-")
+    )
 }
