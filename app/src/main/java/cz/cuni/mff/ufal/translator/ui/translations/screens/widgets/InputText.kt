@@ -18,6 +18,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cuni.mff.ufal.translator.R
@@ -94,7 +95,10 @@ fun InputText(
                         onValueChange(InputTextData(fixedText, TextSource.Keyboard))
                     }
                 },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Go,
+                    hintLocales = LocaleList(language.bcp47Code)
+                ),
                 keyboardActions = KeyboardActions(
                     onGo = { keyboardController?.hide() })
             )
